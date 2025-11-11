@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+
+html,body {
+  margin: 0px;
+  padding: 0px;
+  scroll-behavior: smooth;
+}
+
+.background1{
+  background-image: url('./assets/prjbg.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
