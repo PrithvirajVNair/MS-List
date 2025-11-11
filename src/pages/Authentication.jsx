@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom'
 const Authentication = ({register}) => {
   return (
     <div className='bg-black text-white h-screen'>
-        <div className='grid grid-cols-3 h-screen'>
+        <div className='sm:grid grid-cols-3 h-screen'>
             <div></div>
-            <div className='rounded my-5 flex justify-center items-center flex-col bg-white/10'>
+            <div className='rounded sm:my-5 sm:py-0 py-5 flex justify-center items-center flex-col bg-white/10'>
                 <h2 className='text-2xl font-bold mb-5'><span className='text-blue-600'>MS</span> List</h2>
                 <h2 className='text-2xl'>{register? "Create a New Account" :"Welcome Back"}</h2>
-                <p className='text-white/60'>Register to MS List and Create your Watchlist</p>
+                <p className='text-white/60 sm:px-0 px-5 text-center'>Register to MS List and Create your Watchlist</p>
                 <div className='w-full px-10 mt-10'>
                     <div className=''>
                         <label className='' htmlFor="email">Email

@@ -23,7 +23,7 @@ const Header = ({home,watchlist}) => {
 
                 {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>}
 
-                <li><button onClick={()=>setToggleUser(!toggleUser)}><FontAwesomeIcon icon={faCircleUser} className='text-3xl cursor-pointer' /></button></li>
+                <li><img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={()=>setToggleUser(!toggleUser)} /></li>
             </ul>
         </div>
         {toggleUser &&
