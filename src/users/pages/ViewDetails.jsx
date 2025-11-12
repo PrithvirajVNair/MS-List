@@ -7,7 +7,7 @@ const ViewDetails = () => {
     return (
         <>
             <Header />
-            <div className='min-h-screen bg-black px-10 text-white pt-20'>
+            <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
                 <div className='flex h-[400px] p-5 bg-white/10'>
                     <div className='min-w-[250px] h-full'>
                         <img className='w-full h-full object-fill' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />

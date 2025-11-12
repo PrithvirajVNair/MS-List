@@ -19,7 +19,7 @@ const Header = ({showButton}) => {
                 <li className='pe-10'><a href='#features'>Features</a></li>
                 <li><a href='#about'>About</a></li>
             </ul>
-            <div>
+            <div className='flex sm:hidden'>
               <button onClick={()=>setToggleMenu(!toggleMenu)}>{!toggleMenu?<FontAwesomeIcon icon={faBars} className='text-xl' />:<FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
             </div>
         </div>
