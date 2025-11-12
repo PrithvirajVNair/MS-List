@@ -19,7 +19,7 @@ const Header = ({ home, watchlist }) => {
                     <div className='flex sm:hidden'>
                         <button className='me-3' onClick={() => setToggleMenu(!toggleMenu)}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
                     </div>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
+                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer sm:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
                 </div>
                 <ul className='hidden sm:flex items-center sm:text-2xl'>
                     {home ? <li className='pe-10'><a href='#'>Home</a></li> :
