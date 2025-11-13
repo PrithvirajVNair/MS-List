@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 const ViewDetails = () => {
+
+    const [toggleList,setToggleList] = useState(false)
+
     return (
         <>
             <Header />
@@ -21,7 +25,19 @@ const ViewDetails = () => {
                             <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
                         </div>
                         <div className='flex justify-between'>
-                            <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
+                            <div className='flex'>
+                            <div>
+                                <button onClick={()=>setToggleList(!toggleList)} className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
+                            </div>
+                            { toggleList &&
+                                <div className='flex flex-col border bg-blue-300/10 text-center rounded backdrop-blur-2xl px-5 py-3'>
+                                <span className='hover:text-blue-300 cursor-pointer'>Planning</span>
+                                <span className='hover:text-blue-300 cursor-pointer'>Watching</span>
+                                <span className='hover:text-blue-300 cursor-pointer'>On Hold</span>
+                                <span className='hover:text-blue-300 cursor-pointer'>Completed</span>
+                                <span className='hover:text-blue-300 cursor-pointer'>Dropped</span>
+                            </div>}
+                            </div>
                             <p className='text-white/60 me-2 mt-1 text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                         </div>
                     </div>

@@ -51,7 +51,7 @@ const Header = ({ home, watchlist }) => {
             {toggleUser &&
                 <div className='flex justify-end me-15 text-white/60'>
                     <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl'>
-                        <button className='cursor-pointer hover:text-blue-400'>Profile</button>
+                        <Link to={'/profile/:username'}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
                         <Link to={'/login'}><button className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
                     </div>
                 </div>}

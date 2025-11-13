@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import cbg from '../../assets/IM2024001_Yu-crop.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -36,8 +37,8 @@ const Home = () => {
                                     <span className='bg-black/60 rounded-2xl px-2 text-xs sm:text-sm me-2'>Drama</span>
                                 </div>
                                 <div className=''>
-                                    <button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer me-3'>View Details</button>
-                                    <button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer'>Add to List</button>
+                                    <Link to={'/:id/details'}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer me-3'>View Details</button></Link>
+                                    {/* <Link to={'/:id/addtolistz'}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer'>Add to List</button></Link> */}
                                 </div>
                             </div>
                             <div className='text-sm sm:text-2xl sm:m-10 m-2'>

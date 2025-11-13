@@ -10,6 +10,8 @@ import OnHold from "./users/pages/OnHold"
 import Completed from "./users/pages/Completed"
 import Dropped from "./users/pages/Dropped"
 import ViewDetails from "./users/pages/ViewDetails"
+import Profile from "./users/pages/Profile"
+import AddToList from "./users/pages/AddToList"
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
         <Route path="/watchlist/completed" element={<Completed/>} />
         <Route path="/watchlist/dropped" element={<Dropped/>} />
         <Route path='/:id/details' element={<ViewDetails/>} />
+        <Route path='/profile/:username' element={<Profile/>} />
+        <Route path='/:id/addtolist' element={<AddToList/>} />
 
 
 
