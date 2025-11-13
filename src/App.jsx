@@ -12,6 +12,7 @@ import Dropped from "./users/pages/Dropped"
 import ViewDetails from "./users/pages/ViewDetails"
 import Profile from "./users/pages/Profile"
 import AddToList from "./users/pages/AddToList"
+import Category from "./users/pages/Category"
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/watchlist/onhold" element={<OnHold/>} />
         <Route path="/watchlist/completed" element={<Completed/>} />
         <Route path="/watchlist/dropped" element={<Dropped/>} />
+        <Route path="/category" element={<Category/>} />
         <Route path='/:id/details' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
         <Route path='/:id/addtolist' element={<AddToList/>} />

@@ -13,11 +13,14 @@ const Profile = () => {
                 <div></div>
                 <div className='col-span-5 p-10 rounded bg-white/10'>
                     <div className='grid grid-cols-5'>
-                        <div className='relative'>
-                            <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 p-3' style={{ widows: '', height: '', borderRadius: '50%' }}/>
-                            <label  htmlFor="edit-profile" className='absolute right-0 cursor-pointer'><FontAwesomeIcon icon={faPenToSquare} />
-                            <input type="file" id='edit-profile' className='hidden' />
-                            </label>
+                        <div className='relative flex flex-col justify-center items-center'>
+                            <div className='flex'>
+                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 p-3' style={{ widows: '150px', height: '150px', borderRadius: '50%' }}/>
+                                <label  htmlFor="edit-profile" className='absolute right-0 cursor-pointer'><FontAwesomeIcon icon={faPenToSquare} />
+                                <input type="file" id='edit-profile' className='hidden' />
+                                </label>
+                            </div>
+                            <h2 className='text-start'>Username</h2>
                         </div>
                         <div className='col-span-2 text-center text-blue-200'>
                             <h1 className='text-white underline mb-5'>Status</h1>

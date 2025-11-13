@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = ({ home, watchlist }) => {
+const Header = ({ home, watchlist, category }) => {
 
     const [toggleUser, setToggleUser] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -25,10 +25,13 @@ const Header = ({ home, watchlist }) => {
                     {home ? <li className='pe-10'><a href='#'>Home</a></li> :
                         <li className='pe-10'><a href='/home'>Home</a></li>}
 
+                    {category ? <li className='pe-10'><a href='#'>Category</a></li> :
+                                <li className='pe-10'><a href='/category'>Category</a></li>}
+
                     {watchlist ? <li className='pe-10'><a href='#'>Watchlist</a></li> :
                         <li className='pe-10'><a href='/watchlist'>Watchlist</a></li>}
 
-                    {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>}
+                    {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
                     <li><img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
@@ -40,9 +43,11 @@ const Header = ({ home, watchlist }) => {
                         <ul className='flex flex-col justify-center items-center py-5'>
                             {home ? <li className=''><a href='#'>Home</a></li> :
                                 <li className=''><a href='/home'>Home</a></li>}
+                            {category ? <li className=''><a href='#'>Category</a></li> :
+                                <li className=''><a href='/category'>Category</a></li>}
                             {watchlist ? <li className=''><a href='#'>Watchlist</a></li> :
                                 <li className=''><a href='/watchlist'>Watchlist</a></li>}
-                                {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>}
+                                {/* {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
                         </ul>
                     </div>
                     <div></div>
