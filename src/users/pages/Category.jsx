@@ -6,43 +6,43 @@ const Category = () => {
     <>
         <Header category/>
         <div className='bg-black min-h-screen text-white'>
-            <div className='p-20'>
-                <h2 className='text-3xl mb-5'>Language:</h2>
-                <div className='grid grid-cols-5'>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>English</p>
+            <div className='sm:p-20 sm:pt-0 sm:px-0 px-5 pt-20'>
+                <h2 className='text-xl sm:text-3xl mb-5'>Language:</h2>
+                <div className='grid grid-cols-3 sm:grid-cols-5'>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>English</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>English</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>English</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>English</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>English</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>English</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>English</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>English</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>English</p>
                     </div>
                 </div>
             </div>
-            <div className='px-20'>
-                <h2 className='text-3xl mb-5'>Genre:</h2>
-                <div className='grid grid-cols-5'>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>Action</p>
+            <div className='sm:p-20 sm:pt-0 sm:px-0 px-5 pt-5'>
+                <h2 className='text-xl sm:text-3xl mb-5'>Language:</h2>
+                <div className='grid grid-cols-3 sm:grid-cols-5'>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>Action</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>Adventure</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>Adventure</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>Thriller</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>Drama</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>Comedy</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>Thriller</p>
                     </div>
-                    <div className='m-5 h-[100px] rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
-                        <p className='text-2xl'>Crime</p>
+                    <div className='sm:m-5 m-1 sm:h-[100px] h-10 rounded-xl flex justify-center items-center bg-white/10 hover:bg-blue-300/10 hover:text-blue-300'>
+                        <p className='sm:text-2xl text-sm'>Crime</p>
                     </div>
                 </div>
             </div>
