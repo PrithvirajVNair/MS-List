@@ -13,6 +13,7 @@ import ViewDetails from "./users/pages/ViewDetails"
 import Profile from "./users/pages/Profile"
 import AddToList from "./users/pages/AddToList"
 import Category from "./users/pages/Category"
+import Favorite from "./users/pages/Favorite"
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<Authentication/>} />
         <Route path="/home" element={<Home/>} />
         <Route path="/watchlist" element={<WatchlistAll/>} />
+        <Route path="/watchlist/favorite" element={<Favorite/>} />
         <Route path="/watchlist/planning" element={<Planning/>} />
         <Route path="/watchlist/watching" element={<Watching/>} />
         <Route path="/watchlist/onhold" element={<OnHold/>} />

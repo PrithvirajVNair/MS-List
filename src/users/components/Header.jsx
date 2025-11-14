@@ -17,16 +17,22 @@ const Header = ({ home, watchlist, category }) => {
                 </div>
                 <div className='flex'>
                     <div className='flex sm:hidden'>
-                        <button className='me-3' onClick={() => setToggleMenu(!toggleMenu)}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
+                        <button className='me-3' onClick={() => {
+                            setToggleMenu(!toggleMenu)
+                            setToggleUser(false)
+                        }}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
                     </div>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer sm:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
+                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer sm:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
+                        setToggleUser(!toggleUser)
+                        setToggleMenu(false)
+                    }} />
                 </div>
                 <ul className='hidden sm:flex items-center sm:text-2xl'>
                     {home ? <li className='pe-10'><a href='#'>Home</a></li> :
                         <li className='pe-10'><a href='/home'>Home</a></li>}
 
                     {category ? <li className='pe-10'><a href='#'>Category</a></li> :
-                                <li className='pe-10'><a href='/category'>Category</a></li>}
+                        <li className='pe-10'><a href='/category'>Category</a></li>}
 
                     {watchlist ? <li className='pe-10'><a href='#'>Watchlist</a></li> :
                         <li className='pe-10'><a href='/watchlist'>Watchlist</a></li>}
@@ -47,7 +53,7 @@ const Header = ({ home, watchlist, category }) => {
                                 <li className=''><a href='/category'>Category</a></li>}
                             {watchlist ? <li className=''><a href='#'>Watchlist</a></li> :
                                 <li className=''><a href='/watchlist'>Watchlist</a></li>}
-                                {/* {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
+                            {/* {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
                         </ul>
                     </div>
                     <div></div>

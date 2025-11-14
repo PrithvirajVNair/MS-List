@@ -1,8 +1,9 @@
 import React from 'react'
 import Header from './Header'
 import { Link } from 'react-router-dom'
+import Favorite from '../pages/Favorite'
 
-const WatchlistCommon = ({all,planning,watching,onhold,completed,dropped}) => {
+const WatchlistCommon = ({all,favorite,planning,watching,onhold,completed,dropped}) => {
     return (
         <div className='bg-black text-white'>
             <Header watchlist />
@@ -12,12 +13,13 @@ const WatchlistCommon = ({all,planning,watching,onhold,completed,dropped}) => {
                 <div className='sm:py-10 py-5'>
                     <input type="text" className='bg-white/10 w-full py-1 px-2 rounded-xl text-sm' placeholder='Search your Watchlist' />
                     <div className='py-5 sm:text-base text-xs'>
-                        <Link to={'/watchlist'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl ${all ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>All</button></Link>
-                        <Link to={'/watchlist/planning'}><button className={`sm:me-3 sm:my-0 my-1 me-1 py-1 px-2 rounded-xl ${planning ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Planning</button></Link>
-                        <Link to={'/watchlist/watching'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl ${watching ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Watching</button></Link>
-                        <Link to={'/watchlist/onhold'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl ${onhold ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>On Hold</button></Link>
-                        <Link to={'/watchlist/completed'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl ${completed ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Completed</button></Link>
-                        <Link to={'/watchlist/dropped'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl ${dropped ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Dropped</button></Link>
+                        <Link to={'/watchlist'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${all ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>All</button></Link>
+                        <Link to={'/watchlist/favorite'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${favorite ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Favorite</button></Link>
+                        <Link to={'/watchlist/planning'}><button className={`sm:me-3 sm:my-0 my-1 me-1 py-1 px-2 rounded-xl cursor-pointer ${planning ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Planning</button></Link>
+                        <Link to={'/watchlist/watching'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${watching ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Watching</button></Link>
+                        <Link to={'/watchlist/onhold'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${onhold ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>On Hold</button></Link>
+                        <Link to={'/watchlist/completed'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${completed ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Completed</button></Link>
+                        <Link to={'/watchlist/dropped'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${dropped ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Dropped</button></Link>
                     </div>
                 </div>
             </div>
