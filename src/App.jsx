@@ -14,6 +14,8 @@ import Profile from "./users/pages/Profile"
 import AddToList from "./users/pages/AddToList"
 import Category from "./users/pages/Category"
 import Favorite from "./users/pages/Favorite"
+import PrivacyPolicy from "./pages/PrivacyPolicy"
+import TermsOfService from "./pages/TermsOfService"
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Landing/>} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
+        <Route path="/termsofservice" element={<TermsOfService/>} />
         <Route path="/register" element={<Authentication register/>} />
         <Route path="/login" element={<Authentication/>} />
         <Route path="/home" element={<Home/>} />
