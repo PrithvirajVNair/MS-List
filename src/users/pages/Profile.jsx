@@ -9,10 +9,10 @@ const Profile = () => {
     <>
         <Header/>
         <div className='bg-black min-h-screen text-white'>
-            <div className='grid grid-cols-7 h-screen place-content-center'>
+            <div className='sm:grid grid-cols-7 min-h-screen place-content-center'>
                 <div></div>
                 <div className='col-span-5 p-10 rounded bg-white/10'>
-                    <div className='grid grid-cols-5'>
+                    <div className='sm:grid grid-cols-5'>
                         <div className='relative flex flex-col justify-center items-center'>
                             <div className='flex'>
                                 <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 p-3' style={{ widows: '150px', height: '150px', borderRadius: '50%' }}/>
