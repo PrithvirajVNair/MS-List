@@ -80,7 +80,7 @@ const TermsOfService = () => {
             <div className='py-3'>
                 <h2 className='text-blue-300 text-lg sm:text-xl'>8. Contact Us</h2>
                 <div className='sm:px-5 px-2 sm:text-base text-sm'>
-                    <p className=''>If you have questions about this Privacy Policy, contact:</p>
+                    <p className=''>For questions, contact:</p>
                     <p className=''>Email: </p>
                 </div>
             </div>
