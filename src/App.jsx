@@ -44,7 +44,7 @@ function App() {
         <Route path="/category" element={<Category/>} />
         <Route path='/:id/details' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
-        <Route path='/:id/addtolist' element={<AddToList/>} />
+        {/* <Route path='/:id/addtolist' element={<AddToList/>} /> */}
         <Route path='/admin-dashboard' element={<Dashbord/>} />
         <Route path='/admin-users' element={<AdminUsers/>} />
         <Route path='/admin-contents' element={<AdminContents/>} />
