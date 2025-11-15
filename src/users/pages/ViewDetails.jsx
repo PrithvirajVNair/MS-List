@@ -93,16 +93,16 @@ const ViewDetails = () => {
             {
                 toggleList &&
                 <div className='fixed inset-0 bg-black/80 text-black h-screen'>
-                    <div className='grid grid-cols-3 py-15 h-screen'>
-                        <div></div>
-                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/90 backdrop-blur-lg py-5'>
-                            <h2 className='text-2xl py-10'>Add to <span className='text-blue-600'>Watchlist</span></h2>
-                            <div className='flex w-full px-10 justify-center items-center'>
+                    <div className='grid sm:grid-cols-12 py-15 h-screen'>
+                        <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
+                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/90 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                            <h2 className='text-xl sm:text-2xl py-10'>Add to <span className='text-blue-600'>Watchlist</span></h2>
+                            <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
                                 <label>Title:</label>
                                 <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' />
                             </div>
                             <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
-                                <Typography variant='label'>
+                                <Typography variant='label' className='sm:text-base text-sm'>
                                     Rating:
                                 </Typography>
                                 <Rating
@@ -123,11 +123,11 @@ const ViewDetails = () => {
                                     <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
                                 )}
                             </Box>
-                            <div className='w-full px-10'>
+                            <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
                                 <input id='sdate' type="date" className='ms-2' />
                             </div>
-                            <div className='w-full px-10 py-5'>
+                            <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
                                 <input id='sdate' type="date" className='ms-2' />
                             </div>
@@ -150,11 +150,11 @@ const ViewDetails = () => {
                                 </FormControl>
                             </Box>
                             <div className='py-10'>
-                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3'>Add</button>
-                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600'>Cancel</button>
+                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Add</button>
+                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
                             </div>
                         </div>
-                        <div></div>
+                        <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
                     </div>
                 </div>}
         </>
