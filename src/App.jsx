@@ -16,6 +16,10 @@ import Category from "./users/pages/Category"
 import Favorite from "./users/pages/Favorite"
 import PrivacyPolicy from "./pages/PrivacyPolicy"
 import TermsOfService from "./pages/TermsOfService"
+import Dashbord from "./admin/pages/Dashbord"
+import AdminUsers from "./admin/pages/AdminUsers"
+import AdminContents from "./admin/pages/AdminContents"
+import AdminSettings from "./admin/pages/AdminSettings"
 
 
 function App() {
@@ -41,6 +45,10 @@ function App() {
         <Route path='/:id/details' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
         <Route path='/:id/addtolist' element={<AddToList/>} />
+        <Route path='/admin-dashboard' element={<Dashbord/>} />
+        <Route path='/admin-users' element={<AdminUsers/>} />
+        <Route path='/admin-contents' element={<AdminContents/>} />
+        <Route path='/admin-settings' element={<AdminSettings/>} />
 
 
 

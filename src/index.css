@@ -5,6 +5,7 @@ html,body {
   margin: 0px;
   padding: 0px;
   scroll-behavior: smooth;
+  min-width: 320px;
 }
 
 .background1{

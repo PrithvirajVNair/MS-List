@@ -23,7 +23,7 @@ const Home = () => {
             <div className='bg-black min-h-screen text-white pt-15'>
 
                 {/* carousel */}
-                <div className='sm:h-[650px] sm:pt-0 pt-10 mx-3 sm:mx-10 rounded-xl relative'>
+                <div className='sm:h-[650px] sm:pt-0 mx-3 sm:mx-10 rounded-xl relative'>
                     <div className='w-full h-full'>
                         <img src={cbg} alt="" className='bg-cover bg-center w-full h-full object-fill rounded-xl' />
                     </div>
@@ -49,11 +49,11 @@ const Home = () => {
                 </div>
 
                 {/* recomended */}
-                <div className='min-h-screen sm:px-10 px-3 sm:mt-10'>
+                <div className='sm:px-10 px-3 sm:mt-10'>
                     <h2 className='sm:text-2xl sm:pt-0 pt-5'>Recommended:</h2>
-                    <div className='w-full grid sm:grid-cols-6 grid-cols-3'>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                    <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -63,8 +63,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -74,8 +74,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -85,8 +85,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -96,8 +96,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -107,8 +107,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -118,8 +118,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -129,17 +129,15 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        
-
                     </div>
                 </div>
 
                 {/* popular */}
-                <div className='min-h-screen sm:px-10 px-3 sm:mt-10'>
+                <div className='sm:px-10 px-3 sm:mt-10'>
                     <h2 className='sm:text-2xl sm:pt-0 pt-5'>Popular:</h2>
-                    <div className='w-full grid sm:grid-cols-6 grid-cols-3'>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                    <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -149,8 +147,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -160,8 +158,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -171,8 +169,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -182,8 +180,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -193,8 +191,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -204,8 +202,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -215,17 +213,15 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        
-
                     </div>
                 </div>
 
                 {/* trending */}
-                <div className='min-h-screen sm:px-10 px-3 sm:mt-10'>
+                <div className='sm:px-10 px-3 sm:mt-10'>
                     <h2 className='sm:text-2xl sm:pt-0 pt-5'>Trending:</h2>
-                    <div className='w-full grid sm:grid-cols-6 grid-cols-3'>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                    <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -235,8 +231,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -246,8 +242,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -257,8 +253,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -268,8 +264,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -279,8 +275,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -290,8 +286,8 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        <div className='bg-white/10 sm:h-80 h-40 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 sm:h-[250px] h-[100px]'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
@@ -301,8 +297,6 @@ const Home = () => {
                                 <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
                             </div>
                         </div>
-                        
-
                     </div>
                 </div>
             </div>
