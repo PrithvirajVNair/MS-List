@@ -28,17 +28,17 @@ const Header = ({ home, watchlist, category, search }) => {
                     }} />
                 </div>
                 <ul className='hidden md:flex items-center sm:text-2xl'>
-                    {home ? <li className='pe-10'><a href='#'>Home</a></li> :
-                        <li className='pe-10'><a href='/home'>Home</a></li>}
-                    
-                    {search ? <li className='pe-10'><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
-                        <li className='pe-10'><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
+                    {search ? <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
+                        <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
 
-                    {category ? <li className='pe-10'><a href='#'>Category</a></li> :
-                        <li className='pe-10'><a href='/category'>Category</a></li>}
+                    {home ? <li className={`pe-10 hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='#'>Home</a></li> :
+                        <li className={`pe-10 hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='/home'>Home</a></li>}
 
-                    {watchlist ? <li className='pe-10'><a href='#'>Watchlist</a></li> :
-                        <li className='pe-10'><a href='/watchlist'>Watchlist</a></li>}
+                    {category ? <li className={`pe-10 hover:text-blue-300 ${category && 'text-blue-300'}`}><a href='#'>Category</a></li> :
+                        <li className={`pe-10 hover:text-blue-300 ${category && 'text-blue-300'}`}><a href='/category'>Category</a></li>}
+
+                    {watchlist ? <li className={`pe-10 hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='#'>Watchlist</a></li> :
+                        <li className={`pe-10 hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='/watchlist'>Watchlist</a></li>}
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
@@ -50,12 +50,14 @@ const Header = ({ home, watchlist, category, search }) => {
                     <div></div>
                     <div className='col-span-2 border rounded-xl backdrop-blur-xl'>
                         <ul className='flex flex-col justify-center items-center py-5'>
-                            {home ? <li className=''><a href='#'>Home</a></li> :
-                                <li className=''><a href='/home'>Home</a></li>}
-                            {category ? <li className=''><a href='#'>Category</a></li> :
-                                <li className=''><a href='/category'>Category</a></li>}
-                            {watchlist ? <li className=''><a href='#'>Watchlist</a></li> :
-                                <li className=''><a href='/watchlist'>Watchlist</a></li>}
+                            {search ? <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
+                                <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
+                            {home ? <li className={`hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='#'>Home</a></li> :
+                                <li className={`hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='/home'>Home</a></li>}
+                            {category ? <li className={`hover:text-blue-300 ${category && 'text-blue-300'}`}><a href='#'>Category</a></li> :
+                                <li className={`hover:text-blue-300 ${category && 'text-blue-300'}`}><a href='/category'>Category</a></li>}
+                            {watchlist ? <li className={`hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='#'>Watchlist</a></li> :
+                                <li className={`hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='/watchlist'>Watchlist</a></li>}
                             {/* {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
                         </ul>
                     </div>
