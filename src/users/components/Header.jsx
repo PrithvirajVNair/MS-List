@@ -1,9 +1,9 @@
-import { faBars, faCircleUser, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCircleUser, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = ({ home, watchlist, category }) => {
+const Header = ({ home, watchlist, category, search }) => {
 
     const [toggleUser, setToggleUser] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -16,20 +16,23 @@ const Header = ({ home, watchlist, category }) => {
                         <a href='/home' className='text-xl sm:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
                 </div>
                 <div className='flex'>
-                    <div className='flex sm:hidden'>
+                    <div className='flex md:hidden'>
                         <button className='me-3' onClick={() => {
                             setToggleMenu(!toggleMenu)
                             setToggleUser(false)
                         }}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
                     </div>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer sm:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
+                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
                         setToggleUser(!toggleUser)
                         setToggleMenu(false)
                     }} />
                 </div>
-                <ul className='hidden sm:flex items-center sm:text-2xl'>
+                <ul className='hidden md:flex items-center sm:text-2xl'>
                     {home ? <li className='pe-10'><a href='#'>Home</a></li> :
                         <li className='pe-10'><a href='/home'>Home</a></li>}
+                    
+                    {search ? <li className='pe-10'><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
+                        <li className='pe-10'><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
 
                     {category ? <li className='pe-10'><a href='#'>Category</a></li> :
                         <li className='pe-10'><a href='/category'>Category</a></li>}
