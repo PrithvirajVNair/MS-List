@@ -16,6 +16,9 @@ const Header = ({ home, watchlist, category, search }) => {
                         <a href='/home' className='text-xl sm:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
                 </div>
                 <div className='flex'>
+                    <ul className='me-3 md:hidden flex'>
+                        {!search && <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search' className='text-sm'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
+                    </ul>
                     <div className='flex md:hidden'>
                         <button className='me-3' onClick={() => {
                             setToggleMenu(!toggleMenu)
@@ -50,8 +53,6 @@ const Header = ({ home, watchlist, category, search }) => {
                     <div></div>
                     <div className='col-span-2 border rounded-xl backdrop-blur-xl'>
                         <ul className='flex flex-col justify-center items-center py-5'>
-                            {search ? <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
-                                <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
                             {home ? <li className={`hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='#'>Home</a></li> :
                                 <li className={`hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='/home'>Home</a></li>}
                             {category ? <li className={`hover:text-blue-300 ${category && 'text-blue-300'}`}><a href='#'>Category</a></li> :
