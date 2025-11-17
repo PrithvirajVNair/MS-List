@@ -23,16 +23,16 @@ const Profile = () => {
                             <h2 className='text-start'>Username</h2>
                         </div>
                         <div className='col-span-2 text-center text-blue-200'>
-                            <h1 className='text-white underline mb-5 text-2xl py-2'>Status</h1>
-                            <Link to={'/watchlist'}><p>Total :</p></Link>
-                            <Link to={'/watchlist/watching'}><p>Watching :</p></Link>
-                            <Link to={'/watchlist/completed'}><p>Completed :</p></Link>
-                            <Link to={'/watchlist/onhold'}><p>On Hold :</p></Link>
-                            <Link to={'/watchlist/dropped'}><p>Dropped :</p></Link>
-                            <Link to={'/watchlist/planning'}><p>Planning :</p></Link>
+                            <h1 className='text-white underline mb-5 text-xl sm:text-2xl py-2'>Status</h1>
+                            <Link to={'/watchlist'}><p className='text-sm sm:text-base'>Total :</p></Link>
+                            <Link to={'/watchlist/watching'}><p className='text-sm sm:text-base'>Watching :</p></Link>
+                            <Link to={'/watchlist/completed'}><p className='text-sm sm:text-base'>Completed :</p></Link>
+                            <Link to={'/watchlist/onhold'}><p className='text-sm sm:text-base'>On Hold :</p></Link>
+                            <Link to={'/watchlist/dropped'}><p className='text-sm sm:text-base'>Dropped :</p></Link>
+                            <Link to={'/watchlist/planning'}><p className='text-sm sm:text-base'>Planning :</p></Link>
                         </div>
                         <div className='col-span-2 text-center'>
-                            <h1 className='text-white underline mb-5 text-2xl py-2'>Recently Added</h1>
+                            <h1 className='text-white underline mb-5 text-xl sm:text-2xl py-2'>Recently Added</h1>
                             <div className='h-[200px] overflow-hidden'>
                                 <div className='flex rounded-xl bg-white/20 h-[100px]'>
                                     <div className='h-[100px] w-20'>

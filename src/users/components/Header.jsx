@@ -15,6 +15,8 @@ const Header = ({ home, watchlist, category, search }) => {
                     {home ? <a href='#' className='text-xl sm:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a> :
                         <a href='/home' className='text-xl sm:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
                 </div>
+
+                {/* below is search button, toggle menu button and profile button/img for mobile */}
                 <div className='flex'>
                     <ul className='me-3 md:hidden flex'>
                         {!search && <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search' className='text-sm'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
@@ -30,6 +32,9 @@ const Header = ({ home, watchlist, category, search }) => {
                         setToggleMenu(false)
                     }} />
                 </div>
+
+                
+                {/* following is the content of header for big screen */}
                 <ul className='hidden md:flex items-center sm:text-2xl'>
                     {search ? <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
@@ -48,6 +53,9 @@ const Header = ({ home, watchlist, category, search }) => {
                     <li><img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
             </div>
+
+
+            {/* following is the toggle for menu (Mobile Responsive) */}
             {toggleMenu &&
                 <div className='text-white/60 grid grid-cols-4'>
                     <div></div>
@@ -65,8 +73,11 @@ const Header = ({ home, watchlist, category, search }) => {
                     <div></div>
                 </div>
             }
+
+
+            {/* following is the toggle for profile (Mobile Responsive) */}
             {toggleUser &&
-                <div className='flex justify-end me-15 text-white/60'>
+                <div className='flex justify-end me-5 text-white/60'>
                     <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl'>
                         <Link to={'/profile/:username'}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
                         <Link to={'/login'}><button className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
