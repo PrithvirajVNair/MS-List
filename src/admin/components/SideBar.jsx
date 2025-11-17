@@ -18,6 +18,9 @@ const SideBar = ({overview,users,contents,settings}) => {
     else if(data=="settings"){
       navigate('/admin-settings')
     }
+    else if(data=="logout"){
+      navigate('/login')
+    }
   }
 
   return (
@@ -31,6 +34,7 @@ const SideBar = ({overview,users,contents,settings}) => {
             <button onClick={()=>swapButton("users")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${users? 'bg-white text-black':'bg-white/10'}`}>Users</button>
             <button onClick={()=>swapButton("content")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${contents? 'bg-white text-black':'bg-white/10'}`}>Content</button>
             <button onClick={()=>swapButton("settings")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${settings? 'bg-white text-black':'bg-white/10'}`}>Settings</button>
+            <button onClick={()=>swapButton("logout")} className={`py-1 w-40 rounded my-2 hover:bg-white text-red-500 bg-white/10`}>Log Out</button>
         </div>
     </div>
   )
