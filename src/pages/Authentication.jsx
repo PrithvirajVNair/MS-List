@@ -13,17 +13,18 @@ const Authentication = ({register}) => {
                 <h2 className='sm:text-2xl text-xl'>{register? "Create a New Account" :"Welcome Back"}</h2>
                 <p className='text-white/60 sm:px-0 px-5 text-center sm:text-base text-sm'>{register? 'Register to MS List and Create your Watchlist':'Sign In to MS List and Create your Watchlist'}</p>
                 <div className='w-full px-10 mt-10'>
+                    {register &&
                     <div className='sm:text-base text-sm'>
                         <label className='' htmlFor="email">Email
                         <input id='email' type="email" className='bg-white block w-full rounded text-black px-2 py-1 placeholder:text-gray-400' placeholder='Enter your email' />
                         </label>
                     </div>
-                    {register &&
-                        <div className='mt-5 sm:text-base text-sm'>
+                    }
+                    <div className='mt-5 sm:text-base text-sm'>
                         <label className='' htmlFor="username">Username
                         <input id='username' type="text" className='bg-white block w-full rounded text-black px-2 py-1 placeholder:text-gray-400' placeholder='Enter your username' />
                         </label>
-                    </div>}
+                    </div>
                     <div className='mt-5 sm:text-base text-sm'>
                         <label className='' htmlFor="password">Password
                         <input id='password' type="password" className='bg-white block w-full rounded text-black px-2 py-1 placeholder:text-gray-400' placeholder='Enter your password' />

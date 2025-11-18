@@ -74,6 +74,77 @@ const ViewDetails = () => {
                         </div>
                     </div>
                 </div>
+                <div className='bg-white/10 p-1 mt-10'>
+                    <h2 className='sm:text-2xl px-1 sm:px-3'>Recommendation:</h2>
+                    <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            </div>
+                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
+                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                <p className='text-xs'>Summary</p>
+                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                            </div>
+                        </div>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            </div>
+                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
+                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                <p className='text-xs'>Summary</p>
+                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                            </div>
+                        </div>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            </div>
+                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
+                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                <p className='text-xs'>Summary</p>
+                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                            </div>
+                        </div>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            </div>
+                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
+                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                <p className='text-xs'>Summary</p>
+                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                            </div>
+                        </div>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            </div>
+                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
+                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                <p className='text-xs'>Summary</p>
+                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                            </div>
+                        </div>
+                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                            <div className='m-2 aspect-3/3'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            </div>
+                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
+                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                <p className='text-xs'>Summary</p>
+                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {/* comments */}
                 <h1 className='mt-10 text-base sm:px-0 px-5 sm:text-2xl'>Comments:</h1>
                 <div className='flex flex-col min-h-[400px] p-5 sm:p-10 border border-white/20'>
