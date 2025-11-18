@@ -78,9 +78,9 @@ const ViewDetails = () => {
                     <h2 className='sm:text-2xl px-1 sm:px-3'>Recommendation:</h2>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
                             </div>
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
@@ -89,9 +89,9 @@ const ViewDetails = () => {
                             </div>
                         </div>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
                             </div>
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
@@ -100,9 +100,9 @@ const ViewDetails = () => {
                             </div>
                         </div>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
                             </div>
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
@@ -111,9 +111,9 @@ const ViewDetails = () => {
                             </div>
                         </div>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
                             </div>
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
@@ -122,9 +122,9 @@ const ViewDetails = () => {
                             </div>
                         </div>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
                             </div>
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
@@ -133,9 +133,9 @@ const ViewDetails = () => {
                             </div>
                         </div>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
                             </div>
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
