@@ -1,9 +1,9 @@
-import { faBars, faCircleUser, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBug, faCircleUser, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = ({ home, watchlist, category, search }) => {
+const Header = ({ home, watchlist, category, search, feedback }) => {
 
     const [toggleUser, setToggleUser] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -17,7 +17,7 @@ const Header = ({ home, watchlist, category, search }) => {
                 </div>
 
                 {/* below is search button, toggle menu button and profile button/img for mobile */}
-                <div className='flex'>
+                <div className='flex md:hidden'>
                     <ul className='me-3 md:hidden flex'>
                         {!search && <li className={`hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search' className='text-sm'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
                     </ul>
@@ -47,6 +47,9 @@ const Header = ({ home, watchlist, category, search }) => {
 
                     {watchlist ? <li className={`pe-10 hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='#'>Watchlist</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='/watchlist'>Watchlist</a></li>}
+
+                    {feedback ? <li className={`pe-10 hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li> :
+                        <li className={`pe-10 hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='/feedback'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li>}
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
