@@ -96,3 +96,13 @@ ms-list/
 ### 💡 Author
 Created by Prithviraj
 If you like the project, consider ⭐ staring the repository!
+
+<p align="center">
+  <img src="https://img.shields.io/badge/MERN-Stack-blue" />
+  <img src="https://img.shields.io/badge/React-18.0-61DAFB?logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/MongoDB-6.0-47A248?logo=mongodb&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenAI-Embeddings-412991?logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-green" />
+</p>
+
