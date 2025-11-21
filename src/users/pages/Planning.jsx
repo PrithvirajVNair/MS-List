@@ -8,6 +8,28 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+
+
+
+const labels = {
+    0.5: 'Appalling',
+    1: 'Horrible',
+    1.5: 'Very Bad',
+    2: 'Bad',
+    2.5: 'Average',
+    3: 'Fine',
+    3.5: 'Good',
+    4: 'Very Good',
+    4.5: 'Great',
+    5: 'Masterpiece',
+};
+function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+}
+
 
 const Planning = () => {
 
@@ -15,6 +37,10 @@ const Planning = () => {
     const [toggleFavTemp, setToggleFavTemp] = useState(false) //this is temporary
     const [toggleList, setToggleList] = useState(false)
     const [status, setStatus] = React.useState('planning');
+    const [age, setAge] = React.useState('');
+    const [value, setValue] = React.useState(0);
+    const [hover, setHover] = React.useState(-1);
+
 
     const handleChange = (event) => {
         setStatus(event.target.value);
@@ -31,7 +57,10 @@ const Planning = () => {
                                 <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
                             </div>
                             <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
+                                <div className='flex justify-between items-center'>
+                                    <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
+                                    <button onClick={()=>setToggleList(true)} className='text-xs underline text-blue-300 cursor-pointer'><em>Edit</em></button>
+                                </div>
                                 <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
                                 <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
                                 <div className='flex'>
@@ -503,6 +532,73 @@ const Planning = () => {
                     </div>
                 </div>
             </div>
+            {
+                toggleList &&
+                <div className='fixed inset-0 bg-black/80 text-black h-screen'>
+                    <div className='grid sm:grid-cols-12 py-15 h-screen'>
+                        <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
+                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/90 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                            <h2 className='text-xl sm:text-2xl py-10'>Add to <span className='text-blue-600'>Watchlist</span></h2>
+                            <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
+                                <label>Title:</label>
+                                <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' />
+                            </div>
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
+                                <Typography variant='label' className='sm:text-base text-sm'>
+                                    Rating:
+                                </Typography>
+                                <Rating
+                                    name="hover-feedback"
+                                    value={value}
+                                    precision={0.5}
+                                    getLabelText={getLabelText}
+                                    onChange={(event, newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                    onChangeActive={(event, newHover) => {
+                                        setHover(newHover);
+                                    }}
+                                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                    className='ms-2'
+                                />
+                                {value !== null && (
+                                    <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                                )}
+                            </Box>
+                            <div className='w-full px-10 sm:text-base text-sm'>
+                                <label htmlFor="sdate">Start Date:</label>
+                                <input id='sdate' type="date" className='ms-2' />
+                            </div>
+                            <div className='w-full px-10 py-5 sm:text-base text-sm'>
+                                <label htmlFor="sdate">End Date:</label>
+                                <input id='sdate' type="date" className='ms-2' />
+                            </div>
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Age"
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem value={'planning'}>Planning</MenuItem>
+                                        <MenuItem value={'watching'}>Watching</MenuItem>
+                                        <MenuItem value={'onhold'}>On-Hold</MenuItem>
+                                        <MenuItem value={'completed'}>Completed</MenuItem>
+                                        <MenuItem value={'dropped'}>Dropped</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <div className='py-10'>
+                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Add</button>
+                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
+                            </div>
+                        </div>
+                        <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
+                    </div>
+                </div>}
         </>
     )
 }
