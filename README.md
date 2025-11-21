@@ -92,7 +92,7 @@ ms-list/
 - Trending analytics dashboard
 - Multi-language support
 ### 📜 License
--This project is open-source and free to use.
+- This project is open-source and free to use.
 ### 💡 Author
 Created by Prithviraj  
 If you like the project, consider ⭐ staring the repository!
