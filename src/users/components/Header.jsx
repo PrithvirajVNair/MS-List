@@ -71,7 +71,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
                             {watchlist ? <li className={`hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='#'>Watchlist</a></li> :
                                 <li className={`hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='/watchlist'>Watchlist</a></li>}
                             {feedback ? <li className={`hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li> :
-                                <li className={`pe-10 hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='/feedback'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li>}
+                                <li className={`hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='/feedback'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li>}
                             {/* {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
                         </ul>
                     </div>
