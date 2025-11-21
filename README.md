@@ -61,3 +61,38 @@ This gives Netflix-style AI recommendations without training a model.
 ```bash
 git clone https://github.com/your-username/ms-list.git
 cd ms-list
+```
+2️⃣ Install server dependencies
+3️⃣ Install client dependencies
+4️⃣ Environment variables
+5️⃣ Run the backend
+```bash
+cd server
+nodemon index.js
+```
+6️⃣ Run the frontend
+```bash
+cd client
+npm start
+```
+📌 Folder Structure
+```bash
+ms-list/
+ ├── client/            # React Frontend
+ ├── server/            # Node + Express Backend
+ │   ├── models/        # MongoDB Schemas
+ │   ├── routes/        # API Routes
+ │   ├── utils/         # Embedding & Similarity Logic
+ └── README.md
+```
+### 🎯 Future Enhancements
+- Multi-genre recommendation engine
+- AI-generated taglines for shows
+- AI-generated taglines for shows
+- Trending analytics dashboard
+- Multi-language support
+### 📜 License
+-This project is open-source and free to use.
+### 💡 Author
+Created by Prithviraj
+If you like the project, consider ⭐ staring the repository!
