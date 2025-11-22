@@ -71,6 +71,7 @@ const Authentication = ({ register }) => {
                     password:"",
                     username:""
                 })
+                
             }
             else{
                 toast.warning("Server Side Error, try again later")
