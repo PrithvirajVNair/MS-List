@@ -2,7 +2,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { registerAPI } from '../../../../REACT/Bookstore/frontend/src/services/allAPIs'
+import { registerAPI } from '../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { loginAPI } from '../services/allAPIs'
 
@@ -71,7 +71,6 @@ const Authentication = ({ register }) => {
                     password:"",
                     username:""
                 })
-                
             }
             else{
                 toast.warning("Server Side Error, try again later")
