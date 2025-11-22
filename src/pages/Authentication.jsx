@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { registerAPI } from '../../../../REACT/Bookstore/frontend/src/services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { loginAPI } from '../services/allAPIs'
 
 const Authentication = ({ register }) => {
 
@@ -41,6 +42,38 @@ const Authentication = ({ register }) => {
                 })
             }
             else{
+                toast.warning("Server Side Error, try again later")
+                setUser({
+                    email:"",
+                    password:"",
+                    username:""
+                })
+            }
+        }
+    }
+
+    const handleLogin = async() => {
+        const {username,password} = user
+        if(!username || !password){
+            toast.info("Fill All The Details...")
+        }
+        else{
+            const result = await loginAPI({username,password})
+            console.log(result);
+            if(result.data){
+                toast.success(`Welcome ${result.data.username}`)
+                navigate('/home')
+            }
+            else if(result.status == 401){
+                toast.error(result.response.data)
+                setUser({
+                    email:"",
+                    password:"",
+                    username:""
+                })
+            }
+            else{
+                toast.warning("Server Side Error, try again later")
                 setUser({
                     email:"",
                     password:"",
@@ -79,7 +112,7 @@ const Authentication = ({ register }) => {
                         </div>
                         <div className='sm:text-base text-sm'>
                             {register ? <button onClick={handleRegister} className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer w-full'>Sign Up</button> :
-                                <Link to={'/home'}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer w-full'>Sign In</button></Link>}
+                                <button onClick={handleLogin} className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer w-full'>Sign In</button>}
                         </div>
                         <div className='flex justify-center items-center sm:text-base text-sm'>
                             <div className='border inline-block w-24 me-4'></div> OR <div className='border inline-block w-24 ms-4'></div>

@@ -10,3 +10,9 @@ import { serverURL } from "./serverURL"
 export const requestAPI = async(reqBody)=>{
     return await commonAPI("post",`${serverURL}/register`,reqBody)
 }
+
+//login
+
+export const loginAPI = async(reqBody)=>{
+    return await commonAPI("post",`${serverURL}/login`,reqBody)
+}
