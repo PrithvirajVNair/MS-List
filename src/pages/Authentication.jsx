@@ -2,9 +2,8 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { registerAPI } from '../services/allAPIs'
+import { registerAPI,loginAPI } from '../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { loginAPI } from '../services/allAPIs'
 
 const Authentication = ({ register }) => {
 
