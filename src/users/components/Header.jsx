@@ -35,7 +35,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
 
 
                 {/* following is the content of header for big screen */}
-                <ul className='hidden md:flex items-center sm:text-2xl'>
+                <ul className='hidden md:flex items-center text-xl'>
                     {search ? <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
 

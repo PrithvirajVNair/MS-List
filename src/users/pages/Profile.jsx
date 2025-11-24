@@ -1,10 +1,11 @@
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
 const Profile = () => {
+    const [userLocal,setUserLocal] = useState(localStorage.getItem("username"))
   return (
     <>
         <Header/>
@@ -20,19 +21,24 @@ const Profile = () => {
                                 <input type="file" id='edit-profile' className='hidden' />
                                 </label>
                             </div>
-                            <h2 className='text-start'>Username</h2>
+                            <h2 className='text-start'>{userLocal}</h2>
+                            <div className='rounded-xl w-full flex flex-col justify-center items-center bg-white/10 p-2'>
+                                <h2 className='text-white/60'>BIO:</h2>
+                                <p className='text-center text-xs'>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                
+                            </div>
                         </div>
                         <div className='col-span-2 text-center text-blue-200'>
-                            <h1 className='text-white underline mb-5 text-xl sm:text-2xl py-2'>Status</h1>
+                            <h1 className='text-white mb-5 text-xl sm:text-2xl py-2'>Status</h1>
                             <Link to={'/watchlist'}><p className='text-sm sm:text-base'>Total :</p></Link>
+                            <Link to={'/watchlist/planning'}><p className='text-sm sm:text-base'>Planning :</p></Link>
                             <Link to={'/watchlist/watching'}><p className='text-sm sm:text-base'>Watching :</p></Link>
                             <Link to={'/watchlist/completed'}><p className='text-sm sm:text-base'>Completed :</p></Link>
                             <Link to={'/watchlist/onhold'}><p className='text-sm sm:text-base'>On Hold :</p></Link>
                             <Link to={'/watchlist/dropped'}><p className='text-sm sm:text-base'>Dropped :</p></Link>
-                            <Link to={'/watchlist/planning'}><p className='text-sm sm:text-base'>Planning :</p></Link>
                         </div>
                         <div className='col-span-2 text-center'>
-                            <h1 className='text-white underline mb-5 text-xl sm:text-2xl py-2'>Recently Added</h1>
+                            <h1 className='text-white mb-5 text-xl sm:text-2xl py-2'>Recently Added</h1>
                             <div className='h-[200px] overflow-hidden'>
                                 <div className='flex rounded-xl bg-white/20 h-[100px]'>
                                     <div className='h-[100px] w-20'>

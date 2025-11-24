@@ -6,7 +6,6 @@ import { registerAPI,loginAPI } from '../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 const Authentication = ({ register }) => {
-
     const navigate = useNavigate()
     const [user, setUser] = useState({
         username: "",
@@ -58,6 +57,7 @@ const Authentication = ({ register }) => {
         }
         else{
             const result = await loginAPI({username,password})
+            localStorage.setItem("username", result.data.username)
             console.log(result);
             if(result.data){
                 toast.success(`Welcome ${result.data.username}`)

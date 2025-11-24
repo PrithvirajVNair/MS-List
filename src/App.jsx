@@ -22,6 +22,7 @@ import AdminContents from "./admin/pages/AdminContents"
 import AdminSettings from "./admin/pages/AdminSettings"
 import Search from "./users/pages/Search"
 import Feedback from "./users/pages/Feedback"
+import CategoryPage from "./users/pages/CategoryPage"
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/watchlist/completed" element={<Completed/>} />
         <Route path="/watchlist/dropped" element={<Dropped/>} />
         <Route path="/category" element={<Category/>} />
+        <Route path="/category/:categoryName" element={<CategoryPage/>} />
         <Route path='/:id/details' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
         {/* <Route path='/:id/addtolist' element={<AddToList/>} /> */}
