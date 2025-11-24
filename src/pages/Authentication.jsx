@@ -60,7 +60,7 @@ const Authentication = ({ register }) => {
             localStorage.setItem("username", result.data.username)
             console.log(result);
             if(result.data){
-                toast.success(`Welcome ${result.data.username}`)
+                // toast.success(`Welcome ${result.data.username}`)
                 navigate('/home')
             }
             else if(result.status == 401){

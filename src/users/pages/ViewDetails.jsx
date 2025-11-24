@@ -46,7 +46,7 @@ const ViewDetails = () => {
             <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
                 <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
                     <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
-                        <img className='w-full h-full object-fill p-5 sm:p-0' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
+                        <img className='w-full h-full object-fill p-5 sm:p-0' src="https://i.pinimg.com/1200x/08/ef/46/08ef462d9802704f3383ed3af1123a1e.jpg" alt="" />
                     </div>
                     <div className='sm:px-5'>
                         <h1 className='text-xl sm:text-3xl'>TITLE</h1>
