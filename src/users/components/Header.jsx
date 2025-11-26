@@ -1,12 +1,28 @@
 import { faBars, faBug, faCircleUser, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = ({ home, watchlist, category, search, feedback }) => {
 
     const [toggleUser, setToggleUser] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
+
+    // temparory below  till line 16
+    // const [userProfileDef, setUserProfileDef] = useState("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png") // this is actually temporary
+    const [userProfile, setUserProfile] = useState(sessionStorage.getItem("profile")) // this is actually temporary
+
+
+    useEffect(() => {
+        if (!userProfile) {
+            setUserProfile("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png")
+        }
+        console.log(userProfile);
+    })
+
+    const handleLogout = () => {
+        sessionStorage.clear()
+    }
 
     return (
         <div className='flex flex-col fixed w-full' style={{ zIndex: '999' }}>
@@ -27,7 +43,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
                             setToggleUser(false)
                         }}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
                     </div>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
+                    <img src={userProfile} alt="no image" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
                         setToggleUser(!toggleUser)
                         setToggleMenu(false)
                     }} />
@@ -53,7 +69,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
-                    <li><img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
+                    <li><img src={userProfile} alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
             </div>
 
@@ -85,7 +101,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
                 <div className='flex justify-end me-5 text-white/60'>
                     <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl'>
                         <Link to={'/profile/:username'}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
-                        <Link to={'/login'}><button className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
+                        <Link to={'/login'}><button onClick={handleLogout} className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
                     </div>
                 </div>}
         </div>

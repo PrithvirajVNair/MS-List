@@ -16,3 +16,9 @@ export const registerAPI = async(reqBody)=>{
 export const loginAPI = async(reqBody)=>{
     return await commonAPI("post",`${serverURL}/login`,reqBody)
 }
+
+//login
+
+export const googleLoginAPI = async(reqBody)=>{
+    return await commonAPI("post",`${serverURL}/google-login`,reqBody)
+}

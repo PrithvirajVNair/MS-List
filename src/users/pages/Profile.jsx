@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
 const Profile = () => {
-    const [userLocal,setUserLocal] = useState(localStorage.getItem("username"))
+    const [userLocal,setUserLocal] = useState(sessionStorage.getItem("username"))
+    const [userProfileDef,setUserProfileDef] = useState("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png") // this is actually temporary
+    const [userProfile,setUserProfile] = useState(sessionStorage.getItem("profile")) // this is actually temporary
+    if(!userProfile){
+        setUserProfile(userProfileDef)
+    }
   return (
     <>
         <Header/>
@@ -16,7 +21,7 @@ const Profile = () => {
                     <div className='lg:grid grid-cols-5'>
                         <div className='relative flex flex-col justify-center items-center'>
                             <div className='flex'>
-                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='p-3' style={{ widows: '150px', height: '150px', borderRadius: '50%' }}/>
+                                <img src={userProfile} alt="no image" className='p-3' style={{ widows: '150px', height: '150px', borderRadius: '50%' }}/>
                                 <label  htmlFor="edit-profile" className='absolute right-0 cursor-pointer'><FontAwesomeIcon icon={faPenToSquare} />
                                 <input type="file" id='edit-profile' className='hidden' />
                                 </label>
