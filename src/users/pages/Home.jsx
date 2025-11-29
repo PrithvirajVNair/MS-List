@@ -60,7 +60,7 @@ const Home = () => {
                             <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
                             <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
                                 <p className='text-xs'>Summary</p>
-                                <button className='absolute bottom-0 py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-[10px]'>View Details</button>
+                                <button className='absolute bottom-0 py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-[10px] sm:text-xs'>View Details</button>
                             </div>
                         </div>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
