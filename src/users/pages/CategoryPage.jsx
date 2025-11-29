@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Header from '../components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,9 @@ const CategoryPage = () => {
     const { categoryName } = useParams();
     console.log(categoryName);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [categoryName]);
 
     return (
         <div className='bg-black min-h-screen text-white'>
