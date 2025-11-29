@@ -1,16 +1,21 @@
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
 const Profile = () => {
     const [userLocal,setUserLocal] = useState(sessionStorage.getItem("username"))
-    const [userProfileDef,setUserProfileDef] = useState("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png") // this is actually temporary
-    const [userProfile,setUserProfile] = useState(sessionStorage.getItem("profile")) // this is actually temporary
-    if(!userProfile){
-        setUserProfile(userProfileDef)
-    }
+    const [userProfile, setUserProfile] = useState(sessionStorage.getItem("profile")) // this is actually temporary
+
+
+    useEffect(() => {
+        if (!userProfile) {
+            setUserProfile("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png")
+        }
+        console.log(userProfile);
+    })
+
   return (
     <>
         <Header/>
