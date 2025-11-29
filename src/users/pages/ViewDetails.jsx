@@ -53,8 +53,12 @@ const ViewDetails = () => {
                         <div className='h-[200px] overflow-y-auto sm:text-base text-sm'><p><span className='text-blue-300'>Description: </span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.</p>
                         </div>
                         <div className='p-3'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
+                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>Action</span>
+                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#8E8E93]'>Drama</span>
+                        </div>
+                        <div className='p-3 text-xs sm:text-sm text-white/60'>
+                            <p>Language: English</p>
+                            <p>Category: Movie</p>
                         </div>
                         <div className='flex justify-between'>
                             <div className='flex'>
