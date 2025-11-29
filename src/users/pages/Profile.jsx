@@ -38,7 +38,7 @@ const Profile = () => {
                                 
                             </div>
                         </div>
-                        <div className='col-span-2 text-center text-blue-200'>
+                        <div className='col-span-2 flex flex-col justify-center items-center text-blue-200'>
                             <h1 className='text-white mb-5 text-xl sm:text-2xl py-2'>Status</h1>
                             <Link to={'/watchlist'}><p className='text-sm sm:text-base'>Total :</p></Link>
                             <Link to={'/watchlist/planning'}><p className='text-sm sm:text-base'>Planning :</p></Link>
