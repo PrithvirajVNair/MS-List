@@ -173,8 +173,9 @@ const ViewDetails = () => {
                         <div className='border rounded-xl flex flex-col justify-center items-center bg-white/90 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
                             <h2 className='text-xl sm:text-2xl py-10'>Add to <span className='text-blue-600'>Watchlist</span></h2>
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
-                                <label>Title:</label>
-                                <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' />
+                                {/* <label>Title:</label> */}
+                                {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
+                                <h2 className='text-2xl font-bold'>Title</h2>
                             </div>
                             <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
