@@ -14,7 +14,7 @@ const Header = ({showButton}) => {
             <div>
                 <a href='#' className='text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a>
             </div>
-            <ul className='hidden sm:flex text-2xl'>
+            <ul className='hidden sm:flex text-xl justify-center items-center'>
                 {showButton && <li><Link to={'/register'}><button className='me-10 text-sm py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Get Started</button></Link></li>}
                 <li className='pe-10'><a href='#features'>Features</a></li>
                 <li><a href='#about'>About</a></li>
