@@ -532,16 +532,20 @@ const Planning = () => {
                     </div>
                 </div>
             </div>
+
+
+            {/* below is edit list option for rqating,date etc... */}
             {
                 toggleList &&
                 <div className='fixed inset-0 bg-black/80 text-black h-screen'>
                     <div className='grid sm:grid-cols-12 py-15 h-screen'>
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
-                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/90 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
-                            <h2 className='text-xl sm:text-2xl py-10'>Add to <span className='text-blue-600'>Watchlist</span></h2>
+                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/60 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                            <h2 className='text-xl sm:text-2xl py-10'>Edit <span className='text-blue-600'>Watchlist</span></h2>
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
-                                <label>Title:</label>
-                                <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' />
+                                {/* <label>Title:</label> */}
+                                {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
+                                <h2 className='text-xl font-bold'>Title</h2>
                             </div>
                             <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
@@ -573,26 +577,8 @@ const Planning = () => {
                                 <label htmlFor="sdate">End Date:</label>
                                 <input id='sdate' type="date" className='ms-2' />
                             </div>
-                            <Box sx={{ minWidth: 120 }}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={age}
-                                        label="Age"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value={'planning'}>Planning</MenuItem>
-                                        <MenuItem value={'watching'}>Watching</MenuItem>
-                                        <MenuItem value={'onhold'}>On-Hold</MenuItem>
-                                        <MenuItem value={'completed'}>Completed</MenuItem>
-                                        <MenuItem value={'dropped'}>Dropped</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
                             <div className='py-10'>
-                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Add</button>
+                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Edit</button>
                                 <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
                             </div>
                         </div>
