@@ -61,7 +61,7 @@ const Authentication = ({ register }) => {
             const result = await loginAPI({ email, password })
             console.log(result);
             if (result.data) {
-                sessionStorage.setItem("username", result.data.username)
+                sessionStorage.setItem("username", result.data.existingUser.username)
                 toast.success(`Successfully Logged In`)
                 setTimeout(() => {
                     navigate('/home')
