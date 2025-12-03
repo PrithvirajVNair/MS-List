@@ -10,12 +10,13 @@ const Dashbord = () => {
       const [usersCount,setUsersCount] = useState(0)
       const [movieCount,setMovieCount] = useState(0)
       const [seriesCount,setSeriesCount] = useState(0)
+      const [fetching,setFetching] = useState(true)
     
       const getUsers = async() => {
         const result = await getUsersAPI()
-        console.log(result);
-        
+        console.log(result);  
         setUsersCount(result.data.userCount)
+        setFetching(false)
       }
 
       const getShows = async() => {
@@ -23,6 +24,7 @@ const Dashbord = () => {
         console.log(result);
         setMovieCount(result.data.movieCount)
         setSeriesCount(result.data.seriesCount)
+        setFetching(false)
       }
     
       useEffect(()=>{
@@ -40,17 +42,17 @@ const Dashbord = () => {
                 <div className='grid grid-cols-2'>
                     <div className='m-10 rounded-xl bg-white/10 flex flex-col justify-center items-center'>
                         <FontAwesomeIcon icon={faUsers} className='text-2xl text-blue-600' />
-                        <p className='text-3xl py-2'>{usersCount}</p>
+                        <p className='text-3xl py-2'>{fetching ? <p className='text-sm'>Fetching...</p> :usersCount}</p>
                         <p>Total Users</p>
                     </div>
                     <div className='m-10 rounded-xl bg-white/10 flex flex-col justify-center items-center'>
                         <FontAwesomeIcon icon={faFilm} className='text-2xl text-green-600' />
-                        <p className='text-3xl py-2'>{movieCount}</p>
+                        <p className='text-3xl py-2'>{fetching ? <p className='text-sm'>Fetching...</p> :movieCount}</p>
                         <p>Total Movies</p>
                     </div>
                     <div className='m-10 rounded-xl bg-white/10 flex flex-col justify-center items-center'>
                         <FontAwesomeIcon icon={faTv} className='text-2xl text-red-600' />
-                        <p className='text-3xl py-2'>{seriesCount}</p>
+                        <p className='text-3xl py-2'>{fetching ? <p className='text-sm'>Fetching...</p> :seriesCount}</p>
                         <p>Total Series</p>
                     </div>
                     <div className='m-10 rounded-xl bg-white/10 flex flex-col justify-center items-center'>
