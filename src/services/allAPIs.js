@@ -40,6 +40,11 @@ export const getPopularShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/popular-home`)
 }
 
+//get a show
+export const getAShowAPI = async(id)=>{
+    return await commonAPI("get",`${serverURL}/details/${id}`)
+}
+
 // ...............................ADMIN.....................................
 
 // add shows

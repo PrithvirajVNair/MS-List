@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { getAShowAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -36,6 +37,21 @@ const ViewDetails = () => {
     const [value, setValue] = React.useState(0);
     const [hover, setHover] = React.useState(-1);
 
+    const {id} = useParams()
+    
+    const [show,setShow] = useState({})
+
+    const getAShow = async() => {
+        const result = await getAShowAPI(id)
+        setShow(result.data)
+        console.log(result);
+        
+    }
+
+    useEffect(()=>{
+        getAShow()
+    },[])
+
     const handleChange = (event) => {
         setAge(event.target.value);
     };
@@ -46,19 +62,18 @@ const ViewDetails = () => {
             <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
                 <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
                     <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
-                        <img className='w-full h-full object-fill p-5 sm:p-0' src="https://i.pinimg.com/1200x/08/ef/46/08ef462d9802704f3383ed3af1123a1e.jpg" alt="" />
+                        <img className='w-full h-full object-fill p-5 sm:p-0' src={show.imageUrl} alt="" />
                     </div>
                     <div className='sm:px-5'>
-                        <h1 className='text-xl sm:text-3xl'>TITLE</h1>
-                        <div className='h-[200px] overflow-y-auto sm:text-base text-sm'><p><span className='text-blue-300'>Description: </span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.or sit amet consectetur adipisicing elit. Nulla ut praesentium nesciunt tenetur totam numquam perspiciatis tempore ipsam placeat, beatae dolor officia iste facere necessitatibus laborum magni molestiae veritatis? Corrupti.</p>
+                        <h1 className='text-xl sm:text-3xl'>{show.title}</h1>
+                        <div className='h-[200px] overflow-y-auto sm:text-base text-sm'><p><span className='text-blue-300'>Description: </span>{show.description}</p>
                         </div>
                         <div className='p-3'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#8E8E93]'>Drama</span>
+                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>{show.genre}</span>
                         </div>
                         <div className='p-3 text-xs sm:text-sm text-white/60'>
-                            <p>Language: English</p>
-                            <p>Category: Movie</p>
+                            <p>Language: {show.language}</p>
+                            <p>Category: {show.category}</p>
                         </div>
                         <div className='flex justify-between'>
                             <div className='flex'>
@@ -74,7 +89,7 @@ const ViewDetails = () => {
                                 <span className='hover:text-blue-300 cursor-pointer'>Dropped</span>
                             </div>} */}
                             </div>
-                            <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
+                            <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ import CategoryPage from "./users/pages/CategoryPage"
 
 function App() {
 
-  
+
 
   return (
     <>
@@ -47,7 +47,7 @@ function App() {
         <Route path="/watchlist/dropped" element={<Dropped/>} />
         <Route path="/category" element={<Category/>} />
         <Route path="/category/:categoryName" element={<CategoryPage/>} />
-        <Route path='/:id/details' element={<ViewDetails/>} />
+        <Route path='/details/:id' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
         {/* <Route path='/:id/addtolist' element={<AddToList/>} /> */}
         <Route path='/admin-dashboard' element={<Dashbord/>} />
