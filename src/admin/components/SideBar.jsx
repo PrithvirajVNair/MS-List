@@ -24,7 +24,7 @@ const SideBar = ({overview,users,contents,settings}) => {
   }
 
   return (
-    <div className='h-screen border-r'>
+    <div className='h-screen border-r flex flex-col'>
         <div className='py-5 border-b w-full'>
             <h1 className='text-2xl font-semibold text-center'><span className='text-blue-600'>MS</span> List</h1>
             <p className='text-center text-white/60'>Admin</p>

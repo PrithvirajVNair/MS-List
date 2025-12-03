@@ -6,7 +6,7 @@ import { faFilm, faTv, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 const Dashbord = () => {
     return (
-        <div className='bg-black text-white'>
+        <div className='bg-black text-white min-h-screen'>
             <marquee className='bg-gray-950 fixed' behavior="" direction="left">THIS IS THE ADMIN HOME PAGE OF MS LIST</marquee>
             <div className='grid grid-cols-[1fr_4fr]'>
                 <div className='h-full'>
