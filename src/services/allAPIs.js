@@ -27,9 +27,22 @@ export const getShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/search`)
 }
 
+
+// ...............................USERS.....................................
+
+//get recent shows
+export const getRecentShowAPI = async()=>{
+    return await commonAPI("get",`${serverURL}/recent-home`)
+}
+
+//get popular shows
+export const getPopularShowAPI = async()=>{
+    return await commonAPI("get",`${serverURL}/popular-home`)
+}
+
 // ...............................ADMIN.....................................
 
-// add showa
+// add shows
 export const addShowAPI = async(reqBody)=>{
     return await commonAPI("post",`${serverURL}/add-shows`,reqBody)
 }
