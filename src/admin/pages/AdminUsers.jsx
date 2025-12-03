@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBar from '../components/SideBar'
+import { getUsersAPI } from '../../services/allAPIs'
 
 const AdminUsers = () => {
+
+  const [users,setUsers] = useState([])
+
+  const getUsers = async() => {
+    const result = await getUsersAPI()
+    console.log(result);
+    
+    setUsers(result.data.allUsers)
+  }
+
+  useEffect(()=>{
+    getUsers()
+  },[])
+
   return (
     <div className='bg-black text-white'>
       <div className='grid grid-cols-[1fr_4fr] min-h-screen'>
@@ -13,184 +28,31 @@ const AdminUsers = () => {
             <h2 className='text-3xl font-bold'>USERS</h2>
           </div>
           <div>
-            <div className='grid grid-cols-4 pt-10'>
+            <div className='grid grid-cols-3 pt-10'>
               {/* card */}
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
+              {
+                users?.length > 0 ?
+                users?.map((items)=>(
+                  <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-auto'>
                 <div className='p-5 h-full'>
                   <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
+                    <img src={items.profile} alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
                     <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
+                      <p className='text-red-500'>ID : {items._id}</p>
+                      <p className='text-blue-500'>Name : {items.username}</p>
                     </div>
                   </div>
-                  <p className='pt-2'>Email :</p>
+                  <p className='pt-2'>Email : {items.email}</p>
                   <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                    <button className='bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
+                    <button className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                   </div>
                 </div>
               </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID :</p>
-                      <p className='text-blue-500'>Name :</p>
-                    </div>
-                  </div>
-                  <p className='pt-2'>Email :</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='border bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
+                ))
+              :
+              <p>No Users</p>
+              }
               <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
                 <div className='p-5 h-full'>
                   <div className='flex'>
