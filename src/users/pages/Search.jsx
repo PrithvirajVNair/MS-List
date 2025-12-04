@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faStar } from '@fortawesome/free-solid-svg-icons'
 import { getShowAPI } from '../../services/allAPIs'
+import { Link } from 'react-router-dom'
 
 const Search = () => {
 
@@ -57,7 +58,7 @@ console.log(searchData);
                                         <h5 className='px-3 sm:text-base text-[10px] whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
                                         <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
                                             <p className='text-xs px-2 text-center'>{show.summary}</p>
-                                            <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
+                                            <Link to={`/details/${show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
                                         </div>
                                     </div>
                                 ))

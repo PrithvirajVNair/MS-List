@@ -40,12 +40,13 @@ const ViewDetails = () => {
     const {id} = useParams()
     
     const [show,setShow] = useState({})
+    const [loading,setLoading] = useState(true)
 
     const getAShow = async() => {
         const result = await getAShowAPI(id)
         setShow(result.data)
         console.log(result);
-        
+        setLoading(false)    
     }
 
     useEffect(()=>{
@@ -60,7 +61,9 @@ const ViewDetails = () => {
         <>
             <Header />
             <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
-                <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
+                {
+                    !loading?
+                    <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
                     <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
                         <img className='w-full h-full object-fill p-5 sm:p-0' src={show.imageUrl} alt="" />
                     </div>
@@ -93,6 +96,11 @@ const ViewDetails = () => {
                         </div>
                     </div>
                 </div>
+                :
+                <div className='flex justify-center items-center'>
+                    <p>Loading...</p>
+                </div>
+                }
                 <div className='bg-white/10 p-1 mt-10'>
                     <h2 className='sm:text-2xl px-1 sm:px-3'>Recommendation:</h2>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
