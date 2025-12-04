@@ -27,6 +27,10 @@ export const getShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/search`)
 }
 
+export const getRecommendationAPI = async(id) => {
+    return await commonAPI("get",`${serverURL}/recommendation/${id}`)
+}
+
 
 // ...............................USERS.....................................
 
@@ -43,6 +47,11 @@ export const getPopularShowAPI = async()=>{
 //get a show
 export const getAShowAPI = async(id)=>{
     return await commonAPI("get",`${serverURL}/details/${id}`)
+}
+
+// get show based on category/language
+export const getCategoryShowAPI = async(category)=>{
+    return await commonAPI("get",`${serverURL}/category/${category}`)
 }
 
 // ...............................ADMIN.....................................

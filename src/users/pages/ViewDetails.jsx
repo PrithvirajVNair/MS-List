@@ -11,7 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { getAShowAPI } from '../../services/allAPIs'
+import { getAShowAPI, getRecommendationAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -37,21 +37,30 @@ const ViewDetails = () => {
     const [value, setValue] = React.useState(0);
     const [hover, setHover] = React.useState(-1);
 
-    const {id} = useParams()
-    
-    const [show,setShow] = useState({})
-    const [loading,setLoading] = useState(true)
+    const { id } = useParams()
 
-    const getAShow = async() => {
+    const [show, setShow] = useState({})
+    const [recommendation, setRecommendation] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    const getAShow = async () => {
         const result = await getAShowAPI(id)
         setShow(result.data)
         console.log(result);
-        setLoading(false)    
+        setLoading(false)
     }
 
-    useEffect(()=>{
+    const getRecommendation = async () => {
+        const result = await getRecommendationAPI(id)
+        setRecommendation(result.data)
+    }
+    console.log(recommendation);
+
+
+    useEffect(() => {
         getAShow()
-    },[])
+        getRecommendation()
+    }, [id])
 
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -62,28 +71,28 @@ const ViewDetails = () => {
             <Header />
             <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
                 {
-                    !loading?
-                    <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
-                    <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
-                        <img className='w-full h-full object-fill p-5 sm:p-0' src={show.imageUrl} alt="" />
-                    </div>
-                    <div className='sm:px-5'>
-                        <h1 className='text-xl sm:text-3xl'>{show.title}</h1>
-                        <div className='h-[200px] overflow-y-auto sm:text-base text-sm'><p><span className='text-blue-300'>Description: </span>{show.description}</p>
-                        </div>
-                        <div className='p-3'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>{show.genre}</span>
-                        </div>
-                        <div className='p-3 text-xs sm:text-sm text-white/60'>
-                            <p>Language: {show.language}</p>
-                            <p>Category: {show.category}</p>
-                        </div>
-                        <div className='flex justify-between'>
-                            <div className='flex'>
-                                <div>
-                                    <button onClick={() => setToggleList(true)} className='me-10 text-xs sm:text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
+                    !loading ?
+                        <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
+                            <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
+                                <img className='w-full h-full object-fill p-5 sm:p-0' src={show.imageUrl} alt="" />
+                            </div>
+                            <div className='sm:px-5'>
+                                <h1 className='text-xl sm:text-3xl'>{show.title}</h1>
+                                <div className='h-[200px] overflow-y-auto sm:text-base text-sm'><p><span className='text-blue-300'>Description: </span>{show.description}</p>
                                 </div>
-                                {/* { toggleList &&
+                                <div className='p-3'>
+                                    <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>{show.genre}</span>
+                                </div>
+                                <div className='p-3 text-xs sm:text-sm text-white/60'>
+                                    <p>Language: {show.language}</p>
+                                    <p>Category: {show.category}</p>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <div className='flex'>
+                                        <div>
+                                            <button onClick={() => setToggleList(true)} className='me-10 text-xs sm:text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
+                                        </div>
+                                        {/* { toggleList &&
                                 <div className='flex flex-col border bg-blue-300/10 text-center rounded backdrop-blur-2xl px-5 py-3'>
                                 <span className='hover:text-blue-300 cursor-pointer'>Planning</span>
                                 <span className='hover:text-blue-300 cursor-pointer'>Watching</span>
@@ -91,85 +100,37 @@ const ViewDetails = () => {
                                 <span className='hover:text-blue-300 cursor-pointer'>Completed</span>
                                 <span className='hover:text-blue-300 cursor-pointer'>Dropped</span>
                             </div>} */}
+                                    </div>
+                                    <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                </div>
                             </div>
-                            <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
                         </div>
-                    </div>
-                </div>
-                :
-                <div className='flex justify-center items-center'>
-                    <p>Loading...</p>
-                </div>
+                        :
+                        <div className='flex justify-center items-center'>
+                            <p>Loading...</p>
+                        </div>
                 }
                 <div className='bg-white/10 p-1 mt-10'>
                     <h2 className='sm:text-2xl px-1 sm:px-3'>Recommendation:</h2>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
-                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                            </div>
-                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                <p className='text-xs'>Summary</p>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                            </div>
-                        </div>
-                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                            </div>
-                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                <p className='text-xs'>Summary</p>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                            </div>
-                        </div>
-                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                            </div>
-                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                <p className='text-xs'>Summary</p>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                            </div>
-                        </div>
-                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                            </div>
-                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                <p className='text-xs'>Summary</p>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                            </div>
-                        </div>
-                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                            </div>
-                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                <p className='text-xs'>Summary</p>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                            </div>
-                        </div>
-                        <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                            <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                            </div>
-                            <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                <p className='text-xs'>Summary</p>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                            </div>
-                        </div>
+                        {
+                            recommendation?.length > 0 ?
+                                recommendation?.map((show) => (
+                                    <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                        <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                            <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.show.score}/10</p>
+                                            <img className='w-full object-fill rounded-xl' src={show.show.imageUrl} alt="" />
+                                        </div>
+                                        <h5 className='px-3 sm:text-base text-xs'>{show.show.title}</h5>
+                                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                            <p className='text-xs px-2 text-center'>{show.show.summary}</p>
+                                            <Link to={`/details/${show.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
+                                        </div>
+                                    </div>
+                                ))
+                                :
+                                <p>No Data</p>
+                        }
                     </div>
                 </div>
                 {/* comments */}
