@@ -56,3 +56,13 @@ export const addShowAPI = async(reqBody)=>{
 export const getUsersAPI = async()=>{
     return await commonAPI("get",`${serverURL}/get-users`)
 }
+
+//delete users
+export const deleteUserAPI = async(id)=>{
+    return await commonAPI("delete",`${serverURL}/delete-user`,id)
+}
+
+//delete show
+export const deleteShowAPI = async(id)=>{
+    return await commonAPI("delete",`${serverURL}/delete-show`,id)
+}

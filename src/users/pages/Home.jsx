@@ -64,9 +64,9 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* recomended */}
+                {/* Popular */}
                 <div className='sm:px-10 px-3 sm:mt-10'>
-                    <h2 className='sm:text-2xl sm:pt-0 pt-5'>Recommended:</h2>
+                    <h2 className='sm:text-2xl sm:pt-0 pt-5'>Popular:</h2>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                         <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
                             <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
@@ -137,9 +137,9 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* popular */}
+                {/* Most Rated */}
                 <div className='sm:px-10 px-3 sm:mt-10'>
-                    <h2 className='sm:text-2xl sm:pt-0 pt-5'>Popular:</h2>
+                    <h2 className='sm:text-2xl sm:pt-0 pt-5'>Most Rated:</h2>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                         {
                             PopularShows?.length > 0 ?

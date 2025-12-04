@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SideBar from '../components/SideBar'
-import { getUsersAPI } from '../../services/allAPIs'
+import { deleteUserAPI, getUsersAPI } from '../../services/allAPIs'
 
 const AdminUsers = () => {
 
@@ -11,6 +11,14 @@ const AdminUsers = () => {
     console.log(result);
     
     setUsers(result.data.allUsers)
+  }
+
+  const handleDelete = async(id) =>{
+    // console.log(id);
+    const result = await deleteUserAPI({id})
+    // console.log(result);
+    
+    getUsers()
   }
 
   useEffect(()=>{
@@ -45,7 +53,7 @@ const AdminUsers = () => {
                   <p className='pt-2'>Email : {items.email}</p>
                   <div className='flex justify-between items-end py-5'>
                     <button className='bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                    <button onClick={()=>handleDelete(items._id)} className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                   </div>
                 </div>
               </div>
@@ -53,7 +61,7 @@ const AdminUsers = () => {
               :
               <p>No Users</p>
               }
-              <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
+              {/* <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
                 <div className='p-5 h-full'>
                   <div className='flex'>
                     <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
@@ -68,7 +76,7 @@ const AdminUsers = () => {
                     <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

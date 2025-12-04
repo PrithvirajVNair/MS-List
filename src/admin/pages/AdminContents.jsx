@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import Box from '@mui/material/Box'
 import Select from '@mui/material/Select'
-import { addShowAPI, getShowAPI } from '../../services/allAPIs'
+import { addShowAPI, deleteShowAPI, getShowAPI } from '../../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 const AdminContents = () => {
@@ -32,6 +32,14 @@ const AdminContents = () => {
     setShows(result.data.allShows)
   }
 
+    const handleDelete = async(id) =>{
+      // console.log(id);
+      const result = await deleteShowAPI({id})
+      // console.log(result);
+      
+      getShow()
+    }
+
   const handleCancel = () => {
     setToggleContent(false)
     setAddShow({
@@ -54,7 +62,16 @@ const AdminContents = () => {
     else {
       const result = await addShowAPI(addShow)
       console.log(result);
-
+      setAddShow({
+      title: "",
+      language: "",
+      category: "",
+      description: "",
+      summary: "",
+      genre: [],
+      imageUrl: ""
+    }
+    )
       setToggleContent(false)
       getShow()
     }
@@ -100,7 +117,7 @@ const AdminContents = () => {
                           </div>
                           <div className='flex justify-end'>
                             <button className='border bg-orange-500 py-1 px-2 rounded-lg me-3'>Edit</button>
-                            <button className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                            <button onClick={()=>handleDelete(items._id)} className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                           </div>
                         </div>
                       </div>
