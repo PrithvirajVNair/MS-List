@@ -122,11 +122,16 @@ const ViewDetails = () => {
                                             <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />
                                         </div>
                                         <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{shows.show.title}</h5>
-                                        <div className='absolute inset-0 bg-black/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                        <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
                                             <p className='text-[10px] sm:text-xs sm:px-2 text-center overflow-auto'>{shows.show.summary}</p>
-                                            <p className='text-[10px] sm:text-xs px-2 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity*100).toFixed(2)}%</span></p>
+                                            <p className='text-[10px] sm:text-xs px-2 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity * 100).toFixed(2)}%</span></p>
                                             <Link to={`/details/${shows.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
                                         </div>
+                                        <Link to={`/details/${shows.show._id}`}>
+                                            <div className='block sm:hidden absolute inset-0'>
+
+                                            </div>
+                                        </Link>
                                     </div>
                                 ))
                                 :

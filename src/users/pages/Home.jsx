@@ -150,10 +150,15 @@ const Home = () => {
                                             <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
                                         </div>
                                         <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
-                                        <div className='absolute inset-0 bg-black/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                        <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
                                             <p className='text-[10px] sm:text-xs sm:px-2 text-center overflow-auto'>{show.summary}</p>
                                             <Link to={`/details/${show?._id}`}><button className='py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
                                         </div>
+                                        <Link to={`/details/${show?._id}`}>
+                                            <div className='block sm:hidden absolute inset-0'>
+    
+                                            </div>
+                                        </Link>
                                     </div>
                                 ))
                                 :
@@ -175,10 +180,15 @@ const Home = () => {
                                             <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
                                         </div>
                                         <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
-                                        <div className='absolute inset-0 bg-black/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                        <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
                                             <p className='text-[10px] sm:text-xs sm:px-2 text-center overflow-auto'>{show.summary}</p>
                                             <Link to={`/details/${show._id}`}><button className='py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
                                         </div>
+                                        <Link to={`/details/${show?._id}`}>
+                                            <div className='block sm:hidden absolute inset-0'>
+    
+                                            </div>
+                                        </Link>
                                     </div>
                                 ))
                                 :
