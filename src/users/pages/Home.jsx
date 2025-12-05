@@ -144,8 +144,8 @@ const Home = () => {
                         {
                             PopularShows?.length > 0 ?
                                 PopularShows?.map((show) => (
-                                    <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                        <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                    <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                        <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                             <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
                                             <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
                                         </div>
@@ -169,8 +169,8 @@ const Home = () => {
                         {
                             recentShows?.length > 0 ?
                                 recentShows?.map((show) => (
-                                    <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                        <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                    <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                        <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                             <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
                                             <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
                                         </div>
