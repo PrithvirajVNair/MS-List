@@ -60,6 +60,7 @@ const ViewDetails = () => {
     useEffect(() => {
         getAShow()
         getRecommendation()
+        window.scrollTo(0, 0);
     }, [id])
 
     const handleChange = (event) => {
