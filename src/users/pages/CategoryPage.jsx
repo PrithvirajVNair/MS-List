@@ -13,30 +13,18 @@ const CategoryPage = () => {
     const { categoryName } = useParams();
     console.log(categoryName);
 
-    const getCategoryShow = async () => {
-        const result = await getCategoryShowAPI(categoryName)
+    const getCategoryShow = async (searchData) => {
+        const result = await getCategoryShowAPI(searchData,categoryName)
         setShows(result.data)
         setSearchResullt(result.data)
     }
     console.log(shows);
 
-    const searchHandle = (e) => {
-        const value = e.target.value
-        setSearchData(value);
-        if (value == "") {
-            setSearchResullt(shows)
-            return
-        }
-        const result = shows.filter(items => items.title?.toLowerCase().includes(searchData.toLowerCase()))
-        setSearchResullt(result)
-    }
-    console.log(searchResullt);
-    
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getCategoryShow()
-    }, [categoryName]);
+        getCategoryShow(searchData)
+    }, [categoryName,searchData]);
 
     return (
         <div className='bg-black min-h-screen text-white'>
@@ -47,7 +35,7 @@ const CategoryPage = () => {
                 </div>
                 <div className='flex justify-center items-center bg-white/10 p-2 rounded sm:my-10 my-5'>
                     <label htmlFor='search'><FontAwesomeIcon icon={faMagnifyingGlass} className='text-white/60' /></label>
-                    <input value={searchData} onChange={e=>searchHandle(e)} type="text" id='search' className='w-full py-2 px-2 rounded-lg text-sm outline-0' placeholder='Search Movies, Shows and More' />
+                    <input value={searchData} onChange={e=>setSearchData(e.target.value)} type="text" id='search' className='w-full py-2 px-2 rounded-lg text-sm outline-0' placeholder='Search Movies, Shows and More' />
                 </div>
                 <div className=''>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>

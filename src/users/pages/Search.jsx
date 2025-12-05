@@ -11,31 +11,21 @@ const Search = () => {
     const [searchData,setSearchData] = useState("")
     const [searchResullt,setSearchResullt] = useState()
 
-console.log(searchData);
 
 
-    const getShow = async () => {
-        const result = await getShowAPI()
-        console.log((result.data));
+    const getShow = async (searchData) => {
+        const result = await getShowAPI(searchData)
+        console.log(searchData);
+        
+        // console.log((result.data));
         setShows(result.data.allShows)
         setSearchResullt(result.data.allShows)
     }
 
-    const searchHandle = (e) => {
-        const value = e.target.value
-        setSearchData(value);
-        if(value==""){
-            setSearchResullt(shows)
-            return
-        }
-        const result = shows.filter(items=> items.title?.toLowerCase().includes(searchData.toLowerCase()))
-        setSearchResullt(result)
-    }
-
 
     useEffect(() => {
-        getShow()
-    }, [])
+        getShow(searchData)
+    }, [searchData])
 
     return (
         <>
@@ -43,7 +33,7 @@ console.log(searchData);
             <div className='min-h-screen bg-black text-white pt-20 px-5 sm:px-10 md:px-20'>
                 <div className='flex justify-center items-center bg-white/10 p-2 rounded'>
                     <label htmlFor='search'><FontAwesomeIcon icon={faMagnifyingGlass} className='text-white/60' /></label>
-                    <input value={searchData} onChange={e=>searchHandle(e)} type="text" id='search' className='w-full py-2 px-2 rounded-lg text-sm outline-0' placeholder='Search Movies, Shows and More' />
+                    <input value={searchData} onChange={e=>setSearchData(e.target.value)} type="text" id='search' className='w-full py-2 px-2 rounded-lg text-sm outline-0' placeholder='Search Movies, Shows and More' />
                 </div>
                 <div className='mt-5'>
                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>

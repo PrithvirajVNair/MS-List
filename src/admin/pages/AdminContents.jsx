@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import Box from '@mui/material/Box'
 import Select from '@mui/material/Select'
-import { addShowAPI, deleteShowAPI, getShowAPI } from '../../services/allAPIs'
+import { addShowAPI, deleteShowAPI, getAdminShowAPI, getShowAPI } from '../../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 const AdminContents = () => {
@@ -27,9 +27,9 @@ const AdminContents = () => {
 
 
   const getShow = async () => {
-    const result = await getShowAPI()
+    const result = await getAdminShowAPI()
     console.log((result.data));
-    setShows(result.data.allShows)
+    setShows(result.data)
   }
 
     const handleDelete = async(id) =>{

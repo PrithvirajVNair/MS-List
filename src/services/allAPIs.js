@@ -23,8 +23,8 @@ export const googleLoginAPI = async(reqBody)=>{
     return await commonAPI("post",`${serverURL}/google-login`,reqBody)
 }
 
-export const getShowAPI = async()=>{
-    return await commonAPI("get",`${serverURL}/search`)
+export const getShowAPI = async(searchData)=>{
+    return await commonAPI("get",`${serverURL}/search?search=${searchData}`)
 }
 
 export const getRecommendationAPI = async(id) => {
@@ -50,8 +50,8 @@ export const getAShowAPI = async(id)=>{
 }
 
 // get show based on category/language
-export const getCategoryShowAPI = async(category)=>{
-    return await commonAPI("get",`${serverURL}/category/${category}`)
+export const getCategoryShowAPI = async(searchData,category)=>{
+    return await commonAPI("get",`${serverURL}/category/${category}?search=${searchData}`)
 }
 
 // ...............................ADMIN.....................................
@@ -59,6 +59,11 @@ export const getCategoryShowAPI = async(category)=>{
 // add shows
 export const addShowAPI = async(reqBody)=>{
     return await commonAPI("post",`${serverURL}/add-shows`,reqBody)
+}
+
+// get shows
+export const getAdminShowAPI = async()=>{
+    return await commonAPI("get",`${serverURL}/get-adminshows`)
 }
 
 // get users
