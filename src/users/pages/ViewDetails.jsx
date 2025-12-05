@@ -70,9 +70,10 @@ const ViewDetails = () => {
     return (
         <>
             <Header />
-            <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
-                {
-                    !loading ?
+            {
+                !loading ?
+                    <div className='min-h-screen bg-black sm:px-10 text-white sm:pt-20'>
+
                         <div className='flex justify-center items-center max-sm:flex-col min-h-[400px] p-5 bg-white/10'>
                             <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
                                 <img className='w-full h-full object-fill p-5 sm:p-0' src={show.imageUrl} alt="" />
@@ -106,56 +107,58 @@ const ViewDetails = () => {
                                 </div>
                             </div>
                         </div>
-                        :
-                        <div className='flex justify-center items-center'>
-                            <p>Loading...</p>
-                        </div>
-                }
-                <div className='bg-white/10 p-1 mt-10'>
-                    <h2 className='sm:text-2xl px-1 sm:px-3'>Recommendation:</h2>
-                    <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
-                        {
-                            recommendation?.length > 0 ?
-                                recommendation?.map((shows) => (
-                                    <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                        <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
-                                            <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
-                                            <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />
-                                        </div>
-                                        <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{shows.show.title}</h5>
-                                        <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                            <p className='text-[10px] sm:text-xs sm:px-2 text-center overflow-auto'>{shows.show.summary}</p>
-                                            <p className='text-[10px] sm:text-xs px-2 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity * 100).toFixed(2)}%</span></p>
-                                            <Link to={`/details/${shows.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
-                                        </div>
-                                        <Link to={`/details/${shows.show._id}`}>
-                                            <div className='block sm:hidden absolute inset-0'>
 
+
+                        <div className='bg-white/10 p-1 mt-10'>
+                            <h2 className='sm:text-2xl px-1 sm:px-3'>Recommendation:</h2>
+                            <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
+                                {
+                                    recommendation?.length > 0 ?
+                                        recommendation?.map((shows) => (
+                                            <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                                <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
+                                                    <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
+                                                    <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />
+                                                </div>
+                                                <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{shows.show.title}</h5>
+                                                <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                                    <p className='text-[10px] sm:text-xs sm:px-2 text-center overflow-auto'>{shows.show.summary}</p>
+                                                    <p className='text-[10px] sm:text-xs px-2 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity * 100).toFixed(2)}%</span></p>
+                                                    <Link to={`/details/${shows.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
+                                                </div>
+                                                <Link to={`/details/${shows.show._id}`}>
+                                                    <div className='block sm:hidden absolute inset-0'>
+
+                                                    </div>
+                                                </Link>
                                             </div>
-                                        </Link>
-                                    </div>
-                                ))
-                                :
-                                <p>No Data</p>
-                        }
-                    </div>
-                </div>
-                {/* comments */}
-                <h1 className='mt-10 text-base sm:px-0 px-5 sm:text-2xl'>Comments:</h1>
-                <div className='flex flex-col min-h-[400px] p-5 sm:p-10 border border-white/20'>
-                    <div className='flex justify-start items-start w-full'>
-                        <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
-                        <input type="text" className='bg-white/10 py-1 px-2 text-white w-full rounded-xl placeholder:text-white/60 sm:text-base text-sm' placeholder='Write a comment' />
-                    </div>
-                    <div className='mt-10 flex'>
-                        <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
-                        <div className='flex flex-col'>
-                            <h5 className='sm:text-base text-sm'>Name</h5>
-                            <p className='mt-3 sm:text-base text-sm'>hello</p>
+                                        ))
+                                        :
+                                        <p>No Data</p>
+                                }
+                            </div>
+                        </div>
+                        {/* comments */}
+                        <h1 className='mt-10 text-base sm:px-0 px-5 sm:text-2xl'>Comments:</h1>
+                        <div className='flex flex-col min-h-[400px] p-5 sm:p-10 border border-white/20'>
+                            <div className='flex justify-start items-start w-full'>
+                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
+                                <input type="text" className='bg-white/10 py-1 px-2 text-white w-full rounded-xl placeholder:text-white/60 sm:text-base text-sm' placeholder='Write a comment' />
+                            </div>
+                            <div className='mt-10 flex'>
+                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
+                                <div className='flex flex-col'>
+                                    <h5 className='sm:text-base text-sm'>Name</h5>
+                                    <p className='mt-3 sm:text-base text-sm'>hello</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    :
+                    <div className='flex justify-center items-center bg-black text-white h-screen'>
+                        <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUybHRsNGFzZnh0cWU4M2VkYWYzaXhpcHloaXl4YThtMWZyaXN2cG02byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7bu3XilJ5BOiSGic/200w.gif" alt="" style={{ width: '100px' }} />
+                    </div>
+            }
             {
                 toggleList &&
                 <div className='fixed inset-0 bg-black/80 text-black h-screen'>
