@@ -116,15 +116,15 @@ const ViewDetails = () => {
                         {
                             recommendation?.length > 0 ?
                                 recommendation?.map((shows) => (
-                                    <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                        <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
+                                    <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                        <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                             <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
                                             <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />
                                         </div>
                                         <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{shows.show.title}</h5>
                                         <div className='absolute inset-0 bg-black/90 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                            <p className='text-xs px-2 text-center'>{shows.show.summary}</p>
-                                            <p className='text-xs px-2 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity*100).toFixed(2)}%</span></p>
+                                            <p className='text-[10px] sm:text-xs sm:px-2 text-center overflow-auto'>{shows.show.summary}</p>
+                                            <p className='text-[10px] sm:text-xs px-2 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity*100).toFixed(2)}%</span></p>
                                             <Link to={`/details/${shows.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
                                         </div>
                                     </div>
