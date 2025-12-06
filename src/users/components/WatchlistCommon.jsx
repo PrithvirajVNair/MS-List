@@ -3,15 +3,15 @@ import Header from './Header'
 import { Link } from 'react-router-dom'
 import Favorite from '../pages/Favorite'
 
-const WatchlistCommon = ({all,favorite,planning,watching,onhold,completed,dropped}) => {
+const WatchlistCommon = ({all,favorite,planning,watching,onhold,completed,dropped, count, onHandleSearch}) => {
     return (
         <div className='bg-black text-white'>
             <Header watchlist />
             <div className='pt-15 sm:pt-20 sm:px-20 px-5'>
                 <h2 className='sm:text-3xl'>My Watchlist</h2>
-                <p className='ms-3 text-xs sm:text-base text-white/60'>x items</p>
+                <p className='ms-3 text-xs sm:text-base text-white/60'>{count} items</p>
                 <div className='sm:py-10 py-5'>
-                    <input type="text" className='bg-white/10 w-full py-1 px-2 rounded-xl text-sm' placeholder='Search your Watchlist' />
+                    <input onChange={e=>onHandleSearch(e.target.value || "")} type="text" className='bg-white/10 w-full py-1 px-2 rounded-xl text-sm' placeholder='Search your Watchlist' />
                     <div className='py-5 sm:text-base text-xs'>
                         <Link to={'/watchlist'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${all ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>All</button></Link>
                         <Link to={'/watchlist/favorite'}><button className={`sm:me-3 me-1 py-1 px-2 rounded-xl my-1 cursor-pointer ${favorite ? 'bg-white text-black':'bg-white/10 text-white/60'}`}>Favorite</button></Link>

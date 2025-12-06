@@ -62,7 +62,7 @@ const Authentication = ({ register }) => {
             console.log(result);
             if (result.data) {
                 sessionStorage.setItem("username", result.data.existingUser.username)
-                sessionStorage.setItem("token",JSON.stringify(result.data.token))
+                sessionStorage.setItem("token",result.data.token)
                 toast.success(`Successfully Logged In`)
                 setTimeout(() => {
                     navigate('/home')
@@ -94,7 +94,7 @@ const Authentication = ({ register }) => {
         console.log(result);
         if (result.data) {
             sessionStorage.setItem("username", result.data.existingUser.username)
-            sessionStorage.setItem("token",JSON.stringify(result.data.token))
+            sessionStorage.setItem("token",result.data.token)
             // below if is temporary
             if (result.data.existingUser.profile) {
                 sessionStorage.setItem("profile", result.data.existingUser.profile) 

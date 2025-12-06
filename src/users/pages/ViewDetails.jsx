@@ -16,16 +16,16 @@ import { addToListAPI, getAShowAPI, getRecommendationAPI } from '../../services/
 
 
 const labels = {
-    0.5: 'Appalling',
-    1: 'Horrible',
-    1.5: 'Very Bad',
-    2: 'Bad',
-    2.5: 'Average',
-    3: 'Fine',
-    3.5: 'Good',
-    4: 'Very Good',
-    4.5: 'Great',
-    5: 'Masterpiece',
+    1: 'Appalling',
+    2: 'Horrible',
+    3: 'Very Bad',
+    4: 'Bad',
+    5: 'Average',
+    6: 'Fine',
+    7: 'Good',
+    8: 'Very Good',
+    9: 'Great',
+    10: 'Masterpiece',
 };
 function getLabelText(value) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
@@ -92,8 +92,7 @@ const ViewDetails = () => {
 
     useEffect(() => {
         if (sessionStorage.getItem("token")) {
-            const sessionToken = sessionStorage.getItem("token")
-            const token = JSON.parse(sessionToken)
+            const token = sessionStorage.getItem("token")
             setToken(token)
         }
         getAShow()
@@ -217,10 +216,11 @@ const ViewDetails = () => {
                                     name="hover-feedback"
                                     value={value}
                                     precision={0.5}
+                                    max={5}
                                     getLabelText={getLabelText}
                                     onChange={(e, newValue) => {
                                         setValue(newValue);
-                                        setListData({ ...listData, rating: e.target.value })
+                                        setListData({ ...listData, rating: e.target.value*2 })
                                     }}
                                     onChangeActive={(event, newHover) => {
                                         setHover(newHover);

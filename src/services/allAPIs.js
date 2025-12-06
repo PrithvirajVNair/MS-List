@@ -56,7 +56,12 @@ export const getCategoryShowAPI = async(searchData,category)=>{
 
 // add to list
 export const addToListAPI = async(reqBody,reqHeader)=>{
-    return await commonAPI("post",`${serverURL}/add-to-list/`,reqBody,reqHeader)
+    return await commonAPI("post",`${serverURL}/add-to-list`,reqBody,reqHeader)
+}
+
+// get list
+export const getListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-list?search=${searchData}`,"",reqHeader)
 }
 
 // ...............................ADMIN.....................................
