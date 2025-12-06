@@ -11,7 +11,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { getAShowAPI, getRecommendationAPI } from '../../services/allAPIs'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { addToListAPI, getAShowAPI, getRecommendationAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -42,6 +43,18 @@ const ViewDetails = () => {
     const [show, setShow] = useState({})
     const [recommendation, setRecommendation] = useState([])
     const [loading, setLoading] = useState(true)
+    const [token, setToken] = useState("")
+    const [listData, setListData] = useState({
+        showid: "",
+        title: "",
+        rating: "",
+        status: "",
+        sDate: "",
+        eDate: "",
+        genre: "",
+        imageUrl: "",
+    })
+    console.log(listData);
 
     const getAShow = async () => {
         const result = await getAShowAPI(id)
@@ -56,15 +69,40 @@ const ViewDetails = () => {
     }
     console.log(recommendation);
 
+    const handleAddToList = (title, id, url, genre) => {
+        setToggleList(true)
+        setListData({ ...listData, title: title, showid: id, imageUrl: url, genre: genre })
+    }
+
+    const addToList = async () => {
+        const { rating, status, sDate, eDate } = listData
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        if (!rating || !status || !sDate || !eDate) {
+            toast.info("Fill all the Fields")
+        }
+        else {
+            const result = await addToListAPI(listData, reqHeader)
+            toast.success("Sucessfully Added to Watchlist")
+            console.log(result);
+        }
+
+    }
 
     useEffect(() => {
+        if (sessionStorage.getItem("token")) {
+            const sessionToken = sessionStorage.getItem("token")
+            const token = JSON.parse(sessionToken)
+            setToken(token)
+        }
         getAShow()
         getRecommendation()
         window.scrollTo(0, 0);
     }, [id])
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setListData({ ...listData, status: event.target.value })
     };
 
     return (
@@ -92,7 +130,7 @@ const ViewDetails = () => {
                                 <div className='flex justify-between'>
                                     <div className='flex'>
                                         <div>
-                                            <button onClick={() => setToggleList(true)} className='me-10 text-xs sm:text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
+                                            <button onClick={() => handleAddToList(show.title, show._id, show.imageUrl, show.genre)} className='me-10 text-xs sm:text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
                                         </div>
                                         {/* { toggleList &&
                                 <div className='flex flex-col border bg-blue-300/10 text-center rounded backdrop-blur-2xl px-5 py-3'>
@@ -169,7 +207,7 @@ const ViewDetails = () => {
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
                                 {/* <label>Title:</label> */}
                                 {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
-                                <h2 className='text-2xl font-bold'>Title</h2>
+                                <h2 className='text-2xl font-bold'>{show.title}</h2>
                             </div>
                             <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
@@ -180,8 +218,9 @@ const ViewDetails = () => {
                                     value={value}
                                     precision={0.5}
                                     getLabelText={getLabelText}
-                                    onChange={(event, newValue) => {
+                                    onChange={(e, newValue) => {
                                         setValue(newValue);
+                                        setListData({ ...listData, rating: e.target.value })
                                     }}
                                     onChangeActive={(event, newHover) => {
                                         setHover(newHover);
@@ -195,11 +234,11 @@ const ViewDetails = () => {
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input id='sdate' type="date" className='ms-2' />
+                                <input onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" className='ms-2' />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
-                                <input id='sdate' type="date" className='ms-2' />
+                                <input onChange={e => setListData({ ...listData, eDate: e.target.value })} id='sdate' type="date" className='ms-2' />
                             </div>
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
@@ -207,7 +246,7 @@ const ViewDetails = () => {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={age}
+                                        value={listData.status}
                                         label="Age"
                                         onChange={handleChange}
                                     >
@@ -220,13 +259,26 @@ const ViewDetails = () => {
                                 </FormControl>
                             </Box>
                             <div className='py-10'>
-                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Add</button>
+                                <button onClick={addToList} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Add</button>
                                 <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
                             </div>
                         </div>
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
                     </div>
                 </div>}
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
         </>
     )
 }
