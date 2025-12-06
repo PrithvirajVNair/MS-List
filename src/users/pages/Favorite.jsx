@@ -1,210 +1,110 @@
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import WatchlistCommon from '../components/WatchlistCommon'
+import { getFavListAPI, removeFavListAPI } from '../../services/allAPIs';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const Favorite = () => {
 
 
     const [favorite, setFavorite] = useState([])
     const [toggleFavTemp, setToggleFavTemp] = useState(false) //this is temporary
+
+    const [listData, setListData] = useState([])
+    const [listCount, setListCount] = useState(0)
+
+
+    const getList = async (value) => {
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await getFavListAPI(reqHeader, value)
+        setListData(result.data.listData)
+        setListCount(result.data.count)
+    }
+
+    const removeFromFav = async (data) => {
+        console.log(data);
+
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await removeFavListAPI(data, reqHeader)
+        console.log(result);
+        if (result.status == 200) {
+            getList()
+            toast.success("Removed from Favorite")
+        }
+        else {
+            toast.warning("Something Went Wrong...")
+        }
+    }
+
+    useEffect(() => {
+        getList()
+
+    }, [])
+
     return (
         <>
-            <WatchlistCommon favorite />
+            <WatchlistCommon favorite count={listCount} onHandleSearch={getList} />
             <div className='min-h-screen bg-black text-white'>
-                <div className='w-full grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 lg:px-10'>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
+                {
+                    listData?.length > 0 ?
+                        <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
+                            {
+                                listData?.map((list) => (
+                                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
+                                        <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
+                                            <div className='aspect-2/3'>
+                                                <img className='w-full h-full object-fill rounded-xl' src={list.imageUrl} alt="" />
+                                            </div>
+                                            <div>
+                                                <p className='text-white/60 mt-1 text-xs'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />{list.rating}/10</p>
+                                                <p className='text-white/60 mt-1 text-xs'>Start Date : {new Date(list.sDate).toLocaleDateString("en-GB")}</p>
+                                                <p className='text-white/60 mt-1 text-xs'>End Date : {new Date(list.eDate).toLocaleDateString("en-GB")}</p>
+                                                <p className='text-white/60 mt-1 text-xs'>Status : {list.status}</p>
+                                            </div>
+                                        </div>
+                                        <div className='group relative'>
+                                            <h5 className='ps-2 overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
+                                            <span className="absolute left-0 bottom-full mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
+                                                {list.title}
+                                            </span>
+                                        </div>
+                                        <div className='px-2 py-2 flex justify-between items-center'>
+                                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>{list.genre}</span>
+                                            <div>
+                                                <button onClick={() => removeFromFav(list)}><FontAwesomeIcon icon={faStarSolid} /></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
                         </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
+                        :
+                        <div className='flex justify-center items-center'>
+                            <p className='text-red-400 text-2xl font-bold'>No Favorite Shows</p>
                         </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
-                        </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
-                        </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
-                        </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
-                        </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
-                        </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
-                        </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
-                        </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
-                        </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
-                        </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
-                        </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative group overflow-hidden'>
-                        <div className='flex max-sm:flex-col m-2'>
-                            <div className='h-[100px] w-20'>
-                                <img className='w-full h-full object-fill rounded-xl' src="https://i.pinimg.com/originals/89/3f/fd/893ffdb8c9e5d47e2855e348848195b9.jpg" alt="" />
-                            </div>
-                            <div>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />9.5/10</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Start Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>End Date :</p>
-                                <p className='text-white/60 me-2 mt-1 text-xs ps-2 lg:ps-5'>Status : Planning</p>
-                            </div>
-                        </div>
-                        <h5 className='px-3'>TITLE</h5>
-                        <div className='px-3 sm:py-0 py-2'>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Action</span>
-                            <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>Drama</span>
-                        </div>
-                        <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                            <p className='text-xs'>Summary</p>
-                            <div className='flex'>
-                                <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                {toggleFavTemp ?
-                                    <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                    <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
         </>
     )
 }

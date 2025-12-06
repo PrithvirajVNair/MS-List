@@ -3,7 +3,8 @@ import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import WatchlistCommon from '../components/WatchlistCommon'
-import { getListAPI } from '../../services/allAPIs';
+import { addFavListAPI, getFavListAPI, getListAPI, removeFavListAPI } from '../../services/allAPIs';
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 const WatchlistAll = () => {
 
@@ -11,7 +12,7 @@ const WatchlistAll = () => {
     const [favorite, setFavorite] = useState([])
     const [toggleFavTemp, setToggleFavTemp] = useState(false) //this is temporary
     const [listData, setListData] = useState([])
-    const [listCount,setListCount]=useState(0)
+    const [listCount, setListCount] = useState(0)
 
 
     const getList = async (value) => {
@@ -19,21 +20,55 @@ const WatchlistAll = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await getListAPI(reqHeader,value)
+        const result = await getListAPI(reqHeader, value)
         setListData(result.data.listData)
         setListCount(result.data.count)
-        console.log(value);
+    }
+
+    const addToFav = async (data) => {
+        console.log(data);
         
+        const token = sessionStorage.getItem("token")        
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await addFavListAPI(data,reqHeader)
+        console.log(result);
+        if(result.status==200){
+            getList()
+            toast.success("Added to Favorite")
+        }
+        else{
+            toast.warning("Something Went Wrong...")
+        }
+    }
+
+    const removeFromFav = async (data) => {
+        console.log(data);
+        
+        const token = sessionStorage.getItem("token")        
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await removeFavListAPI(data,reqHeader)
+        console.log(result);
+        if(result.status==200){
+            getList()
+            toast.success("Removed from Favorite")
+        }
+        else{
+            toast.warning("Something Went Wrong...")
+        }
     }
 
     useEffect(() => {
-            getList()
+        getList()
 
     }, [])
 
     return (
         <>
-            <WatchlistCommon all count={listCount} onHandleSearch={getList}/>
+            <WatchlistCommon all count={listCount} onHandleSearch={getList} />
             <div className='min-h-screen bg-black text-white'>
                 <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
                     {
@@ -59,9 +94,9 @@ const WatchlistAll = () => {
                                 <div className='px-2 py-2 flex justify-between items-center'>
                                     <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>{list.genre}</span>
                                     <div>
-                                        {toggleFavTemp ?
-                                            <button onClick={() => setToggleFavTemp(false)}><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                            <button onClick={() => setToggleFavTemp(true)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
+                                        {list.favorite ?
+                                            <button><FontAwesomeIcon icon={faStarSolid} /></button> :
+                                            <button onClick={() => addToFav(list)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
                                     </div>
                                 </div>
                             </div>
@@ -69,6 +104,19 @@ const WatchlistAll = () => {
                     }
                 </div>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
         </>
     )
 }

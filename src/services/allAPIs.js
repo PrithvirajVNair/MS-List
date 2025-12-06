@@ -64,6 +64,46 @@ export const getListAPI = async(reqHeader,searchData)=>{
     return await commonAPI("get",`${serverURL}/get-list?search=${searchData}`,"",reqHeader)
 }
 
+// get fav list
+export const getFavListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-fav-list?search=${searchData}`,"",reqHeader)
+}
+
+// add fav list
+export const addFavListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/add-fav-list`,reqBody,reqHeader)
+}
+
+// remove fav list
+export const removeFavListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/remove-fav-list`,reqBody,reqHeader)
+}
+
+// get planning list
+export const getPlanningListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-planning-list?search=${searchData}`,"",reqHeader)
+}
+
+// get watching list
+export const getWatchingListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-watching-list?search=${searchData}`,"",reqHeader)
+}
+
+// get watching list
+export const getOnHoldListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-onhold-list?search=${searchData}`,"",reqHeader)
+}
+
+// get watching list
+export const getCompletedListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-completed-list?search=${searchData}`,"",reqHeader)
+}
+
+// get dropped list
+export const getDroppedListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-dropped-list?search=${searchData}`,"",reqHeader)
+}
+
 // ...............................ADMIN.....................................
 
 // add shows
