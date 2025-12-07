@@ -49,17 +49,17 @@ const ViewDetails = () => {
         title: "",
         rating: "",
         status: "",
-        sDate: "",
-        eDate: "",
+        sDate: "2026-01-01T00:00:00.000+00:00",
+        eDate: "2026-01-01T00:00:00.000+00:00",
         genre: "",
         imageUrl: "",
     })
-    console.log(listData);
+    // console.log(listData);
 
     const getAShow = async () => {
         const result = await getAShowAPI(id)
         setShow(result.data)
-        console.log(result);
+        // console.log(result);
         setLoading(false)
     }
 
@@ -67,7 +67,7 @@ const ViewDetails = () => {
         const result = await getRecommendationAPI(id)
         setRecommendation(result.data)
     }
-    console.log(recommendation);
+    // console.log(recommendation);
 
     const handleAddToList = (title, id, url, genre) => {
         setToggleList(true)
@@ -75,17 +75,26 @@ const ViewDetails = () => {
     }
 
     const addToList = async () => {
+        setToggleList(false)
         const { rating, status, sDate, eDate } = listData
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        if (!rating || !status || !sDate || !eDate) {
-            toast.info("Fill all the Fields")
+        if (!status) {
+            toast.info("Select a Status")
         }
         else {
             const result = await addToListAPI(listData, reqHeader)
+            if(result.status == 200){
             toast.success("Sucessfully Added to Watchlist")
-            console.log(result);
+            }
+            else if(result.status == 401){
+                toast.warning(result.response.data)
+            }
+            else{
+                toast.warning("Something Went Wrong, please try again later")
+            }
+            // console.log(result);
         }
 
     }
@@ -151,8 +160,8 @@ const ViewDetails = () => {
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
                                     recommendation?.length > 0 ?
-                                        recommendation?.map((shows) => (
-                                            <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                        recommendation?.map((shows,index) => (
+                                            <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
                                                 <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                                     <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
                                                     <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />

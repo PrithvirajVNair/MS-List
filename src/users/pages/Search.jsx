@@ -43,8 +43,8 @@ const Search = () => {
                                 shows?.length > 0 ?
                                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                         {
-                                            searchResullt?.map((show) => (
-                                                <div className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                            searchResullt?.map((show,index) => (
+                                                <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
                                                     <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                                         <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
                                                         <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />

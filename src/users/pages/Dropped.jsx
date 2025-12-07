@@ -55,7 +55,7 @@ const Dropped = () => {
         setListData(result.data.listData)
         setListCount(result.data.count)
         setLoading(false)
-        console.log(result);
+        // console.log(result);
 
     }
 
@@ -69,7 +69,7 @@ const Dropped = () => {
             "Authorization": `Bearer ${token}`
         }
         const result = await putStatusListAPI(statusData, reqHeader)
-        console.log(result);
+        // console.log(result);
         if (result.status == 200) {
             getList()
             toast.success("Status Changed")
@@ -105,8 +105,8 @@ const Dropped = () => {
                         <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
                             {
                                 listData?.length > 0 ?
-                                    listData?.map((list) => (
-                                        <div className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
+                                    listData?.map((list,index) => (
+                                        <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
                                             <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
                                                 <div className='aspect-2/3'>
                                                     <img className='w-full h-full object-fill rounded-xl' src={list.imageUrl} alt="" />
