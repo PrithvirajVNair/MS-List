@@ -9,7 +9,27 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import { useEffect } from 'react';
-import { getDroppedListAPI, putStatusListAPI } from '../../services/allAPIs';
+import { getDroppedListAPI, putListAPI, putStatusListAPI } from '../../services/allAPIs';
+import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+
+
+const labels = {
+    0.5: 'Appalling',
+    1: 'Horrible',
+    1.5: 'Very Bad',
+    2: 'Bad',
+    2.5: 'Average',
+    3: 'Fine',
+    3.5: 'Good',
+    4: 'Very Good',
+    4.5: 'Great',
+    5: 'Masterpiece',
+};
+function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+}
 
 const Dropped = () => {
 
@@ -17,6 +37,10 @@ const Dropped = () => {
     const [listData, setListData] = useState([])
     const [listCount, setListCount] = useState(0)
     const [loading, setLoading] = useState(true)
+    const [editData, setEditData] = useState({})
+    const [toggleList, setToggleList] = useState(false)
+    const [value, setValue] = React.useState(0);
+    const [hover, setHover] = React.useState(-1);
     const [statusData, setStatusData] = useState({
         value: "",
         data: {}
@@ -56,6 +80,16 @@ const Dropped = () => {
 
     };
 
+    const handleEdit = async () => {
+        setToggleList(false)
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await putListAPI(editData, reqHeader)
+        getList()
+    }
+
     useEffect(() => {
         getList()
         if (statusData.value != "") {
@@ -80,7 +114,10 @@ const Dropped = () => {
                                                 <div>
                                                     <div className='flex justify-between items-center'>
                                                         <p className='text-white/60 me-2 mt-1 text-xs'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />{list.rating}/10</p>
-                                                        <button onClick={() => setToggleList(true)} className='text-xs underline text-blue-300 cursor-pointer'><em>Edit</em></button>
+                                                        <button onClick={() => {
+                                                            setToggleList(true)
+                                                            setEditData(list)
+                                                        }} className='text-xs underline text-blue-300 cursor-pointer'><em>Edit</em></button>
                                                     </div>
                                                     <p className='text-white/60 mt-1 text-xs'>Start Date : {new Date(list.sDate).toLocaleDateString("en-GB")}</p>
                                                     <p className='text-white/60 mt-1 text-xs'>End Date : {new Date(list.eDate).toLocaleDateString("en-GB")}</p>
@@ -162,6 +199,58 @@ const Dropped = () => {
                             <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUybHRsNGFzZnh0cWU4M2VkYWYzaXhpcHloaXl4YThtMWZyaXN2cG02byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7bu3XilJ5BOiSGic/200w.gif" alt="" style={{ width: '100px' }} />
                         </div>}
             </div>
+            {
+                toggleList &&
+                <div className='fixed inset-0 bg-black/80 text-black h-screen'>
+                    <div className='grid sm:grid-cols-12 py-15 h-screen'>
+                        <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
+                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/60 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                            <h2 className='text-xl sm:text-2xl py-10'>Edit <span className='text-blue-600'>Watchlist</span></h2>
+                            <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
+                                {/* <label>Title:</label> */}
+                                {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
+                                <h2 className='text-xl font-bold'>{editData.title}</h2>
+                            </div>
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
+                                <Typography variant='label' className='sm:text-base text-sm'>
+                                    Rating:
+                                </Typography>
+                                <Rating
+                                    name="hover-feedback"
+                                    value={editData.rating / 2}
+                                    precision={0.5}
+                                    max={5}
+                                    getLabelText={getLabelText}
+                                    onChange={(event, newValue) => {
+                                        setValue(newValue);
+                                        setEditData({ ...editData, rating: event.target.value * 2 })
+                                    }}
+                                    onChangeActive={(event, newHover) => {
+                                        setHover(newHover);
+                                    }}
+                                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                    className='ms-2'
+                                />
+                                {value !== null && (
+                                    <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                                )}
+                            </Box>
+                            <div className='w-full px-10 sm:text-base text-sm'>
+                                <label htmlFor="sdate">Start Date:</label>
+                                <input value={editData.sDate.split("T")[0]} onChange={e => setEditData({ ...editData, sDate: e.target.value })} id='sdate' type="date" className='ms-2' />
+                            </div>
+                            <div className='w-full px-10 py-5 sm:text-base text-sm'>
+                                <label htmlFor="sdate">End Date:</label>
+                                <input value={editData.eDate.split("T")[0]} onChange={e => setEditData({ ...editData, eDate: e.target.value })} id='sdate' type="date" className='ms-2' />
+                            </div>
+                            <div className='py-10'>
+                                <button onClick={handleEdit} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Edit</button>
+                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
+                            </div>
+                        </div>
+                        <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
+                    </div>
+                </div>}
         </>
     )
 }

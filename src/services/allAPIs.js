@@ -109,6 +109,11 @@ export const putStatusListAPI = async(reqBody,reqHeader)=>{
     return await commonAPI("put",`${serverURL}/put-status-list`,reqBody,reqHeader)
 }
 
+// put list
+export const putListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/edit-list`,reqBody,reqHeader)
+}
+
 // ...............................ADMIN.....................................
 
 // add shows

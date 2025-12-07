@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import { getPlanningListAPI, putStatusListAPI } from '../../services/allAPIs';
+import { getPlanningListAPI, putListAPI, putStatusListAPI } from '../../services/allAPIs';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -42,12 +42,13 @@ const Planning = () => {
     const [listData, setListData] = useState([])
     const [listCount, setListCount] = useState(0)
     const [loading, setLoading] = useState(true)
+    const [editData, setEditData] = useState({})
     const [statusData, setStatusData] = useState({
         value: "",
         data: {}
     })
-    console.log(statusData);
-
+    console.log(editData);
+    
 
     const getList = async (value) => {
         const token = sessionStorage.getItem("token")
@@ -83,6 +84,16 @@ const Planning = () => {
 
     };
 
+    const handleEdit = async() =>{
+        setToggleList(false)
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await putListAPI(editData,reqHeader)
+        getList()
+    }
+
     useEffect(() => {
         getList()
         if (statusData.value != "") {
@@ -109,7 +120,10 @@ const Planning = () => {
                                                 <div>
                                                     <div className='flex justify-between items-center'>
                                                         <p className='text-white/60 me-2 mt-1 text-xs'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />{list.rating}/10</p>
-                                                        <button onClick={() => setToggleList(true)} className='text-xs underline text-blue-300 cursor-pointer'><em>Edit</em></button>
+                                                        <button onClick={() => {
+                                                            setToggleList(true)
+                                                            setEditData(list)
+                                                        }} className='text-xs underline text-blue-300 cursor-pointer'><em>Edit</em></button>
                                                     </div>
                                                     <p className='text-white/60 mt-1 text-xs'>Start Date : {new Date(list.sDate).toLocaleDateString("en-GB")}</p>
                                                     <p className='text-white/60 mt-1 text-xs'>End Date : {new Date(list.eDate).toLocaleDateString("en-GB")}</p>
@@ -205,7 +219,7 @@ const Planning = () => {
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
                                 {/* <label>Title:</label> */}
                                 {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
-                                <h2 className='text-xl font-bold'>Title</h2>
+                                <h2 className='text-xl font-bold'>{editData.title}</h2>
                             </div>
                             <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
@@ -213,11 +227,13 @@ const Planning = () => {
                                 </Typography>
                                 <Rating
                                     name="hover-feedback"
-                                    value={value}
+                                    value={editData.rating/2}
                                     precision={0.5}
+                                    max={5}
                                     getLabelText={getLabelText}
                                     onChange={(event, newValue) => {
                                         setValue(newValue);
+                                        setEditData({...editData,rating:event.target.value*2})
                                     }}
                                     onChangeActive={(event, newHover) => {
                                         setHover(newHover);
@@ -231,14 +247,14 @@ const Planning = () => {
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input id='sdate' type="date" className='ms-2' />
+                                <input value={editData.sDate.split("T")[0]} onChange={e=>setEditData({...editData,sDate:e.target.value})} id='sdate' type="date" className='ms-2' />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
-                                <input id='sdate' type="date" className='ms-2' />
+                                <input value={editData.eDate.split("T")[0]} onChange={e=>setEditData({...editData,eDate:e.target.value})} id='sdate' type="date" className='ms-2' />
                             </div>
                             <div className='py-10'>
-                                <button className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Edit</button>
+                                <button onClick={handleEdit} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Edit</button>
                                 <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
                             </div>
                         </div>
