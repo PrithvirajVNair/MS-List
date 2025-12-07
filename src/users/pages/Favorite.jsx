@@ -9,11 +9,9 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 const Favorite = () => {
 
 
-    const [favorite, setFavorite] = useState([])
-    const [toggleFavTemp, setToggleFavTemp] = useState(false) //this is temporary
-
     const [listData, setListData] = useState([])
     const [listCount, setListCount] = useState(0)
+    const [loading, setLoading] = useState(true)
 
 
     const getList = async (value) => {
@@ -24,6 +22,7 @@ const Favorite = () => {
         const result = await getFavListAPI(reqHeader, value)
         setListData(result.data.listData)
         setListCount(result.data.count)
+        setLoading(false)
     }
 
     const removeFromFav = async (data) => {
@@ -52,8 +51,9 @@ const Favorite = () => {
     return (
         <>
             <WatchlistCommon favorite count={listCount} onHandleSearch={getList} />
+
             <div className='min-h-screen bg-black text-white'>
-                {
+                {!loading ? (
                     listData?.length > 0 ?
                         <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
                             {
@@ -88,8 +88,13 @@ const Favorite = () => {
                         </div>
                         :
                         <div className='flex justify-center items-center'>
-                            <p className='text-red-400 text-2xl font-bold'>No Favorite Shows</p>
+                            <p className='text-red-400 sm:text-2xl font-bold'>No Favorite Shows</p>
                         </div>
+                )
+                    :
+                    <div className='flex justify-center items-center h-full'>
+                        <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUybHRsNGFzZnh0cWU4M2VkYWYzaXhpcHloaXl4YThtMWZyaXN2cG02byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7bu3XilJ5BOiSGic/200w.gif" alt="" style={{ width: '100px' }} />
+                    </div>
                 }
             </div>
             <ToastContainer

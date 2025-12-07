@@ -104,6 +104,11 @@ export const getDroppedListAPI = async(reqHeader,searchData)=>{
     return await commonAPI("get",`${serverURL}/get-dropped-list?search=${searchData}`,"",reqHeader)
 }
 
+// put status list
+export const putStatusListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/put-status-list`,reqBody,reqHeader)
+}
+
 // ...............................ADMIN.....................................
 
 // add shows
