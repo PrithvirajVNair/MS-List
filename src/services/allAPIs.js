@@ -31,6 +31,10 @@ export const getRecommendationAPI = async(id) => {
     return await commonAPI("get",`${serverURL}/recommendation/${id}`)
 }
 
+// update-score
+export const updateScoreAPI = async(reqBody) => {
+    return await commonAPI("put",`${serverURL}/update-score`,reqBody)
+}
 
 // ...............................USERS.....................................
 

@@ -87,7 +87,10 @@ const Dropped = () => {
             "Authorization": `Bearer ${token}`
         }
         const result = await putListAPI(editData, reqHeader)
-        getList()
+        if (result.status == 200) {
+            await updateScoreAPI(editData)
+            getList()
+        }
     }
 
     useEffect(() => {
@@ -105,7 +108,7 @@ const Dropped = () => {
                         <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
                             {
                                 listData?.length > 0 ?
-                                    listData?.map((list,index) => (
+                                    listData?.map((list, index) => (
                                         <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
                                             <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
                                                 <div className='aspect-2/3'>

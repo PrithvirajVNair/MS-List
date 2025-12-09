@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import { getPlanningListAPI, putListAPI, putStatusListAPI } from '../../services/allAPIs';
+import { getPlanningListAPI, putListAPI, putStatusListAPI, updateScoreAPI } from '../../services/allAPIs';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -48,7 +48,7 @@ const Planning = () => {
         data: {}
     })
     // console.log(editData);
-    
+
 
     const getList = async (value) => {
         const token = sessionStorage.getItem("token")
@@ -84,14 +84,19 @@ const Planning = () => {
 
     };
 
-    const handleEdit = async() =>{
+    const handleEdit = async () => {
         setToggleList(false)
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await putListAPI(editData,reqHeader)
-        getList()
+        const result = await putListAPI(editData, reqHeader)
+        console.log(result);
+        
+        if (result.status == 200) {
+            await updateScoreAPI(editData)
+            getList()
+        }
     }
 
     useEffect(() => {
@@ -111,7 +116,7 @@ const Planning = () => {
                         <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
                             {
                                 listData?.length > 0 ?
-                                    listData?.map((list,index) => (
+                                    listData?.map((list, index) => (
                                         <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
                                             <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
                                                 <div className='aspect-2/3'>
@@ -227,13 +232,13 @@ const Planning = () => {
                                 </Typography>
                                 <Rating
                                     name="hover-feedback"
-                                    value={editData.rating/2}
+                                    value={editData.rating / 2}
                                     precision={0.5}
                                     max={5}
                                     getLabelText={getLabelText}
                                     onChange={(event, newValue) => {
                                         setValue(newValue);
-                                        setEditData({...editData,rating:event.target.value*2})
+                                        setEditData({ ...editData, rating: event.target.value * 2 })
                                     }}
                                     onChangeActive={(event, newHover) => {
                                         setHover(newHover);
@@ -247,11 +252,11 @@ const Planning = () => {
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input value={editData.sDate.split("T")[0]} onChange={e=>setEditData({...editData,sDate:e.target.value})} id='sdate' type="date" className='ms-2' />
+                                <input value={editData.sDate.split("T")[0]} onChange={e => setEditData({ ...editData, sDate: e.target.value })} id='sdate' type="date" className='ms-2' />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
-                                <input value={editData.eDate.split("T")[0]} onChange={e=>setEditData({...editData,eDate:e.target.value})} id='sdate' type="date" className='ms-2' />
+                                <input value={editData.eDate.split("T")[0]} onChange={e => setEditData({ ...editData, eDate: e.target.value })} id='sdate' type="date" className='ms-2' />
                             </div>
                             <div className='py-10'>
                                 <button onClick={handleEdit} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Edit</button>

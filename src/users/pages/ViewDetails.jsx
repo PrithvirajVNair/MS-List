@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsis, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
@@ -11,10 +11,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { addCommentAPI, addToListAPI, deleteCommentAPI, getAShowAPI, getCommentAPI, getRecommendationAPI } from '../../services/allAPIs'
+import { addCommentAPI, addToListAPI, deleteCommentAPI, getAShowAPI, getCommentAPI, getRecommendationAPI, updateScoreAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -67,13 +67,14 @@ const ViewDetails = () => {
     const [commentButton, setCommentButton] = useState("hidden")
     const [allComments, setAllComments] = useState([])
     const [userMail, setUserMail] = useState("")
+    const [toggleTDot, setToggleTDot] = useState(null)
     console.log(allComments);
 
 
     const getAShow = async () => {
         const result = await getAShowAPI(id)
         setShow(result.data)
-        // console.log(result);
+        console.log(result);
         setLoading(false)
     }
 
@@ -101,6 +102,7 @@ const ViewDetails = () => {
             const result = await addToListAPI(listData, reqHeader)
             if (result.status == 200) {
                 toast.success("Sucessfully Added to Watchlist")
+                await updateScoreAPI(listData)
             }
             else if (result.status == 401) {
                 toast.warning(result.response.data)
@@ -127,18 +129,23 @@ const ViewDetails = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await addCommentAPI(comment, reqHeader)
-        // console.log(result);
-        if (result.status == 200) {
-            toast.success("Comment added")
-            setComment({
-                comment: ""
-            })
+        if (comment.comment == "") {
+            toast.info("Comment Should not be Empty!")
         }
         else {
-            toast.warning("Something Went Wrong! please try again later...")
+            const result = await addCommentAPI(comment, reqHeader)
+            // console.log(result);
+            if (result.status == 200) {
+                toast.success("Comment added")
+                setComment({
+                    comment: ""
+                })
+            }
+            else {
+                toast.warning("Something Went Wrong! please try again later...")
+            }
+            getComment()
         }
-        getComment()
     }
 
     const getComment = async () => {
@@ -148,15 +155,15 @@ const ViewDetails = () => {
 
     }
 
-    const handleDelete = async(cmtid) => {
-        const result = await deleteCommentAPI({id:cmtid})
+    const handleDelete = async (cmtid) => {
+        const result = await deleteCommentAPI({ id: cmtid })
         console.log(result);
-        
-        if(result.status == 200){
+
+        if (result.status == 200) {
             toast.success("Comment Deleted Successfully")
             getComment()
         }
-        else{
+        else {
             toast.warning("Something Went Wrong, Please Try Again")
         }
     }
@@ -210,7 +217,10 @@ const ViewDetails = () => {
                                             <button onClick={() => handleAddToList(show.title, show._id, show.imageUrl, show.genre)} className='me-10 text-xs sm:text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
                                         </div>
                                     </div>
-                                    <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                    <div>
+                                        <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                        <p className='text-white/60 ps-5 text-xs sm:text-sm'>Ratings by {show.scoreCount}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +259,7 @@ const ViewDetails = () => {
                         <h1 className='mt-10 text-base sm:px-0 px-5 sm:text-2xl'>Comments:</h1>
                         <div className='flex flex-col min-h-[400px] p-5 sm:p-10 border border-white/20'>
                             <div className='flex justify-start items-start w-full'>
-                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
+                                <img src={profile} alt="no image" className='me-5 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
                                 <div className='w-full flex flex-col justify-center items-end'>
                                     <input value={comment.comment} onChange={e => handleComment(e)} type="text" className='bg-white/10 py-1 px-2 text-white w-full rounded-xl placeholder:text-white/60 sm:text-base text-sm' placeholder='Write a comment' />
                                     <button onClick={addComment} className={`${commentButton} text-end bg-blue-600 mt-5 py-1 px-3 rounded cursor-pointer hover:bg-blue-700`}>Comment</button>
@@ -258,15 +268,28 @@ const ViewDetails = () => {
                             {
                                 allComments?.length > 0 ?
                                     allComments.map((cmt, index) => (
-                                        <div key={index} className='mt-10 flex'>
-                                            <img src={cmt.profile} alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
-                                            <div className='flex flex-col w-full'>
-                                                <div className='flex justify-between w-full'><h5 className='sm:text-base text-sm'>{cmt.username} <span className='text-white/60 text-xs ps-2'>{format(cmt.createdAt)}</span></h5>
-                                                    {cmt.userMail == userMail && (<button onClick={()=>handleDelete(cmt._id)} className='bg-red-400 px-2 rounded cursor-pointer hover:bg-red-500'>Delete</button>)}
+                                        <>
+                                            <div className='relative'>
+                                                <div key={index} className='mt-10 flex'>
+                                                    <img src={cmt.profile} alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
+                                                    <div className='flex flex-col w-full'>
+                                                        <div className='flex justify-between w-full'><h5 className='sm:text-base text-sm'>{cmt.username} <span className='text-white/60 text-xs ps-2'>{format(cmt.createdAt)}</span></h5>
+                                                            {<button onClick={() => setToggleTDot(toggleTDot ? null : cmt._id)} className='rounded cursor-pointer hover:bg-white/5'><FontAwesomeIcon icon={faEllipsis} /></button>}
+                                                        </div>
+                                                        <p className='mt-3 sm:text-base text-xs'>{cmt.comment}</p>
+                                                    </div>
                                                 </div>
-                                                <p className='mt-3 sm:text-base text-xs'>{cmt.comment}</p>
+                                                {
+                                                    toggleTDot == cmt._id &&
+                                                    <div className='absolute right-10 top-0 translate-y-full flex flex-col'>
+                                                        {cmt.userMail == userMail ? <button className='bg-white/20 px-2 rounded-t-md cursor-pointer hover:bg-white/30'>Report</button> :
+                                                            <button className='bg-white/20 px-2 rounded-md cursor-pointer hover:bg-white/30'>Report</button>
+                                                        }
+                                                        {cmt.userMail == userMail && (<button onClick={() => handleDelete(cmt._id)} className='bg-red-400 px-2 rounded-b-md cursor-pointer hover:bg-red-500'>Delete</button>)}
+                                                    </div>}
                                             </div>
-                                        </div>
+
+                                        </>
                                     ))
                                     :
                                     <p>No Comments</p>
