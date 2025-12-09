@@ -114,6 +114,21 @@ export const putListAPI = async(reqBody,reqHeader)=>{
     return await commonAPI("put",`${serverURL}/edit-list`,reqBody,reqHeader)
 }
 
+// add comment
+export const addCommentAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("post",`${serverURL}/add-comment`,reqBody,reqHeader)
+}
+
+// get comment
+export const getCommentAPI = async(reqBody)=>{
+    return await commonAPI("post",`${serverURL}/get-comment`,reqBody)
+}
+
+// delete comment
+export const deleteCommentAPI = async(reqBody)=>{
+    return await commonAPI("delete",`${serverURL}/delete-comment`,reqBody)
+}
+
 // ...............................ADMIN.....................................
 
 // add shows

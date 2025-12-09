@@ -11,8 +11,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {jwtDecode} from "jwt-decode";
+import { format } from "timeago.js";
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { addToListAPI, getAShowAPI, getRecommendationAPI } from '../../services/allAPIs'
+import { addCommentAPI, addToListAPI, deleteCommentAPI, getAShowAPI, getCommentAPI, getRecommendationAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -37,9 +39,7 @@ const ViewDetails = () => {
     const [age, setAge] = React.useState('');
     const [value, setValue] = React.useState(0);
     const [hover, setHover] = React.useState(-1);
-
     const { id } = useParams()
-
     const [show, setShow] = useState({})
     const [recommendation, setRecommendation] = useState([])
     const [loading, setLoading] = useState(true)
@@ -54,7 +54,21 @@ const ViewDetails = () => {
         genre: "",
         imageUrl: "",
     })
-    // console.log(listData);
+    const [comment, setComment] = useState({
+        showId: "",
+        profile: "",
+        username: "",
+        comment: ""
+    })
+    console.log(comment);
+
+    const [username, setUsername] = useState("")
+    const [profile, setProfile] = useState("")
+    const [commentButton, setCommentButton] = useState("hidden")
+    const [allComments, setAllComments] = useState([])
+    const [userMail, setUserMail] = useState("")
+    console.log(allComments);
+
 
     const getAShow = async () => {
         const result = await getAShowAPI(id)
@@ -85,13 +99,13 @@ const ViewDetails = () => {
         }
         else {
             const result = await addToListAPI(listData, reqHeader)
-            if(result.status == 200){
-            toast.success("Sucessfully Added to Watchlist")
+            if (result.status == 200) {
+                toast.success("Sucessfully Added to Watchlist")
             }
-            else if(result.status == 401){
+            else if (result.status == 401) {
                 toast.warning(result.response.data)
             }
-            else{
+            else {
                 toast.warning("Something Went Wrong, please try again later")
             }
             // console.log(result);
@@ -99,13 +113,68 @@ const ViewDetails = () => {
 
     }
 
+    const handleComment = (event) => {
+        if (event.target.value != "") {
+            setCommentButton("block")
+        }
+        else {
+            setCommentButton("hidden")
+        }
+        setComment({ ...comment, username: username, profile: profile, comment: event.target.value, showId: id })
+    }
+
+    const addComment = async () => {
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await addCommentAPI(comment, reqHeader)
+        // console.log(result);
+        if (result.status == 200) {
+            toast.success("Comment added")
+            setComment({
+                comment: ""
+            })
+        }
+        else {
+            toast.warning("Something Went Wrong! please try again later...")
+        }
+        getComment()
+    }
+
+    const getComment = async () => {
+        const result = await getCommentAPI({ id })
+        setAllComments(result.data)
+        // console.log(result);
+
+    }
+
+    const handleDelete = async(cmtid) => {
+        const result = await deleteCommentAPI({id:cmtid})
+        console.log(result);
+        
+        if(result.status == 200){
+            toast.success("Comment Deleted Successfully")
+            getComment()
+        }
+        else{
+            toast.warning("Something Went Wrong, Please Try Again")
+        }
+    }
+
     useEffect(() => {
         if (sessionStorage.getItem("token")) {
             const token = sessionStorage.getItem("token")
             setToken(token)
+            const decoded = jwtDecode(token);
+            console.log(decoded);
+
+            setUserMail(decoded.userMail);
         }
+        setUsername(sessionStorage.getItem("username"))
+        setProfile(sessionStorage.getItem("profile"))
         getAShow()
         getRecommendation()
+        getComment()
         window.scrollTo(0, 0);
     }, [id])
 
@@ -140,14 +209,6 @@ const ViewDetails = () => {
                                         <div>
                                             <button onClick={() => handleAddToList(show.title, show._id, show.imageUrl, show.genre)} className='me-10 text-xs sm:text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>
                                         </div>
-                                        {/* { toggleList &&
-                                <div className='flex flex-col border bg-blue-300/10 text-center rounded backdrop-blur-2xl px-5 py-3'>
-                                <span className='hover:text-blue-300 cursor-pointer'>Planning</span>
-                                <span className='hover:text-blue-300 cursor-pointer'>Watching</span>
-                                <span className='hover:text-blue-300 cursor-pointer'>On Hold</span>
-                                <span className='hover:text-blue-300 cursor-pointer'>Completed</span>
-                                <span className='hover:text-blue-300 cursor-pointer'>Dropped</span>
-                            </div>} */}
                                     </div>
                                     <p className='text-white/60 me-2 mt-1 text-sm sm:text-xl ps-5'>Rating: <FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
                                 </div>
@@ -160,7 +221,7 @@ const ViewDetails = () => {
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
                                     recommendation?.length > 0 ?
-                                        recommendation?.map((shows,index) => (
+                                        recommendation?.map((shows, index) => (
                                             <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
                                                 <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                                     <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
@@ -189,15 +250,27 @@ const ViewDetails = () => {
                         <div className='flex flex-col min-h-[400px] p-5 sm:p-10 border border-white/20'>
                             <div className='flex justify-start items-start w-full'>
                                 <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-5 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
-                                <input type="text" className='bg-white/10 py-1 px-2 text-white w-full rounded-xl placeholder:text-white/60 sm:text-base text-sm' placeholder='Write a comment' />
-                            </div>
-                            <div className='mt-10 flex'>
-                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
-                                <div className='flex flex-col'>
-                                    <h5 className='sm:text-base text-sm'>Name</h5>
-                                    <p className='mt-3 sm:text-base text-sm'>hello</p>
+                                <div className='w-full flex flex-col justify-center items-end'>
+                                    <input value={comment.comment} onChange={e => handleComment(e)} type="text" className='bg-white/10 py-1 px-2 text-white w-full rounded-xl placeholder:text-white/60 sm:text-base text-sm' placeholder='Write a comment' />
+                                    <button onClick={addComment} className={`${commentButton} text-end bg-blue-600 mt-5 py-1 px-3 rounded cursor-pointer hover:bg-blue-700`}>Comment</button>
                                 </div>
                             </div>
+                            {
+                                allComments?.length > 0 ?
+                                    allComments.map((cmt, index) => (
+                                        <div key={index} className='mt-10 flex'>
+                                            <img src={cmt.profile} alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
+                                            <div className='flex flex-col w-full'>
+                                                <div className='flex justify-between w-full'><h5 className='sm:text-base text-sm'>{cmt.username} <span className='text-white/60 text-xs ps-2'>{format(cmt.createdAt)}</span></h5>
+                                                    {cmt.userMail == userMail && (<button onClick={()=>handleDelete(cmt._id)} className='bg-red-400 px-2 rounded cursor-pointer hover:bg-red-500'>Delete</button>)}
+                                                </div>
+                                                <p className='mt-3 sm:text-base text-xs'>{cmt.comment}</p>
+                                            </div>
+                                        </div>
+                                    ))
+                                    :
+                                    <p>No Comments</p>
+                            }
                         </div>
                     </div>
                     :
@@ -229,7 +302,7 @@ const ViewDetails = () => {
                                     getLabelText={getLabelText}
                                     onChange={(e, newValue) => {
                                         setValue(newValue);
-                                        setListData({ ...listData, rating: e.target.value*2 })
+                                        setListData({ ...listData, rating: e.target.value * 2 })
                                     }}
                                     onChangeActive={(event, newHover) => {
                                         setHover(newHover);
