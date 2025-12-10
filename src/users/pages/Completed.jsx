@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import { useEffect } from 'react';
-import { getCompletedListAPI, putListAPI, putStatusListAPI } from '../../services/allAPIs';
+import { getCompletedListAPI, putListAPI, putStatusListAPI, updateScoreAPI } from '../../services/allAPIs';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';

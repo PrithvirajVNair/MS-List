@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-import { getOnHoldListAPI, putListAPI, putStatusListAPI } from '../../services/allAPIs';
+import { getOnHoldListAPI, putListAPI, putStatusListAPI, updateScoreAPI } from '../../services/allAPIs';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Typography from '@mui/material/Typography';

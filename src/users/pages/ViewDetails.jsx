@@ -328,7 +328,7 @@ const ViewDetails = () => {
                                         setListData({ ...listData, rating: e.target.value * 2 })
                                     }}
                                     onChangeActive={(event, newHover) => {
-                                        setHover(newHover);
+                                        setHover(newHover*2);
                                     }}
                                     emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                                     className='ms-2'
