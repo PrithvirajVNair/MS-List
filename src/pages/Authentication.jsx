@@ -123,10 +123,10 @@ const Authentication = ({ register }) => {
     }
 
     return (
-        <div className='bg-black text-white h-screen'>
-            <div className='grid grid-cols-12 h-screen'>
+        <div className='bg-black text-white h-screen flex justify-center items-center'>
+            <div className='grid grid-cols-12 w-full'>
                 <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
-                <div className='rounded sm:my-5 sm:py-0 py-5 flex justify-center items-center flex-col bg-white/10 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                <div className='rounded sm:my-5 py-5 flex justify-center items-center flex-col bg-white/10 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
                     <h2 className='text-2xl font-bold mb-5'><span className='text-blue-600'>MS</span> List</h2>
                     <h2 className='sm:text-2xl text-xl'>{register ? "Create a New Account" : "Welcome Back"}</h2>
                     <p className='text-white/60 sm:px-0 px-5 text-center sm:text-base text-sm'>{register ? 'Register to MS List and Create your Watchlist' : 'Sign In to MS List and Create your Watchlist'}</p>

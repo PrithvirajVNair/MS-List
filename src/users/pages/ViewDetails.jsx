@@ -292,7 +292,10 @@ const ViewDetails = () => {
                                         </>
                                     ))
                                     :
-                                    <p>No Comments</p>
+                                    <div className='flex flex-1 justify-center items-center'>
+                                        <p>✨ Be the first to drop a comment!</p>
+                                    </div>
+                                   
                             }
                         </div>
                     </div>
@@ -303,17 +306,17 @@ const ViewDetails = () => {
             }
             {
                 toggleList &&
-                <div className='fixed inset-0 bg-black/80 text-black h-screen'>
-                    <div className='grid sm:grid-cols-12 py-15 h-screen'>
+                <div className='fixed inset-0 text-black bg-black/50 h-screen flex justify-center items-center'>
+                    <div className='grid sm:grid-cols-12 py-15 w-full'>
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
-                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/90 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                        <div className='rounded-xl flex flex-col justify-center items-center text-white bg-white/1 backdrop-blur-xl py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 text-center'>
                             <h2 className='text-xl sm:text-2xl py-10'>Add to <span className='text-blue-600'>Watchlist</span></h2>
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
                                 {/* <label>Title:</label> */}
                                 {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
                                 <h2 className='text-2xl font-bold'>{show.title}</h2>
                             </div>
-                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
                                     Rating:
                                 </Typography>
@@ -328,27 +331,42 @@ const ViewDetails = () => {
                                         setListData({ ...listData, rating: e.target.value * 2 })
                                     }}
                                     onChangeActive={(event, newHover) => {
-                                        setHover(newHover*2);
+                                        setHover(newHover * 2);
                                     }}
-                                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                    emptyIcon={<StarIcon style={{ opacity: 0.55, color: 'white' }} fontSize="inherit" />}
                                     className='ms-2'
                                 />
-                                {value !== null && (
+                                {/* {value !== null && (
                                     <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                                )}
+                                )} */}
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" className='ms-2' />
+                                <input className="ms-2 date-icon-white" value={listData.sDate || today } onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
-                                <input onChange={e => setListData({ ...listData, eDate: e.target.value })} id='sdate' type="date" className='ms-2' />
+                                <input onChange={e => setListData({ ...listData, eDate: e.target.value })} id='sdate' type="date" className='ms-2 date-icon-white' />
                             </div>
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                                    <InputLabel id="demo-simple-select-label" sx={{color:'white'}} >Status</InputLabel>
                                     <Select
+                                        sx={{
+                                            color: "white",
+                                            "& .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "white"
+                                            },
+                                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "white"
+                                            },
+                                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "white"
+                                            },
+                                            ".MuiSvgIcon-root": {
+                                                color: "white"
+                                            }
+                                        }}
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={listData.status}
@@ -364,8 +382,8 @@ const ViewDetails = () => {
                                 </FormControl>
                             </Box>
                             <div className='py-10'>
-                                <button onClick={addToList} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Add</button>
-                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
+                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm w-[100px]'>Cancel</button>
+                                <button onClick={addToList} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 ms-3 sm:text-base text-sm w-[100px]'>Add</button>
                             </div>
                         </div>
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>

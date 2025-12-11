@@ -203,19 +203,18 @@ const Watching = () => {
                         </div>}
             </div>
 
+            {/* below is edit list option for rating,date etc... */}
             {
                 toggleList &&
-                <div className='fixed inset-0 bg-black/80 text-black h-screen'>
-                    <div className='grid sm:grid-cols-12 py-15 h-screen'>
+                <div className='fixed inset-0 bg-black/50 text-black h-screen flex justify-center items-center'>
+                    <div className='grid sm:grid-cols-12 py-15 w-full'>
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
-                        <div className='border rounded-xl flex flex-col justify-center items-center bg-white/60 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                        <div className='text-center rounded-xl flex flex-col justify-center items-center text-white bg-white/10  backdrop-blur-xl py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
                             <h2 className='text-xl sm:text-2xl py-10'>Edit <span className='text-blue-600'>Watchlist</span></h2>
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
-                                {/* <label>Title:</label> */}
-                                {/* <input type="text" readOnly className='bg-white ms-2 w-full py-1 px-2 placeholder:text-black/60 text-black' placeholder='Title' /> */}
                                 <h2 className='text-xl font-bold'>{editData.title}</h2>
                             </div>
-                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }} className='py-5 px-10'>
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent:'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
                                     Rating:
                                 </Typography>
@@ -241,15 +240,15 @@ const Watching = () => {
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input value={editData.sDate.split("T")[0]} onChange={e => setEditData({ ...editData, sDate: e.target.value })} id='sdate' type="date" className='ms-2' />
+                                <input value={editData.sDate.split("T")[0]} onChange={e => setEditData({ ...editData, sDate: e.target.value })} id='sdate' type="date" className='ms-2 date-icon-white' />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
-                                <input value={editData.eDate.split("T")[0]} onChange={e => setEditData({ ...editData, eDate: e.target.value })} id='sdate' type="date" className='ms-2' />
+                                <input value={editData.eDate.split("T")[0]} onChange={e => setEditData({ ...editData, eDate: e.target.value })} id='sdate' type="date" className='ms-2 date-icon-white' />
                             </div>
                             <div className='py-10'>
-                                <button onClick={handleEdit} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 me-3 sm:text-base text-sm'>Edit</button>
-                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm'>Cancel</button>
+                                <button onClick={() => setToggleList(false)} className='py-1 px-5 bg-orange-600 text-white rounded-2xl hover:text-orange-600 hover:bg-white border border-orange-600 sm:text-base text-sm w-[100px]'>Cancel</button>
+                                <button onClick={handleEdit} className='py-1 px-5 bg-blue-600 text-white rounded-2xl hover:text-blue-600 hover:bg-white border border-blue-600 ms-3 sm:text-base text-sm w-[100px]'>Edit</button>
                             </div>
                         </div>
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
