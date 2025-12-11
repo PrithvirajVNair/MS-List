@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsis, faStar } from '@fortawesome/free-solid-svg-icons'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
@@ -60,7 +60,7 @@ const ViewDetails = () => {
         username: "",
         comment: ""
     })
-    console.log(comment);
+    console.log(listData);
 
     const [username, setUsername] = useState("")
     const [profile, setProfile] = useState("")
@@ -68,6 +68,7 @@ const ViewDetails = () => {
     const [allComments, setAllComments] = useState([])
     const [userMail, setUserMail] = useState("")
     const [toggleTDot, setToggleTDot] = useState(null)
+    const navigate = useNavigate()
     console.log(allComments);
 
 
@@ -176,6 +177,8 @@ const ViewDetails = () => {
             console.log(decoded);
 
             setUserMail(decoded.userMail);
+        } else {
+            navigate('/login')
         }
         setUsername(sessionStorage.getItem("username"))
         setProfile(sessionStorage.getItem("profile"))
@@ -295,7 +298,7 @@ const ViewDetails = () => {
                                     <div className='flex flex-1 justify-center items-center'>
                                         <p>✨ Be the first to drop a comment!</p>
                                     </div>
-                                   
+
                             }
                         </div>
                     </div>
@@ -342,7 +345,7 @@ const ViewDetails = () => {
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input className="ms-2 date-icon-white" value={listData.sDate || today } onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" />
+                                <input className="ms-2 date-icon-white" value={listData.sDate || today} onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
@@ -350,7 +353,7 @@ const ViewDetails = () => {
                             </div>
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label" sx={{color:'white'}} >Status</InputLabel>
+                                    <InputLabel id="demo-simple-select-label" sx={{ color: 'white' }} >Status</InputLabel>
                                     <Select
                                         sx={{
                                             color: "white",

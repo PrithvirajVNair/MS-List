@@ -8,11 +8,14 @@ import Box from '@mui/material/Box'
 import Select from '@mui/material/Select'
 import { addShowAPI, deleteShowAPI, getAdminShowAPI, getShowAPI } from '../../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 const AdminContents = () => {
 
   const [toggleContent, setToggleContent] = useState(false)
   const [shows, setShows] = useState([])
+  const navigate = useNavigate()
 
   const [addShow, setAddShow] = useState({
     title: "",
@@ -32,13 +35,13 @@ const AdminContents = () => {
     setShows(result.data)
   }
 
-    const handleDelete = async(id) =>{
-      // console.log(id);
-      const result = await deleteShowAPI({id})
-      // console.log(result);
-      
-      getShow()
-    }
+  const handleDelete = async (id) => {
+    // console.log(id);
+    const result = await deleteShowAPI({ id })
+    // console.log(result);
+
+    getShow()
+  }
 
   const handleCancel = () => {
     setToggleContent(false)
@@ -55,7 +58,7 @@ const AdminContents = () => {
   }
 
   const handleAdd = async () => {
-    const {title,language,category,description,genre,imageUrl} = addShow
+    const { title, language, category, description, genre, imageUrl } = addShow
     if (!title || !language || !category || !description || !genre || !imageUrl) {
       toast.warning("Fill the Details")
     }
@@ -63,21 +66,32 @@ const AdminContents = () => {
       const result = await addShowAPI(addShow)
       console.log(result);
       setAddShow({
-      title: "",
-      language: "",
-      category: "",
-      description: "",
-      summary: "",
-      genre: [],
-      imageUrl: ""
-    }
-    )
+        title: "",
+        language: "",
+        category: "",
+        description: "",
+        summary: "",
+        genre: [],
+        imageUrl: ""
+      }
+      )
       setToggleContent(false)
       getShow()
     }
   }
 
   useEffect(() => {
+    if (sessionStorage.getItem('token')) {
+      const token = sessionStorage.getItem('token')
+      const details = jwtDecode(token)
+      if (details.userMail != "mslistadmin@gmail.com") {
+        navigate('/youhavenoaccess')
+      }
+
+    }
+    else {
+      navigate('/login')
+    }
     getShow()
   }, [])
 
@@ -117,7 +131,7 @@ const AdminContents = () => {
                           </div>
                           <div className='flex justify-end'>
                             <button className='border bg-orange-500 py-1 px-2 rounded-lg me-3'>Edit</button>
-                            <button onClick={()=>handleDelete(items._id)} className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                            <button onClick={() => handleDelete(items._id)} className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                           </div>
                         </div>
                       </div>

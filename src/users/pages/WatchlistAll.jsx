@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import WatchlistCommon from '../components/WatchlistCommon'
 import { addFavListAPI, getFavListAPI, getListAPI, removeFavListAPI } from '../../services/allAPIs';
 import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { useNavigate } from 'react-router-dom';
 
 const WatchlistAll = () => {
 
@@ -12,6 +13,8 @@ const WatchlistAll = () => {
     const [listData, setListData] = useState([])
     const [listCount, setListCount] = useState(0)
     const [loading, setLoading] = useState(true)
+    const [token, setToken] = useState("")
+    const navigate = useNavigate()
 
 
     const getList = async (value) => {
@@ -63,6 +66,12 @@ const WatchlistAll = () => {
 
     useEffect(() => {
         getList()
+        if (sessionStorage.getItem("token")) {
+            const token = sessionStorage.getItem("token")
+            setToken(token)
+        } else {
+                navigate('/login')
+        }
 
     }, [])
 
@@ -75,7 +84,7 @@ const WatchlistAll = () => {
                         <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
                             {
                                 listData?.length > 0 ?
-                                    listData?.map((list,index) => (
+                                    listData?.map((list, index) => (
                                         <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
                                             <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
                                                 <div className='aspect-2/3'>

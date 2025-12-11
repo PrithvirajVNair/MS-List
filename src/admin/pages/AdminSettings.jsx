@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../components/SideBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 const AdminSettings = () => {
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) {
+      const token = sessionStorage.getItem('token')
+      const details = jwtDecode(token)
+      if (details.userMail != "mslistadmin@gmail.com") {
+        navigate('/youhavenoaccess')
+      }
+
+    }
+    else {
+      navigate('/login')
+    }
+  },[])
+
+
   return (
     <div className='bg-black text-white'>
       <div className='grid grid-cols-[1fr_4fr] min-h-screen'>

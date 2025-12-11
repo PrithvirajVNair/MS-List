@@ -62,10 +62,15 @@ const Authentication = ({ register }) => {
             console.log(result);
             if (result.data) {
                 sessionStorage.setItem("username", result.data.existingUser.username)
-                sessionStorage.setItem("token",result.data.token)
+                sessionStorage.setItem("token", result.data.token)
                 toast.success(`Successfully Logged In`)
                 setTimeout(() => {
-                    navigate('/home')
+                    if (result.data.existingUser.email == "mslistadmin@gmail.com") {
+                        navigate('/admin-dashboard')
+                    }
+                    else {
+                        navigate('/home')
+                    }
                 }, 3000)
             }
             else if (result.status == 401) {
@@ -94,10 +99,10 @@ const Authentication = ({ register }) => {
         console.log(result);
         if (result.data) {
             sessionStorage.setItem("username", result.data.existingUser.username)
-            sessionStorage.setItem("token",result.data.token)
+            sessionStorage.setItem("token", result.data.token)
             // below if is temporary
             if (result.data.existingUser.profile) {
-                sessionStorage.setItem("profile", result.data.existingUser.profile) 
+                sessionStorage.setItem("profile", result.data.existingUser.profile)
             }
             toast.success(`Successfully Logged In`)
             setTimeout(() => {

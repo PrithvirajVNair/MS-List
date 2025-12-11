@@ -14,6 +14,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { getPlanningListAPI, putListAPI, putStatusListAPI, updateScoreAPI } from '../../services/allAPIs';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -49,7 +50,8 @@ const Planning = () => {
     })
     // console.log(editData);
 
-
+    const [token, setToken] = useState("")
+    const navigate = useNavigate()
     const getList = async (value) => {
         const token = sessionStorage.getItem("token")
         const reqHeader = {
@@ -92,7 +94,7 @@ const Planning = () => {
         }
         const result = await putListAPI(editData, reqHeader)
         console.log(result);
-        
+
         if (result.status == 200) {
             await updateScoreAPI(editData)
             getList()
@@ -103,6 +105,12 @@ const Planning = () => {
         getList()
         if (statusData.value != "") {
             changeStatus()
+        }
+        if (sessionStorage.getItem("token")) {
+            const token = sessionStorage.getItem("token")
+            setToken(token)
+        } else {
+            navigate('/login')
         }
     }, [statusData])
 
@@ -224,7 +232,7 @@ const Planning = () => {
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
                                 <h2 className='text-xl font-bold'>{editData.title}</h2>
                             </div>
-                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent:'center' }} className='py-5 px-10'>
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
                                     Rating:
                                 </Typography>

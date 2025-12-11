@@ -13,6 +13,7 @@ import { getDroppedListAPI, putListAPI, putStatusListAPI, updateScoreAPI } from 
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
+import { useNavigate } from 'react-router-dom';
 
 
 const labels = {
@@ -45,6 +46,8 @@ const Dropped = () => {
         value: "",
         data: {}
     })
+    const [token, setToken] = useState("")
+    const navigate = useNavigate()
 
     const getList = async (value) => {
         const token = sessionStorage.getItem("token")
@@ -97,6 +100,12 @@ const Dropped = () => {
         getList()
         if (statusData.value != "") {
             changeStatus()
+        }
+        if (sessionStorage.getItem("token")) {
+            const token = sessionStorage.getItem("token")
+            setToken(token)
+        } else {
+            navigate('/login')
         }
     }, [statusData])
     return (
@@ -213,7 +222,7 @@ const Dropped = () => {
                             <div className='flex w-full px-10 justify-center items-center sm:text-base text-sm'>
                                 <h2 className='text-xl font-bold'>{editData.title}</h2>
                             </div>
-                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent:'center' }} className='py-5 px-10'>
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='py-5 px-10'>
                                 <Typography variant='label' className='sm:text-base text-sm'>
                                     Rating:
                                 </Typography>

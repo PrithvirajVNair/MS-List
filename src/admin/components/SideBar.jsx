@@ -19,6 +19,7 @@ const SideBar = ({overview,users,contents,settings}) => {
       navigate('/admin-settings')
     }
     else if(data=="logout"){
+      sessionStorage.clear()
       navigate('/login')
     }
   }

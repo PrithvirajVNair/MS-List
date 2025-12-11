@@ -1,29 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import SideBar from '../components/SideBar'
 import { deleteUserAPI, getUsersAPI } from '../../services/allAPIs'
+import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 const AdminUsers = () => {
 
-  const [users,setUsers] = useState([])
+  const [users, setUsers] = useState([])
+  const navigate = useNavigate()
 
-  const getUsers = async() => {
+  const getUsers = async () => {
     const result = await getUsersAPI()
     console.log(result);
-    
+
     setUsers(result.data.allUsers)
   }
 
-  const handleDelete = async(id) =>{
+  const handleDelete = async (id) => {
     // console.log(id);
-    const result = await deleteUserAPI({id})
+    const result = await deleteUserAPI({ id })
     // console.log(result);
-    
+
     getUsers()
   }
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) {
+      const token = sessionStorage.getItem('token')
+      const details = jwtDecode(token)
+      if (details.userMail != "mslistadmin@gmail.com") {
+        navigate('/youhavenoaccess')
+      }
+
+    }
+    else {
+      navigate('/login')
+    }
     getUsers()
-  },[])
+  }, [])
 
   return (
     <div className='bg-black text-white'>
@@ -40,26 +54,26 @@ const AdminUsers = () => {
               {/* card */}
               {
                 users?.length > 0 ?
-                users?.map((items)=>(
-                  <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-auto'>
-                <div className='p-5 h-full'>
-                  <div className='flex'>
-                    <img src={items.profile} alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
-                    <div>
-                      <p className='text-red-500'>ID : {items._id}</p>
-                      <p className='text-blue-500'>Name : {items.username}</p>
+                  users?.map((items) => (
+                    <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-auto'>
+                      <div className='p-5 h-full'>
+                        <div className='flex'>
+                          <img src={items.profile} alt="no image" className='me-5 cursor-pointer' style={{ widows: '50px', height: '50px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} />
+                          <div>
+                            <p className='text-red-500'>ID : {items._id}</p>
+                            <p className='text-blue-500'>Name : {items.username}</p>
+                          </div>
+                        </div>
+                        <p className='pt-2'>Email : {items.email}</p>
+                        <div className='flex justify-between items-end py-5'>
+                          <button className='bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
+                          <button onClick={() => handleDelete(items._id)} className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <p className='pt-2'>Email : {items.email}</p>
-                  <div className='flex justify-between items-end py-5'>
-                    <button className='bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                    <button onClick={()=>handleDelete(items._id)} className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
-                  </div>
-                </div>
-              </div>
-                ))
-              :
-              <p>No Users</p>
+                  ))
+                  :
+                  <p>No Users</p>
               }
               {/* <div className='bg-white/10 h-[200px] m-2 rounded-2xl overflow-hidden'>
                 <div className='p-5 h-full'>

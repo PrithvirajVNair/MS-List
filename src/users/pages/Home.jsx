@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import cbg from '../../assets/IM2024001_Yu-crop.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getPopularShowAPI, getRecentShowAPI } from '../../services/allAPIs'
 
 const Home = () => {
@@ -19,6 +19,7 @@ const Home = () => {
     const [recentShows, setRecentShows] = useState([])
     const [PopularShows, setPopularShows] = useState([])
     const [loading, setLoading] = useState(true)
+    const [token, setToken] = useState("")
 
     const getShows = async () => {
         const recentResult = await getRecentShowAPI()
@@ -33,6 +34,10 @@ const Home = () => {
 
     useEffect(() => {
         getShows()
+        if(sessionStorage.getItem("token")){
+            const token = sessionStorage.getItem("token")
+            setToken(token)
+        }
     }, [])
 
     return (
