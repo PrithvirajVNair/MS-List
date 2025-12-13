@@ -53,6 +53,11 @@ export const getAShowAPI = async(id)=>{
     return await commonAPI("get",`${serverURL}/details/${id}`)
 }
 
+//get a show
+export const getAUserAPI = async(email,reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/get-a-user?email=${email}`,"",reqHeader)
+}
+
 // get show based on category/language
 export const getCategoryShowAPI = async(searchData,category)=>{
     return await commonAPI("get",`${serverURL}/category/${category}?search=${searchData}`)

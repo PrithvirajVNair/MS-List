@@ -1,26 +1,42 @@
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import { jwtDecode } from 'jwt-decode'
+import { userProfileUpdateContext } from '../../context/ContextShare'
+import { getAUserAPI } from '../../services/allAPIs'
 
 const Profile = () => {
-    const [userLocal, setUserLocal] = useState(sessionStorage.getItem("username"))
-    const [userProfile, setUserProfile] = useState(sessionStorage.getItem("profile")) // this is actually temporary
+    const [userData, setUserData] = useState({})
     const [token, setToken] = useState("")
     const navigate = useNavigate()
+    console.log(userData);
+    const { setUserContextProfile } = useContext(userProfileUpdateContext)
+
+    const getProfile = async (email) => {
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        console.log(email);
+
+        const result = await getAUserAPI(email, reqHeader)
+        console.log(result);
+        setUserData(result.data)
+    }
 
     useEffect(() => {
-        if (!userProfile) {
-            setUserProfile("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png")
-        }
         if (sessionStorage.getItem("token")) {
+            const userData = jwtDecode(sessionStorage.getItem("token"))
             const token = sessionStorage.getItem("token")
+            setUserContextProfile(userData)
             setToken(token)
+            getProfile(userData.userMail)
         } else {
             navigate('/login')
         }
-    })
+    }, [])
 
     return (
         <>
@@ -31,16 +47,24 @@ const Profile = () => {
                     <div className='col-span-5 p-10 rounded bg-white/10'>
                         <div className='lg:grid grid-cols-5'>
                             <div className='relative flex flex-col justify-center items-center'>
-                                <div className='flex'>
-                                    <img src={userProfile} alt="no image" className='p-3' style={{ widows: '150px', height: '150px', borderRadius: '50%' }} />
+                                <div className='flex justify-center items-center flex-col'>
+                                    <img src={userData.profile} alt="no image" className='p-3' style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
                                     <label htmlFor="edit-profile" className='absolute right-0 cursor-pointer'><FontAwesomeIcon icon={faPenToSquare} />
                                         <input type="file" id='edit-profile' className='hidden' />
                                     </label>
                                 </div>
-                                <h2 className='text-start'>{userLocal}</h2>
+                                <div className='flex'>
+                                    <h2 className='text-start'>{userData.username}</h2>
+                                    <div className='relative group ms-2'>
+                                        <span className={`text-blue-500 ${userData.verified ? 'inline-block' : 'hidden'} group`}><FontAwesomeIcon icon={faCircleCheck} /></span>
+                                        <span className={`absolute mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50 ${userData.verified ? 'inline-block' : 'hidden'} `}>
+                                            Verified
+                                        </span>
+                                    </div>
+                                </div>
                                 <div className='rounded-xl w-full flex flex-col justify-center items-center bg-white/10 p-2'>
                                     <h2 className='text-white/60'>BIO:</h2>
-                                    <p className='text-center text-xs'>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <p className='text-center text-xs'>{userData.bio}</p>
 
                                 </div>
                             </div>

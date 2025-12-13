@@ -1,12 +1,17 @@
 import { faBars, faBug, faCircleUser, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { userProfileUpdateContext } from '../../context/ContextShare'
+import { jwtDecode } from 'jwt-decode'
 
 const Header = ({ home, watchlist, category, search, feedback }) => {
 
     const [toggleUser, setToggleUser] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
+    const { userContextProfile } = useContext(userProfileUpdateContext)
+    const [token, setToken] = useState("")
+    const [userData, setUserData] = useState({})
 
     // temparory below  till line 16
     // const [userProfileDef, setUserProfileDef] = useState("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png") // this is actually temporary
@@ -14,11 +19,13 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
 
 
     useEffect(() => {
-        if (!userProfile) {
-            setUserProfile("https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png")
+        if (sessionStorage.getItem("token")) {
+            const userData = jwtDecode(sessionStorage.getItem("token"))
+            const token = sessionStorage.getItem("token")
+            setUserData(userData)
+            setToken(token)
         }
-        console.log(userProfile);
-    })
+    }, [userContextProfile])
 
     const handleLogout = () => {
         sessionStorage.clear()
@@ -69,7 +76,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
-                    <li><img src={userProfile} alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
+                    <li><img src={userData.profile} alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
             </div>
 

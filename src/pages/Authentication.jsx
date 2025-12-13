@@ -61,7 +61,6 @@ const Authentication = ({ register }) => {
             const result = await loginAPI({ email, password })
             console.log(result);
             if (result.data) {
-                sessionStorage.setItem("username", result.data.existingUser.username)
                 sessionStorage.setItem("token", result.data.token)
                 toast.success(`Successfully Logged In`)
                 setTimeout(() => {
@@ -98,12 +97,7 @@ const Authentication = ({ register }) => {
         const result = await googleLoginAPI({ username: details.name, password: "googlePswd", email: details.email, photo: details.picture })
         console.log(result);
         if (result.data) {
-            sessionStorage.setItem("username", result.data.existingUser.username)
             sessionStorage.setItem("token", result.data.token)
-            // below if is temporary
-            if (result.data.existingUser.profile) {
-                sessionStorage.setItem("profile", result.data.existingUser.profile)
-            }
             toast.success(`Successfully Logged In`)
             setTimeout(() => {
                 navigate('/home')
