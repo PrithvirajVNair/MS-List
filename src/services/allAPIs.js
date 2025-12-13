@@ -44,6 +44,11 @@ export const getRecentShowAPI = async()=>{
 }
 
 //get popular shows
+export const getMostRatedShowAPI = async()=>{
+    return await commonAPI("get",`${serverURL}/most-rated-home`)
+}
+
+//get popular shows
 export const getPopularShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/popular-home`)
 }

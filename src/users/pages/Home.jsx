@@ -4,7 +4,7 @@ import cbg from '../../assets/IM2024001_Yu-crop.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { getPopularShowAPI, getRecentShowAPI } from '../../services/allAPIs'
+import { getMostRatedShowAPI, getPopularShowAPI, getRecentShowAPI } from '../../services/allAPIs'
 
 const Home = () => {
 
@@ -17,15 +17,21 @@ const Home = () => {
     // const currenntPageFirstIndex = 0 or 1
     // const visibleProducts = allproducts?.slice(currenntPageFirstIndex, currenntPageLastIndex)
     const [recentShows, setRecentShows] = useState([])
-    const [PopularShows, setPopularShows] = useState([])
+    const [popularShows, setPopularShows] = useState([])
+    const [mostRatedShows, setMostRatedShows] = useState([])
     const [loading, setLoading] = useState(true)
     const [token, setToken] = useState("")
+    console.log(popularShows);
+
 
     const getShows = async () => {
         const recentResult = await getRecentShowAPI()
+        const mostRatedResult = await getMostRatedShowAPI()
         const popularResult = await getPopularShowAPI()
 
+
         setRecentShows(recentResult.data)
+        setMostRatedShows(mostRatedResult.data)
         setPopularShows(popularResult.data)
         setLoading(false)
     }
@@ -34,7 +40,7 @@ const Home = () => {
 
     useEffect(() => {
         getShows()
-        if(sessionStorage.getItem("token")){
+        if (sessionStorage.getItem("token")) {
             const token = sessionStorage.getItem("token")
             setToken(token)
         }
@@ -77,72 +83,26 @@ const Home = () => {
                         <div className='sm:px-10 px-3 sm:mt-10'>
                             <h2 className='sm:text-2xl sm:pt-0 pt-5'>Popular:</h2>
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
-                                <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                    <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                        <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                                    </div>
-                                    <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                                    <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                        <p className='text-xs'>Summary</p>
-                                        <button className='absolute bottom-0 py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-[10px] sm:text-xs'>View Details</button>
-                                    </div>
-                                </div>
-                                <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                    <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                        <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                                    </div>
-                                    <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                                    <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                        <p className='text-xs'>Summary</p>
-                                        <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                    </div>
-                                </div>
-                                <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                    <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                        <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                                    </div>
-                                    <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                                    <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                        <p className='text-xs'>Summary</p>
-                                        <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                    </div>
-                                </div>
-                                <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                    <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                        <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                                    </div>
-                                    <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                                    <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                        <p className='text-xs'>Summary</p>
-                                        <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                    </div>
-                                </div>
-                                <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                    <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                        <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                                    </div>
-                                    <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                                    <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                        <p className='text-xs'>Summary</p>
-                                        <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                    </div>
-                                </div>
-                                <div className='bg-white/10 aspect-4/5  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                    <div className='m-2 aspect-3/3 overflow-hidden rounded-xl'>
-                                        <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <img className='w-full object-fill rounded-xl' src="https://m.media-amazon.com/images/I/91HjK3oSJwL._UF1000,1000_QL80_.jpg" alt="" />
-                                    </div>
-                                    <h5 className='px-3 sm:text-base text-xs'>TITLE</h5>
-                                    <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                        <p className='text-xs'>Summary</p>
-                                        <button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button>
-                                    </div>
-                                </div>
+                                {
+                                    popularShows?.map((show, index) => (
+                                        <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                            <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
+                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                                <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
+                                            </div>
+                                            <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
+                                            <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+                                                <p className='text-xs px-5 text-center overflow-auto'>{show.summary}</p>
+                                                <Link to={`/details/${show?._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
+                                            </div>
+                                            <Link to={`/details/${show?._id}`}>
+                                                <div className='block sm:hidden absolute inset-0'>
+
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
 
@@ -151,7 +111,7 @@ const Home = () => {
                             <h2 className='sm:text-2xl sm:pt-0 pt-5'>Most Rated:</h2>
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
-                                    PopularShows?.map((show,index) => (
+                                    mostRatedShows?.map((show, index) => (
                                         <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
                                             <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
@@ -178,7 +138,7 @@ const Home = () => {
                             <h2 className='sm:text-2xl sm:pt-0 pt-5'>Recently Added:</h2>
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
-                                    recentShows?.map((show,index) => (
+                                    recentShows?.map((show, index) => (
                                         <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
                                             <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
                                                 <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>

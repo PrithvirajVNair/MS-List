@@ -6,6 +6,7 @@ html,body {
   padding: 0px;
   scroll-behavior: smooth;
   min-width: 320px;
+  font-family: "Inter", sans-serif;
 }
 
 .background1{
