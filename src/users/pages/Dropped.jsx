@@ -114,7 +114,7 @@ const Dropped = () => {
             <div className='min-h-screen bg-black text-white'>
                 {
                     !loading ?
-                        <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
+                        <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-20 px-2'>
                             {
                                 listData?.length > 0 ?
                                     listData?.map((list, index) => (

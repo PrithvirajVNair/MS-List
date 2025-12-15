@@ -55,7 +55,7 @@ const Favorite = () => {
             <div className='min-h-screen bg-black text-white'>
                 {!loading ? (
                     listData?.length > 0 ?
-                        <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-10'>
+                        <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-20 px-2'>
                             {
                                 listData?.map((list,index) => (
                                     <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>

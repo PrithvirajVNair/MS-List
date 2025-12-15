@@ -1,9 +1,6 @@
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
-import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
-import WatchlistCommon from '../components/WatchlistCommon'
-import InputLabel from '@mui/material/InputLabel';
+import React, { useEffect, useState } from 'react'
+import { Bounce, ToastContainer } from 'react-toastify'
+import MylistCommon from '../components/MylistCommon'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -11,12 +8,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import { getPlanningListAPI, putListAPI, putStatusListAPI, updateScoreAPI } from '../../services/allAPIs';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getCustomDroppedListAPI, putCustomListAPI, putCustomStatusListAPI } from '../../services/allAPIs';
 import { useNavigate } from 'react-router-dom';
-
-
 
 const labels = {
     0.5: 'Appalling',
@@ -35,7 +30,7 @@ function getLabelText(value) {
 }
 
 
-const Planning = () => {
+const MlDropped = () => {
 
     const [toggleList, setToggleList] = useState(false)
     const [value, setValue] = React.useState(0);
@@ -48,16 +43,15 @@ const Planning = () => {
         value: "",
         data: {}
     })
-    // console.log(editData);
-
     const [token, setToken] = useState("")
     const navigate = useNavigate()
+
     const getList = async (value) => {
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await getPlanningListAPI(reqHeader, value)
+        const result = await getCustomDroppedListAPI(reqHeader, value)
         setListData(result.data.listData)
         setListCount(result.data.count)
         setLoading(false)
@@ -74,8 +68,8 @@ const Planning = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await putStatusListAPI(statusData, reqHeader)
-        // console.log(result);
+        const result = await putCustomStatusListAPI(statusData, reqHeader)
+        console.log(result);
         if (result.status == 200) {
             getList()
             toast.success("Status Changed")
@@ -92,13 +86,8 @@ const Planning = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await putListAPI(editData, reqHeader)
-        console.log(result);
-
-        if (result.status == 200) {
-            await updateScoreAPI(editData)
-            getList()
-        }
+        const result = await putCustomListAPI(editData, reqHeader)
+        getList()
     }
 
     useEffect(() => {
@@ -116,21 +105,23 @@ const Planning = () => {
 
     return (
         <>
-            <WatchlistCommon planning count={listCount} onHandleSearch={getList} />
+            <MylistCommon dropped count={listCount} onHandleSearch={getList}/>
             <div className='min-h-screen bg-black text-white'>
-
                 {
                     !loading ?
                         <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 lg:px-20 px-2'>
                             {
                                 listData?.length > 0 ?
                                     listData?.map((list, index) => (
-                                        <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
-                                            <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
-                                                <div className='aspect-2/3'>
-                                                    <img className='w-full h-full object-fill rounded-xl' src={list.imageUrl} alt="" />
-                                                </div>
+                                        <div key={index} className='bg-white/10 rounded-xl lg:m-1 m-1 relative overflow-hidden aspect-auto'>
+                                            <div className='flex flex-col max-sm:flex-col m-2'>
                                                 <div>
+                                                    <div className='group relative'>
+                                                        <h5 className='overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
+                                                        <span className="left-0 bottom-0 absolute mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
+                                                            {list.title}
+                                                        </span>
+                                                    </div>
                                                     <div className='flex justify-between items-center'>
                                                         <p className='text-white/60 me-2 mt-1 text-xs'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />{list.rating}/10</p>
                                                         <button onClick={() => {
@@ -192,12 +183,6 @@ const Planning = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='group relative'>
-                                                <h5 className='ps-2 overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
-                                                <span className="absolute mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                                    {list.title}
-                                                </span>
-                                            </div>
                                             <div className='px-2 py-2 flex justify-between items-center'>
                                                 <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>{list.genre}</span>
                                                 <div>
@@ -219,7 +204,6 @@ const Planning = () => {
                         </div>
                 }
             </div>
-
 
             {/* below is edit list option for rating,date etc... */}
             {
@@ -252,9 +236,9 @@ const Planning = () => {
                                     emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                                     className='ms-2'
                                 />
-                                {value !== null && (
+                                {/* {value !== null && (
                                     <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                                )}
+                                )} */}
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
@@ -272,8 +256,22 @@ const Planning = () => {
                         <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
                     </div>
                 </div>}
+
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
         </>
     )
 }
 
-export default Planning
+export default MlDropped

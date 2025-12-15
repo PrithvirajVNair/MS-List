@@ -43,7 +43,7 @@ export const getRecentShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/recent-home`)
 }
 
-//get popular shows
+//get most rated shows
 export const getMostRatedShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/most-rated-home`)
 }
@@ -58,7 +58,7 @@ export const getAShowAPI = async(id)=>{
     return await commonAPI("get",`${serverURL}/details/${id}`)
 }
 
-//get a show
+//get a user -- for profile section
 export const getAUserAPI = async(email,reqHeader)=>{
     return await commonAPI("get",`${serverURL}/get-a-user?email=${email}`,"",reqHeader)
 }
@@ -142,6 +142,70 @@ export const getCommentAPI = async(reqBody)=>{
 export const deleteCommentAPI = async(reqBody)=>{
     return await commonAPI("delete",`${serverURL}/delete-comment`,reqBody)
 }
+
+
+// ====> CUSTOM LIST <====
+
+// add to list
+export const addToCustomListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("post",`${serverURL}/add-to-custom-list`,reqBody,reqHeader)
+}
+
+// get list
+export const getCustomListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// get fav list
+export const getCustomFavListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-fav-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// add fav list
+export const addCustomFavListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/add-fav-custom-list`,reqBody,reqHeader)
+}
+
+// remove fav list
+export const removeCustomFavListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/remove-fav-custom-list`,reqBody,reqHeader)
+}
+
+// get planning list
+export const getCustomPlanningListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-planning-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// get watching list
+export const getCustomWatchingListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-watching-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// get watching list
+export const getCustomOnHoldListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-onhold-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// get watching list
+export const getCustomCompletedListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-completed-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// get dropped list
+export const getCustomDroppedListAPI = async(reqHeader,searchData)=>{
+    return await commonAPI("get",`${serverURL}/get-dropped-custom-list?search=${searchData}`,"",reqHeader)
+}
+
+// put status list
+export const putCustomStatusListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/put-status-custom-list`,reqBody,reqHeader)
+}
+
+// put list
+export const putCustomListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/edit-custom-list`,reqBody,reqHeader)
+}
+
 
 // ...............................ADMIN.....................................
 

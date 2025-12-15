@@ -6,7 +6,7 @@ import { userProfileUpdateContext } from '../../context/ContextShare'
 import { jwtDecode } from 'jwt-decode'
 import { getAUserAPI } from '../../services/allAPIs'
 
-const Header = ({ home, watchlist, category, search, feedback }) => {
+const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
 
     const [toggleUser, setToggleUser] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -58,7 +58,7 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
                             setToggleUser(false)
                         }}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
                     </div>
-                    <img src={userData} alt="no image" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
+                    <img src={userData} alt="U" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
                         setToggleUser(!toggleUser)
                         setToggleMenu(false)
                     }} />
@@ -79,12 +79,15 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
                     {watchlist ? <li className={`pe-10 hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='#'>Watchlist</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='/watchlist'>Watchlist</a></li>}
 
+                    {mylist ? <li className={`pe-10 hover:text-blue-300 ${mylist && 'text-blue-300'}`}><a href='#'>My List</a></li> :
+                        <li className={`pe-10 hover:text-blue-300 ${mylist && 'text-blue-300'}`}><a href='/mylist'>My List</a></li>}
+
                     {feedback ? <li className={`pe-10 hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='/feedback'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li>}
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
-                    <li><img src={userData} alt="no image" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
+                    <li><img src={userData} alt="U" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
             </div>
 
@@ -101,6 +104,8 @@ const Header = ({ home, watchlist, category, search, feedback }) => {
                                 <li className={`hover:text-blue-300 ${category && 'text-blue-300'}`}><a href='/category'>Category</a></li>}
                             {watchlist ? <li className={`hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='#'>Watchlist</a></li> :
                                 <li className={`hover:text-blue-300 ${watchlist && 'text-blue-300'}`}><a href='/watchlist'>Watchlist</a></li>}
+                            {mylist ? <li className={`hover:text-blue-300 ${mylist && 'text-blue-300'}`}><a href='#'>My List</a></li> :
+                                <li className={`hover:text-blue-300 ${mylist && 'text-blue-300'}`}><a href='/mylist'>My List</a></li>}
                             {feedback ? <li className={`hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li> :
                                 <li className={`hover:text-blue-300 ${feedback && 'text-blue-300'}`}><a href='/feedback'><FontAwesomeIcon icon={faBug} className='me-1' />Report</a></li>}
                             {/* {watchlist && <button className='sm:text-base text-xs mt-2 py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}

@@ -283,7 +283,7 @@ const ViewDetails = () => {
                                                                 <h5 className='sm:text-base text-sm'>{cmt.username}</h5>
                                                                 <div className='relative group ms-1 flex justify-center items-center'>
                                                                     <span className={`text-blue-500 text-xs ${cmt.verified ? 'inline-block' : 'hidden'}`}><FontAwesomeIcon className='' icon={faCircleCheck} /></span>
-                                                                    <span className={`absolute translate-x-10 mb-1 bg-black/30 text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 z-50 ${cmt.verified ? 'inline-block' : 'hidden'} `}>
+                                                                    <span className={`absolute translate-x-10 mb-1 bg-black/30 text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-50 ${cmt.verified ? 'inline-block' : 'hidden'} `}>
                                                                         Verified
                                                                     </span>
                                                                 </div>

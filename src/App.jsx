@@ -23,6 +23,13 @@ import AdminSettings from "./admin/pages/AdminSettings"
 import Search from "./users/pages/Search"
 import Feedback from "./users/pages/Feedback"
 import CategoryPage from "./users/pages/CategoryPage"
+import MyListAll from "./users/pages/MyListAll"
+import MlFavorite from "./users/pages/MlFavorite"
+import MlPlanning from "./users/pages/MlPlanning"
+import MlWatching from "./users/pages/MlWatching"
+import MlOnHold from "./users/pages/MlOnHold"
+import MlCompleted from "./users/pages/MlCompleted"
+import MlDropped from "./users/pages/MlDropped"
 
 
 function App() {
@@ -38,6 +45,8 @@ function App() {
         <Route path="/register" element={<Authentication register/>} />
         <Route path="/login" element={<Authentication/>} />
         <Route path="/home" element={<Home/>} />
+
+
         <Route path="/watchlist" element={<WatchlistAll/>} />
         <Route path="/watchlist/favorite" element={<Favorite/>} />
         <Route path="/watchlist/planning" element={<Planning/>} />
@@ -45,6 +54,17 @@ function App() {
         <Route path="/watchlist/onhold" element={<OnHold/>} />
         <Route path="/watchlist/completed" element={<Completed/>} />
         <Route path="/watchlist/dropped" element={<Dropped/>} />
+
+
+        <Route path="/mylist" element={<MyListAll/>} />
+        <Route path="/mylist/favorite" element={<MlFavorite/>} />
+        <Route path="/mylist/planning" element={<MlPlanning/>} />
+        <Route path="/mylist/watching" element={<MlWatching/>} />
+        <Route path="/mylist/onhold" element={<MlOnHold/>} />
+        <Route path="/mylist/completed" element={<MlCompleted/>} />
+        <Route path="/mylist/dropped" element={<MlDropped/>} />
+
+
         <Route path="/category" element={<Category/>} />
         <Route path="/category/:categoryName" element={<CategoryPage/>} />
         <Route path='/details/:id' element={<ViewDetails/>} />

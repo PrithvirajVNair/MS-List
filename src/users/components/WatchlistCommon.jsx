@@ -7,7 +7,7 @@ const WatchlistCommon = ({all,favorite,planning,watching,onhold,completed,droppe
     return (
         <div className='bg-black text-white'>
             <Header watchlist />
-            <div className='pt-15 sm:pt-20 sm:px-20 px-5'>
+            <div className='pt-15 sm:pt-20 lg:px-20 px-3'>
                 <h2 className='sm:text-3xl'>My Watchlist</h2>
                 <p className='ms-3 text-xs sm:text-base text-white/60'>{count} items</p>
                 <div className='sm:py-10 py-5'>

@@ -1,20 +1,18 @@
+import React, { useEffect, useState } from 'react'
+import MylistCommon from '../components/MylistCommon'
+import { useNavigate } from 'react-router-dom'
+import { getCustomFavListAPI, removeCustomFavListAPI } from '../../services/allAPIs'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
 import WatchlistCommon from '../components/WatchlistCommon'
-import { addFavListAPI, getFavListAPI, getListAPI, removeFavListAPI } from '../../services/allAPIs';
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { useNavigate } from 'react-router-dom';
 
-const WatchlistAll = () => {
-
+const MlFavorite = () => {
 
     const [listData, setListData] = useState([])
     const [listCount, setListCount] = useState(0)
     const [loading, setLoading] = useState(true)
-    const [token, setToken] = useState("")
-    const navigate = useNavigate()
 
 
     const getList = async (value) => {
@@ -22,28 +20,10 @@ const WatchlistAll = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await getListAPI(reqHeader, value)
+        const result = await getCustomFavListAPI(reqHeader, value)
         setListData(result.data.listData)
         setListCount(result.data.count)
         setLoading(false)
-    }
-
-    const addToFav = async (data) => {
-        console.log(data);
-
-        const token = sessionStorage.getItem("token")
-        const reqHeader = {
-            "Authorization": `Bearer ${token}`
-        }
-        const result = await addFavListAPI(data, reqHeader)
-        console.log(result);
-        if (result.status == 200) {
-            getList()
-            toast.success("Added to Favorite")
-        }
-        else {
-            toast.warning("Something Went Wrong...")
-        }
     }
 
     const removeFromFav = async (data) => {
@@ -53,8 +33,8 @@ const WatchlistAll = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await removeFavListAPI(data, reqHeader)
-        console.log(result);
+        const result = await removeCustomFavListAPI(data, reqHeader)
+        // console.log(result);
         if (result.status == 200) {
             getList()
             toast.success("Removed from Favorite")
@@ -66,18 +46,12 @@ const WatchlistAll = () => {
 
     useEffect(() => {
         getList()
-        if (sessionStorage.getItem("token")) {
-            const token = sessionStorage.getItem("token")
-            setToken(token)
-        } else {
-                navigate('/login')
-        }
 
     }, [])
 
     return (
         <>
-            <WatchlistCommon all count={listCount} onHandleSearch={getList} />
+            <MylistCommon favorite count={listCount} onHandleSearch={getList}/>
             <div className='min-h-screen bg-black text-white'>
                 {
                     !loading ?
@@ -85,10 +59,16 @@ const WatchlistAll = () => {
                             {
                                 listData?.length > 0 ?
                                     listData?.map((list, index) => (
-                                        <div key={index} className='bg-white/10 min-h-50 rounded-xl lg:m-1 m-1 relative overflow-hidden'>
-                                            <div className='flex flex-col max-sm:flex-col m-2 aspect-4/6'>
-                                                <div className='aspect-2/3'>
+                                        <div key={index} className='bg-white/10 rounded-xl lg:m-1 m-1 relative overflow-hidden aspect-auto'>
+                                            <div className='flex flex-col max-sm:flex-col m-2'>
+                                                {/* <div className='aspect-2/3'>
                                                     <img className='w-full h-full object-fill rounded-xl' src={list.imageUrl} alt="" />
+                                                </div> */}
+                                                <div className='group relative'>
+                                                    <h5 className='overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
+                                                    <span className="absolute left-0 bottom-0 mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
+                                                        {list.title}
+                                                    </span>
                                                 </div>
                                                 <div>
                                                     <p className='text-white/60 mt-1 text-xs'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />{list.rating}/10</p>
@@ -97,18 +77,9 @@ const WatchlistAll = () => {
                                                     <p className='text-white/60 mt-1 text-xs'>Status : {list.status}</p>
                                                 </div>
                                             </div>
-                                            <div className='group relative'>
-                                                <h5 className='ps-2 overflow-x-hidden text-ellipsis whitespace-nowrap text-sm sm:text-base'>{list.title}</h5>
-                                                <span className="absolute left-0 bottom-full mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                                    {list.title}
-                                                </span>
-                                            </div>
-                                            <div className='px-2 py-2 flex justify-between items-center'>
-                                                <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>{list.genre}</span>
+                                            <div className='px-2 flex justify-end items-center'>
                                                 <div>
-                                                    {list.favorite ?
-                                                        <button><FontAwesomeIcon icon={faStarSolid} /></button> :
-                                                        <button onClick={() => addToFav(list)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
+                                                    <button onClick={() => removeFromFav(list)}><FontAwesomeIcon icon={faStarSolid} /></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +92,8 @@ const WatchlistAll = () => {
                         </div> :
                         <div className='flex justify-center items-center'>
                             <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUybHRsNGFzZnh0cWU4M2VkYWYzaXhpcHloaXl4YThtMWZyaXN2cG02byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7bu3XilJ5BOiSGic/200w.gif" alt="" style={{ width: '100px' }} />
-                        </div>}
+                        </div>
+                }
             </div>
             <ToastContainer
                 position="top-right"
@@ -140,4 +112,4 @@ const WatchlistAll = () => {
     )
 }
 
-export default WatchlistAll
+export default MlFavorite
