@@ -70,7 +70,7 @@ const WatchlistAll = () => {
             const token = sessionStorage.getItem("token")
             setToken(token)
         } else {
-                navigate('/login')
+            navigate('/login')
         }
 
     }, [])

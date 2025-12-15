@@ -114,7 +114,7 @@ const MyListAll = () => {
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover
+                pauseOnHover={false}
                 theme="dark"
                 transition={Bounce}
             />
