@@ -206,7 +206,15 @@ export const putCustomListAPI = async(reqBody,reqHeader)=>{
     return await commonAPI("put",`${serverURL}/edit-custom-list`,reqBody,reqHeader)
 }
 
+// delete custom list
+export const deleteCustomListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("delete",`${serverURL}/delete-custom-list`,reqBody,reqHeader)
+}
 
+// delete list
+export const deleteListAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("delete",`${serverURL}/delete-list`,reqBody,reqHeader)
+}
 // ...............................ADMIN.....................................
 
 // add shows

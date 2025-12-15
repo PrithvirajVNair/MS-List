@@ -1,9 +1,9 @@
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarSolid, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import WatchlistCommon from '../components/WatchlistCommon'
-import { addFavListAPI, getFavListAPI, getListAPI, removeFavListAPI } from '../../services/allAPIs';
+import { addFavListAPI, deleteListAPI, getFavListAPI, getListAPI, removeFavListAPI, updateScoreAPI } from '../../services/allAPIs';
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 
@@ -26,6 +26,7 @@ const WatchlistAll = () => {
         setListData(result.data.listData)
         setListCount(result.data.count)
         setLoading(false)
+        console.log(result);
     }
 
     const addToFav = async (data) => {
@@ -63,6 +64,23 @@ const WatchlistAll = () => {
             toast.warning("Something Went Wrong...")
         }
     }
+
+        const handleDelete = async (id,sid) => {
+            const reqBody = {
+                id:id,
+                showid:sid
+            }
+            const token = sessionStorage.getItem("token")
+            const reqHeader = {
+                "Authorization": `Bearer ${token}`
+            }
+            const result = await deleteListAPI(reqBody,reqHeader)
+            // console.log(result);
+            if(result.status == 200){
+                getList()
+                await updateScoreAPI(reqBody)
+            }
+        }
 
     useEffect(() => {
         getList()
@@ -104,8 +122,9 @@ const WatchlistAll = () => {
                                                 </span>
                                             </div>
                                             <div className='px-2 py-2 flex justify-between items-center'>
-                                                <span className='bg-black/60 rounded-2xl px-2 text-sm me-2'>{list.genre}</span>
+                                                <span className='bg-black/60 rounded-2xl px-2 sm:text-sm text-xs me-2'>{list.genre}</span>
                                                 <div>
+                                                    <button onClick={() => handleDelete(list._id,list.showid)} className='text-red-500 pe-2'><FontAwesomeIcon icon={faTrash} /></button>
                                                     {list.favorite ?
                                                         <button><FontAwesomeIcon icon={faStarSolid} /></button> :
                                                         <button onClick={() => addToFav(list)}> <FontAwesomeIcon icon={faStarRegular} /></button>}

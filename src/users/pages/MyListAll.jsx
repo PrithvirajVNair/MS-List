@@ -1,4 +1,4 @@
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarSolid, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import WatchlistCommon from '../components/WatchlistCommon'
@@ -6,7 +6,7 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import MylistCommon from '../components/MylistCommon';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addCustomFavListAPI, getCustomListAPI } from '../../services/allAPIs';
+import { addCustomFavListAPI, deleteCustomListAPI, getCustomListAPI } from '../../services/allAPIs';
 
 const MyListAll = () => {
 
@@ -25,7 +25,7 @@ const MyListAll = () => {
         const result = await getCustomListAPI(reqHeader, value)
         setListData(result.data.listData)
         setListCount(result.data.count)
-        setLoading(false)        
+        setLoading(false)
     }
 
     const addToFav = async (data) => {
@@ -46,6 +46,18 @@ const MyListAll = () => {
         }
     }
 
+    const handleDelete = async (id) => {
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await deleteCustomListAPI({id},reqHeader)
+        // console.log(result);
+        if(result.status == 200){
+            getList()
+        }
+    }
+
     useEffect(() => {
         getList()
         if (sessionStorage.getItem("token")) {
@@ -59,7 +71,7 @@ const MyListAll = () => {
 
     return (
         <>
-            <MylistCommon all count={listCount} onHandleSearch={getList}/>
+            <MylistCommon all count={listCount} onHandleSearch={getList} />
             <div className='min-h-screen bg-black text-white'>
                 {
                     !loading ?
@@ -73,11 +85,11 @@ const MyListAll = () => {
                                                     <img className='w-full h-full object-fill rounded-xl' src={list.imageUrl} alt="" />
                                                 </div> */}
                                                 <div className='group relative'>
-                                                <h5 className='overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
-                                                <span className="absolute left-0 bottom-0 mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                                    {list.title}
-                                                </span>
-                                            </div>
+                                                    <h5 className='overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
+                                                    <span className="absolute left-0 bottom-0 mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
+                                                        {list.title}
+                                                    </span>
+                                                </div>
                                                 <div>
                                                     <p className='text-white/60 mt-1 text-xs'>Rating: <FontAwesomeIcon icon={faStarSolid} className='me-1 text-yellow-400' />{list.rating}/10</p>
                                                     <p className='text-white/60 mt-1 text-xs'>Start Date : {new Date(list.sDate).toLocaleDateString("en-GB")}</p>
@@ -85,7 +97,8 @@ const MyListAll = () => {
                                                     <p className='text-white/60 mt-1 text-xs'>Status : {list.status}</p>
                                                 </div>
                                             </div>
-                                            <div className='px-2 flex justify-end items-center'>
+                                            <div className='px-2 flex justify-between items-center'>
+                                                <button onClick={() => handleDelete(list._id)} className='text-red-500'><FontAwesomeIcon icon={faTrash} /></button>
                                                 <div>
                                                     {list.favorite ?
                                                         <button><FontAwesomeIcon icon={faStarSolid} /></button> :

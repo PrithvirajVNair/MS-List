@@ -65,7 +65,8 @@ const MylistCommon = ({ all, favorite, planning, watching, onhold, completed, dr
             const result = await addToCustomListAPI(listData, reqHeader)
             if (result.status == 200) {
                 toast.success("Sucessfully Added to Watchlist")
-                await updateScoreAPI(listData)
+                // below line is for reloading after list is added
+                onHandleSearch()
             }
             else if (result.status == 401) {
                 toast.warning(result.response.data)
@@ -128,7 +129,7 @@ const MylistCommon = ({ all, favorite, planning, watching, onhold, completed, dr
                                 </Typography>
                                 <Rating
                                     name="hover-feedback"
-                                    // value={value}
+                                    value={value}
                                     precision={0.5}
                                     max={5}
                                     getLabelText={getLabelText}
@@ -148,7 +149,7 @@ const MylistCommon = ({ all, favorite, planning, watching, onhold, completed, dr
                             </Box>
                             <div className='w-full px-10 sm:text-base text-sm'>
                                 <label htmlFor="sdate">Start Date:</label>
-                                <input className="ms-2 date-icon-white" value={listData.sDate || today} onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" />
+                                <input className="ms-2 date-icon-white" onChange={e => setListData({ ...listData, sDate: e.target.value })} id='sdate' type="date" />
                             </div>
                             <div className='w-full px-10 py-5 sm:text-base text-sm'>
                                 <label htmlFor="sdate">End Date:</label>
