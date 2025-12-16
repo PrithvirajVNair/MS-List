@@ -14,6 +14,11 @@ const WatchlistAll = () => {
     const [listCount, setListCount] = useState(0)
     const [loading, setLoading] = useState(true)
     const [token, setToken] = useState("")
+    const [toggleDelete,setToggleDelete] = useState(false)
+    const [deleteData,setDeleteData] = useState({
+        id:"",
+        showid:""
+    })
     const navigate = useNavigate()
 
 
@@ -65,22 +70,23 @@ const WatchlistAll = () => {
         }
     }
 
-        const handleDelete = async (id,sid) => {
-            const reqBody = {
-                id:id,
-                showid:sid
-            }
-            const token = sessionStorage.getItem("token")
-            const reqHeader = {
-                "Authorization": `Bearer ${token}`
-            }
-            const result = await deleteListAPI(reqBody,reqHeader)
-            // console.log(result);
-            if(result.status == 200){
-                getList()
-                await updateScoreAPI(reqBody)
-            }
+    const handleDelete = async () => {
+        setToggleDelete(false)
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
         }
+        const result = await deleteListAPI(deleteData, reqHeader)
+        // console.log(result);
+        if (result.status == 200) {
+            getList()
+            await updateScoreAPI(reqBody)
+        }
+    }
+    const handleDeleteModal = async(id,sid) => {
+        setToggleDelete(true)
+        setDeleteData({...deleteData,id:id,showid:sid})
+    }
 
     useEffect(() => {
         getList()
@@ -124,7 +130,7 @@ const WatchlistAll = () => {
                                             <div className='px-2 py-2 flex justify-between items-center'>
                                                 <span className='bg-black/60 rounded-2xl px-2 sm:text-sm text-xs me-2'>{list.genre}</span>
                                                 <div>
-                                                    <button onClick={() => handleDelete(list._id,list.showid)} className='text-red-500 pe-2'><FontAwesomeIcon icon={faTrash} /></button>
+                                                    <button onClick={() => handleDeleteModal(list._id, list.showid)} className='text-red-500 pe-2'><FontAwesomeIcon icon={faTrash} /></button>
                                                     {list.favorite ?
                                                         <button><FontAwesomeIcon icon={faStarSolid} /></button> :
                                                         <button onClick={() => addToFav(list)}> <FontAwesomeIcon icon={faStarRegular} /></button>}
@@ -136,12 +142,27 @@ const WatchlistAll = () => {
                                     <div className='flex justify-center items-center lg:col-span-6 md:col-span-5 sm:col-span-4 col-span-2'>
                                         <p className='text-red-400 sm:text-2xl font-bold'>List is Empty</p>
                                     </div>
+
                             }
                         </div> :
                         <div className='flex justify-center items-center'>
                             <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUybHRsNGFzZnh0cWU4M2VkYWYzaXhpcHloaXl4YThtMWZyaXN2cG02byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7bu3XilJ5BOiSGic/200w.gif" alt="" style={{ width: '100px' }} />
                         </div>}
             </div>
+            {
+                toggleDelete &&
+                <div className='inset-0 fixed h-screen bg-black/60'>
+                <div className='text-white flex justify-center items-center h-screen'>
+                        <div className='backdrop-blur-2xl p-5 rounded-2xl w-105 m-5'>
+                            <h2 className='text-red-500 md:text-2xl'>Are You Sure?</h2>
+                            <p className='md:text-base text-xs'>Are you sure you want to delete this show from list?</p>
+                            <div className='flex justify-end items-center md:text-base text-sm'>
+                                <button onClick={()=>setToggleDelete(false)} className='bg-blue-400 rounded px-2 mt-2 me-3 cursor-pointer hover:bg-blue-500'>Cancel</button>
+                                <button onClick={handleDelete} className='bg-red-400 rounded px-2 mt-2 cursor-pointer hover:bg-red-500'>Delete</button>
+                            </div>
+                        </div>
+                </div>
+            </div>}
             <ToastContainer
                 position="top-right"
                 autoClose={2000}
