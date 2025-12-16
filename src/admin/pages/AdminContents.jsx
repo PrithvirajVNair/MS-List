@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import Box from '@mui/material/Box'
 import Select from '@mui/material/Select'
-import { addShowAPI, deleteShowAPI, getAdminShowAPI, getShowAPI } from '../../services/allAPIs'
+import { addShowAPI, addToFeaturedAPI, deleteShowAPI, getAdminShowAPI, getShowAPI, removeFromFeaturedAPI } from '../../services/allAPIs'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
@@ -80,6 +80,18 @@ const AdminContents = () => {
     }
   }
 
+  const handleAddFeatured = async(data) => {    
+    const result = await addToFeaturedAPI(data)
+    console.log(result);
+    getShow()
+  }
+
+  const handleRemoveFeatured = async(data) => {    
+    const result = await removeFromFeaturedAPI(data)
+    console.log(result);
+    getShow()
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
@@ -113,8 +125,8 @@ const AdminContents = () => {
               {/* card */}
               {
                 shows.length > 0 ?
-                  shows?.map((items) => (
-                    <div className='bg-white/10 m-2 w-full'>
+                  shows?.map((items,index) => (
+                    <div key={index} className='bg-white/10 m-2 w-full'>
                       <div className='p-5 h-[300px] grid grid-cols-5 w-full'>
                         <div className='flex justify-center items-center'>
                           <img src={items.imageUrl} style={{ width: '150px' }} alt="no image" className='' />
@@ -130,6 +142,10 @@ const AdminContents = () => {
                             <p className=''>Description : {items.description}</p>
                           </div>
                           <div className='flex justify-end'>
+                            <div>
+                                {!items.featured?<button onClick={()=>handleAddFeatured(items)} className='border bg-blue-500 py-1 px-2 rounded-lg me-3'>Add to Featured</button>:
+                                <button onClick={()=>handleRemoveFeatured(items)} className='border bg-orange-500 py-1 px-2 rounded-lg me-3'>Remove From Featured</button>}
+                            </div>
                             <button className='border bg-orange-500 py-1 px-2 rounded-lg me-3'>Edit</button>
                             <button onClick={() => handleDelete(items._id)} className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                           </div>

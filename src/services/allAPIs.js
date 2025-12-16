@@ -38,6 +38,11 @@ export const updateScoreAPI = async(reqBody) => {
 
 // ...............................USERS.....................................
 
+//get featured shows
+export const getFeaturedShowAPI = async()=>{
+    return await commonAPI("get",`${serverURL}/featured-home`)
+}
+
 //get recent shows
 export const getRecentShowAPI = async()=>{
     return await commonAPI("get",`${serverURL}/recent-home`)
@@ -240,4 +245,14 @@ export const deleteUserAPI = async(id)=>{
 //delete show
 export const deleteShowAPI = async(id)=>{
     return await commonAPI("delete",`${serverURL}/delete-show`,id)
+}
+
+// add to featured
+export const addToFeaturedAPI = async(reqBody)=>{  
+    return await commonAPI("put",`${serverURL}/add-to-featured`,reqBody)
+}
+
+// remove from featured
+export const removeFromFeaturedAPI = async(reqBody)=>{  
+    return await commonAPI("put",`${serverURL}/remove-from-featured`,reqBody)
 }

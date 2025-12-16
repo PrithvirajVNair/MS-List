@@ -4,35 +4,51 @@ import cbg from '../../assets/IM2024001_Yu-crop.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { getMostRatedShowAPI, getPopularShowAPI, getRecentShowAPI } from '../../services/allAPIs'
+import { getFeaturedShowAPI, getMostRatedShowAPI, getPopularShowAPI, getRecentShowAPI } from '../../services/allAPIs'
 
 const Home = () => {
 
-    // for carosuel
-    // pagination
-    // const [currenntPage, setCurrentPage] = useState(1)
-    // const productsPerPage = 1
-    // const totalPages = Math.ceil(datafromdb?.length / productsPerPage)
-    // const currenntPageLastIndex = 0
-    // const currenntPageFirstIndex = 0 or 1
-    // const visibleProducts = allproducts?.slice(currenntPageFirstIndex, currenntPageLastIndex)
     const [recentShows, setRecentShows] = useState([])
     const [popularShows, setPopularShows] = useState([])
     const [mostRatedShows, setMostRatedShows] = useState([])
+    const [featuredShows, setFeaturedShows] = useState([])
     const [loading, setLoading] = useState(true)
     const [token, setToken] = useState("")
-    console.log(popularShows);
+    console.log(featuredShows);
+
+
+    // for carosuel
+    // pagination
+    const [currenntPage, setCurrentPage] = useState(1)
+    const showsPerPage = 1
+    const totalPages = Math.ceil(featuredShows?.length / showsPerPage)
+    const currenntPageLastIndex = currenntPage * showsPerPage
+    const currenntPageFirstIndex = currenntPageLastIndex - showsPerPage
+    const visibleShows = featuredShows?.slice(currenntPageFirstIndex, currenntPageLastIndex)
+
+    const navigateNext = () => {
+        if (currenntPage != totalPages) {
+            setCurrentPage(currenntPage + 1)
+        }
+    }
+    const navigateBack = () => {
+        if (currenntPage != 1) {
+            setCurrentPage(currenntPage - 1)
+        }
+    }
 
 
     const getShows = async () => {
         const recentResult = await getRecentShowAPI()
         const mostRatedResult = await getMostRatedShowAPI()
         const popularResult = await getPopularShowAPI()
+        const featuredResult = await getFeaturedShowAPI()
 
 
         setRecentShows(recentResult.data)
         setMostRatedShows(mostRatedResult.data)
         setPopularShows(popularResult.data)
+        setFeaturedShows(featuredResult.data)
         setLoading(false)
     }
     // console.log(recentShows);
@@ -46,6 +62,19 @@ const Home = () => {
         }
     }, [])
 
+    useEffect(() => {
+        if (featuredShows.length === 0) return
+
+        const interval = setInterval(() => {
+            setCurrentPage(prev =>
+                prev === totalPages ? 1 : prev + 1
+            )
+        }, 10000)
+
+        return () => clearInterval(interval)
+    }, [featuredShows, totalPages])
+
+
     return (
         <>
             <Header home />
@@ -54,30 +83,32 @@ const Home = () => {
                     <div className='bg-black min-h-screen text-white pt-15'>
 
                         {/* carousel */}
-                        <div className='sm:h-[650px] sm:pt-0 mx-3 sm:mx-10 rounded-xl relative'>
-                            <div className='w-full h-full'>
-                                <img src={cbg} alt="" className='bg-cover bg-center w-full h-full object-fill rounded-xl' />
-                            </div>
-                            <div className='bg-black/60 absolute inset-0'>
-                                <div className='w-full h-full flex justify-between items-end'>
-                                    <div className='sm:mx-10 sm:my-20 mx-2 my-2'>
-                                        <h2 className='sm:text-4xl'>TITLE</h2>
-                                        <p className='text-white/60 sm:text-base text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />9.5/10</p>
-                                        <div className=''>
-                                            <span className='bg-black/60 rounded-2xl px-2 text-xs sm:text-sm me-2'>Action</span>
-                                            <span className='bg-black/60 rounded-2xl px-2 text-xs sm:text-sm me-2'>Drama</span>
+                        {visibleShows?.map((shows, index) => (
+                            <div className='sm:h-[650px] sm:pt-0 mx-3 sm:mx-10 rounded-xl relative'>
+                                <div className='w-full h-full'>
+                                    <img src={shows.coverUrl} alt="" className='bg-cover bg-center w-full h-full object-fill rounded-xl' />
+                                </div>
+                                <div className='bg-black/60 absolute inset-0'>
+                                    <div className='w-full h-full flex justify-between items-end'>
+                                        <div className='sm:mx-10 sm:my-20 mx-2 my-2'>
+                                            <h2 className='sm:text-4xl'>{shows.title}</h2>
+                                            <p className='text-white/60 sm:text-base text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.score}/10</p>
+                                            <div className=''>
+                                                <span className='bg-black/60 rounded-2xl px-2 text-xs sm:text-sm me-2'>{shows.genre}</span>
+                                            </div>
+                                            <div className=''>
+                                                <Link to={`/details/${shows._id}`}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer me-3'>View Details</button></Link>
+                                                {/* <Link to={'/:id/addtolistz'}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer'>Add to List</button></Link> */}
+                                            </div>
                                         </div>
-                                        <div className=''>
-                                            <Link to={'/details/:id'}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer me-3'>View Details</button></Link>
-                                            {/* <Link to={'/:id/addtolistz'}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer'>Add to List</button></Link> */}
+                                        <div className='text-sm sm:text-2xl sm:m-10 m-2'>
+                                            <FontAwesomeIcon onClick={navigateBack} icon={faChevronLeft} /> {currenntPage} / {totalPages} <FontAwesomeIcon onClick={navigateNext} icon={faChevronRight} />
                                         </div>
-                                    </div>
-                                    <div className='text-sm sm:text-2xl sm:m-10 m-2'>
-                                        <FontAwesomeIcon icon={faChevronLeft} /> 1 / 8 <FontAwesomeIcon icon={faChevronRight} />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        ))
+                        }
 
                         {/* Popular */}
                         <div className='sm:px-10 px-3 sm:mt-10'>
