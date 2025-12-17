@@ -14,7 +14,7 @@ import Select from '@mui/material/Select';
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { addCommentAPI, addToListAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, updateScoreAPI } from '../../services/allAPIs'
+import { addCommentAPI, addToListAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, updateScoreAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -56,10 +56,7 @@ const ViewDetails = () => {
     })
     const [comment, setComment] = useState({
         showId: "",
-        profile: "",
-        username: "",
         comment: "",
-        verified:false
     })
     const [commentButton, setCommentButton] = useState("hidden")
     const [allComments, setAllComments] = useState([])
@@ -67,6 +64,7 @@ const ViewDetails = () => {
     const [toggleTDot, setToggleTDot] = useState(null)
     const [userData, setUserData] = useState({})
     const navigate = useNavigate()
+    console.log(allComments);
     
 
     const getAShow = async () => {
@@ -119,7 +117,7 @@ const ViewDetails = () => {
         else {
             setCommentButton("hidden")
         }
-        setComment({ ...comment, username: userData.username, profile: userData.profile, comment: event.target.value, showId: id, verified: userData.verified })
+        setComment({ ...comment, comment: event.target.value, showId: id })
     }
 
     const addComment = async () => {
@@ -148,7 +146,7 @@ const ViewDetails = () => {
     const getComment = async () => {
         const result = await getCommentAPI({ id })
         setAllComments(result.data)
-        // console.log(result);
+        console.log(result);
 
     }
 
@@ -171,6 +169,25 @@ const ViewDetails = () => {
         const result = await getAUserAPI(email, reqHeader)
         setUserData(result.data)
         setLoading(false)
+    }
+
+    const handleReport = async (id) => {
+        const token = sessionStorage.getItem("token")
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const result = await reportCommentAPI({ id }, reqHeader)
+        console.log(result);
+        if (result.status == 200) {
+            toast.success(result.data)
+        }
+        else if (result.status == 401) {
+            toast.warning(result.response.data)
+        }
+        else {
+            toast.warning("Soemthing Went Wrong!")
+        }
+
     }
 
     useEffect(() => {
@@ -272,18 +289,19 @@ const ViewDetails = () => {
                             </div>
                             {
                                 allComments?.length > 0 ?
-                                    allComments.map((cmt, index) => (
-                                        <React.Fragment key={index}>
+                                        allComments.map((cmt, index) => (
+                                        !cmt.userId.restriction &&
+                                        (<React.Fragment key={index}>
                                             <div className='relative'>
                                                 <div className='mt-10 flex'>
-                                                    <img src={cmt.profile} alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
+                                                    <img src={cmt.userId.profile} alt="no image" className='me-3 sm:w-10 sm:h-10 w-8 h-8' style={{ borderRadius: '50%' }} />
                                                     <div className='flex flex-col w-full'>
                                                         <div className='flex justify-between items-center w-full'>
                                                             <div className='flex items-center'>
-                                                                <h5 className='sm:text-base text-sm'>{cmt.username}</h5>
+                                                                <h5 className='sm:text-base text-sm'>{cmt.userId.username}</h5>
                                                                 <div className='relative group ms-1 flex justify-center items-center'>
-                                                                    <span className={`text-blue-500 text-xs ${cmt.verified ? 'inline-block' : 'hidden'}`}><FontAwesomeIcon className='' icon={faCircleCheck} /></span>
-                                                                    <span className={`absolute translate-x-10 mb-1 bg-black/30 text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-50 ${cmt.verified ? 'inline-block' : 'hidden'} `}>
+                                                                    <span className={`text-blue-500 text-xs ${cmt.userId?.verified ? 'inline-block' : 'hidden'}`}><FontAwesomeIcon className='' icon={faCircleCheck} /></span>
+                                                                    <span className={`absolute translate-x-10 mb-1 bg-black/30 text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-50 ${cmt.userId?.verified ? 'inline-block' : 'hidden'} `}>
                                                                         Verified
                                                                     </span>
                                                                 </div>
@@ -297,14 +315,14 @@ const ViewDetails = () => {
                                                 {
                                                     toggleTDot == cmt._id &&
                                                     <div className='absolute right-10 top-0 translate-y-full flex flex-col'>
-                                                        {cmt.userMail == userMail ? <button className='bg-white/20 px-2 rounded-t-md cursor-pointer hover:bg-white/30'>Report</button> :
-                                                            <button className='bg-white/20 px-2 rounded-md cursor-pointer hover:bg-white/30'>Report</button>
+                                                        {cmt.userMail == userMail ? <button onClick={() => handleReport(cmt._id)} className='bg-white/20 px-2 rounded-t-md cursor-pointer hover:bg-white/30'>Report</button> :
+                                                            <button onClick={() => handleReport(cmt._id)} className='bg-white/20 px-2 rounded-md cursor-pointer hover:bg-white/30'>Report</button>
                                                         }
                                                         {cmt.userMail == userMail && (<button onClick={() => handleDelete(cmt._id)} className='bg-red-400 px-2 rounded-b-md cursor-pointer hover:bg-red-500'>Delete</button>)}
                                                     </div>}
                                             </div>
 
-                                        </React.Fragment>
+                                        </React.Fragment>)
                                     ))
                                     :
                                     <div className='flex flex-1 justify-center items-center'>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SideBar from '../components/SideBar'
-import { deleteUserAPI, getUsersAPI } from '../../services/allAPIs'
+import { banUserAPI, deleteUserAPI, getUsersAPI, unBanUserAPI } from '../../services/allAPIs'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 
@@ -21,6 +21,17 @@ const AdminUsers = () => {
     const result = await deleteUserAPI({ id })
     // console.log(result);
 
+    getUsers()
+  }
+
+  const handleBan = async (email) => {
+    const result = await banUserAPI({ email })
+    console.log(result);
+    getUsers()
+  }
+  const handleUnBan = async (email) => {
+    const result = await unBanUserAPI({ email })
+    console.log(result);
     getUsers()
   }
 
@@ -66,8 +77,12 @@ const AdminUsers = () => {
                         </div>
                         <p className='pt-2'>Email : {items.email}</p>
                         <div className='flex justify-between items-end py-5'>
-                          <button className='bg-orange-500 py-1 px-2 rounded-lg'>Ban</button>
-                          <button onClick={() => handleDelete(items._id)} className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                          {!items.restriction?
+                          <button onClick={()=>handleBan(items.email)} className='bg-orange-500 py-1 px-2 rounded-lg cursor-pointer'>Ban</button>
+                        :
+                        <button onClick={()=>handleUnBan(items.email)} className='bg-green-500 py-1 px-2 rounded-lg cursor-pointer'>Unban</button>
+                        }
+                          <button onClick={() => handleDelete(items._id)} className='bg-red-500 py-1 px-2 rounded-lg cursor-pointer'>Delete</button>
                         </div>
                       </div>
                     </div>

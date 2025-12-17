@@ -220,6 +220,16 @@ export const deleteCustomListAPI = async(reqBody,reqHeader)=>{
 export const deleteListAPI = async(reqBody,reqHeader)=>{
     return await commonAPI("delete",`${serverURL}/delete-list`,reqBody,reqHeader)
 }
+
+// report comment /report-comment
+export const reportCommentAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("post",`${serverURL}/report-comment`,reqBody,reqHeader)
+}
+
+// report comment /report-comment
+export const getReportAPI = async(reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/get-report`,"",reqHeader)
+}
 // ...............................ADMIN.....................................
 
 // add shows
@@ -255,4 +265,19 @@ export const addToFeaturedAPI = async(reqBody)=>{
 // remove from featured
 export const removeFromFeaturedAPI = async(reqBody)=>{  
     return await commonAPI("put",`${serverURL}/remove-from-featured`,reqBody)
+}
+
+//delete report
+export const deleteReportAPI = async(id)=>{
+    return await commonAPI("delete",`${serverURL}/delete-report`,id)
+}
+
+// ban user
+export const banUserAPI = async(email)=>{
+    return await commonAPI("put",`${serverURL}/ban-user`,email)
+}
+
+// unban user
+export const unBanUserAPI = async(email)=>{
+    return await commonAPI("put",`${serverURL}/unban-user`,email)
 }

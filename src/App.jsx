@@ -30,6 +30,7 @@ import MlWatching from "./users/pages/MlWatching"
 import MlOnHold from "./users/pages/MlOnHold"
 import MlCompleted from "./users/pages/MlCompleted"
 import MlDropped from "./users/pages/MlDropped"
+import Reports from "./admin/pages/Reports"
 
 
 function App() {
@@ -70,10 +71,15 @@ function App() {
         <Route path='/details/:id' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
         {/* <Route path='/:id/addtolist' element={<AddToList/>} /> */}
+
+
         <Route path='/admin-dashboard' element={<Dashbord/>} />
         <Route path='/admin-users' element={<AdminUsers/>} />
         <Route path='/admin-contents' element={<AdminContents/>} />
+        <Route path='/admin-reports' element={<Reports/>} />
         <Route path='/admin-settings' element={<AdminSettings/>} />
+
+
         <Route path='/search' element={<Search/>} />
         <Route path='/feedback' element={<Feedback/>} />
 

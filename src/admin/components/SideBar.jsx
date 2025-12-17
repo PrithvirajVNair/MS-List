@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const SideBar = ({overview,users,contents,settings}) => {
+const SideBar = ({overview,users,contents,reports,settings}) => {
 
   const navigate = useNavigate()
 
@@ -17,6 +17,9 @@ const SideBar = ({overview,users,contents,settings}) => {
     }
     else if(data=="settings"){
       navigate('/admin-settings')
+    }
+    else if(data=="reports"){
+      navigate('/admin-reports')
     }
     else if(data=="logout"){
       sessionStorage.clear()
@@ -34,6 +37,7 @@ const SideBar = ({overview,users,contents,settings}) => {
             <button onClick={()=>swapButton("overview")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${overview? 'bg-white text-black':'bg-white/10'}`}>Overview</button>
             <button onClick={()=>swapButton("users")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${users? 'bg-white text-black':'bg-white/10'}`}>Users</button>
             <button onClick={()=>swapButton("content")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${contents? 'bg-white text-black':'bg-white/10'}`}>Content</button>
+            <button onClick={()=>swapButton("reports")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${reports? 'bg-white text-black':'bg-white/10'}`}>Reports</button>
             <button onClick={()=>swapButton("settings")} className={`py-1 w-40 rounded my-2 hover:bg-white hover:text-black ${settings? 'bg-white text-black':'bg-white/10'}`}>Settings</button>
             <button onClick={()=>swapButton("logout")} className={`py-1 w-40 rounded my-2 hover:bg-white text-red-500 bg-white/10`}>Log Out</button>
         </div>
