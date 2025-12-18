@@ -281,3 +281,8 @@ export const banUserAPI = async(email)=>{
 export const unBanUserAPI = async(email)=>{
     return await commonAPI("put",`${serverURL}/unban-user`,email)
 }
+
+// verify-opt
+export const verifyOptAPI = async(reqBody)=>{
+    return await commonAPI("put",`${serverURL}/verify-opt`,reqBody)
+}
