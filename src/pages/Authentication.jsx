@@ -155,6 +155,7 @@ const Authentication = ({ register, otp }) => {
                     <h2 className='text-2xl font-bold mb-5'><span className='text-blue-600'>MS</span> List</h2>
                     <h2 className='sm:text-2xl text-xl'>Email Verification</h2>
                     <p>an otp has send to {user?.email || "email"}</p>
+                    <p>This may take few minutes</p>
                     <div className='w-full px-10 mt-10'>
                         <div className='sm:text-base text-sm'>
                             <input value={otpverify} onChange={e => setOtpVerify(e.target.value)} id='password' type="number" className='bg-white block w-full rounded text-black px-2 py-1 placeholder:text-gray-400' placeholder='OTP' />
