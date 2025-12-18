@@ -45,7 +45,7 @@ function App() {
         <Route path="/termsofservice" element={<TermsOfService/>} />
         <Route path="/register" element={<Authentication register/>} />
         <Route path="/login" element={<Authentication/>} />
-        <Route path="/verify-otp" element={<Authentication otp/>} />
+        {/* <Route path="/verify-otp" element={<Authentication otp/>} /> */}
         <Route path="/home" element={<Home/>} />
 
 
