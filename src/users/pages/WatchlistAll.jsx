@@ -3,7 +3,7 @@ import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import WatchlistCommon from '../components/WatchlistCommon'
-import { addFavListAPI, deleteListAPI, getFavListAPI, getListAPI, removeFavListAPI, updateScoreAPI } from '../../services/allAPIs';
+import { addFavListAPI, deleteListAPI, deleteShowActivityAPI, getFavListAPI, getListAPI, removeFavListAPI, updateScoreAPI } from '../../services/allAPIs';
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 
@@ -76,11 +76,14 @@ const WatchlistAll = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
+        const dltShowAct = await deleteShowActivityAPI({showId:deleteData.id},reqHeader)
+        console.log(dltShowAct);
+        
         const result = await deleteListAPI(deleteData, reqHeader)
         // console.log(result);
         if (result.status == 200) {
             getList()
-            await updateScoreAPI(reqBody)
+            await updateScoreAPI(deleteData)
         }
     }
     const handleDeleteModal = async(id,sid) => {

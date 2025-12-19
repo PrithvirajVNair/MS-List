@@ -14,7 +14,7 @@ import Select from '@mui/material/Select';
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { addCommentAPI, addToListAPI, commentActivityAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, showActivityAPI, updateScoreAPI } from '../../services/allAPIs'
+import { addCommentAPI, addToListAPI, commentActivityAPI, deleteCommentActivityAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, showActivityAPI, updateScoreAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -99,10 +99,10 @@ const ViewDetails = () => {
                 toast.success("Sucessfully Added to Watchlist")
                 await updateScoreAPI(listData)
                 const showId = result.data._id
-                const show = await showActivityAPI({showId},reqHeader)
+                const show = await showActivityAPI({ showId }, reqHeader)
                 console.log(show);
                 console.log(result);
-                
+
             }
             else if (result.status == 401) {
                 toast.warning(result.response.data)
@@ -159,6 +159,10 @@ const ViewDetails = () => {
     }
 
     const handleDelete = async (cmtid) => {
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
+        }
+        const dltCmtAct = await deleteCommentActivityAPI({ commentId: cmtid }, reqHeader)
         const result = await deleteCommentAPI({ id: cmtid })
         if (result.status == 200) {
             toast.success("Comment Deleted Successfully")

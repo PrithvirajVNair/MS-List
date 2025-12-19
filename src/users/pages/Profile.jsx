@@ -71,7 +71,7 @@ const Profile = () => {
             <div className='bg-black min-h-screen text-white'>
                 {
                     !loading ?
-                        <div className='grid grid-cols-[1fr_3fr] h-screen pt-20'>
+                        <div className='md:grid grid-cols-[1fr_3fr] min-h-screen pt-20'>
                             <div className=''>
                                 <div className='flex justify-center items-center flex-col'>
                                     <img src={userData.profile} alt="no image" className='p-3' style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
@@ -92,32 +92,32 @@ const Profile = () => {
                                     <h2 className='text-white/60'>BIO:</h2>
                                     <p className='text-center text-xs'>{userData.bio}</p>
                                 </div>
-                                <div className='col-span-2 flex flex-col justify-center items-center text-blue-200'>
-                                    <h1 className='text-white mb-5  sm:text-lg py-2'>Watchlist Status</h1>
-                                    <Link to={'/watchlist'}><p className='text-base'>Total : {listCount.allShows}</p></Link>
-                                    <Link to={'/watchlist/planning'}><p className='text-sm sm:text-base'>Planning : {listCount.planning}</p></Link>
-                                    <Link to={'/watchlist/watching'}><p className='text-sm sm:text-base'>Watching : {listCount.watching}</p></Link>
-                                    <Link to={'/watchlist/completed'}><p className='text-sm sm:text-base'>Completed : {listCount.completed}</p></Link>
-                                    <Link to={'/watchlist/onhold'}><p className='text-sm sm:text-base'>On Hold : {listCount.onhold}</p></Link>
-                                    <Link to={'/watchlist/dropped'}><p className='text-sm sm:text-base'>Dropped : {listCount.dropped}</p></Link>
+                                <div className='col-span-2 flex flex-col justify-center items-center text-blue-200 md:text-base text-lg'>
+                                    <h1 className='text-white mb-5 sm:text-lg py-2'>Watchlist Status</h1>
+                                    <Link to={'/watchlist'}><p className='text-xs md:text-base'>Total : {listCount.allShows}</p></Link>
+                                    <Link to={'/watchlist/planning'}><p className='text-xs md:text-base'>Planning : {listCount.planning}</p></Link>
+                                    <Link to={'/watchlist/watching'}><p className='text-xs md:text-base'>Watching : {listCount.watching}</p></Link>
+                                    <Link to={'/watchlist/completed'}><p className='text-xs md:text-base'>Completed : {listCount.completed}</p></Link>
+                                    <Link to={'/watchlist/onhold'}><p className='text-xs md:text-base'>On Hold : {listCount.onhold}</p></Link>
+                                    <Link to={'/watchlist/dropped'}><p className='text-xs md:text-base'>Dropped : {listCount.dropped}</p></Link>
                                 </div>
                             </div>
-                            <div className='px-5'>
-                                <h1 className='text-white mb-5 text-xl sm:text-2xl py-2'>Activities</h1>
+                            <div className='md:px-5 px-3'>
+                                <h1 className='text-white mb-5 sm:text-2xl py-5 md:py-2 w-full text-center md:text-left md:text-xl text-lg'>Activities:</h1>
                                 <div className='h-120 overflow-hidden'>
                                     {
                                         activity?.length > 0 ?
                                             activity?.map((data, index) => (
                                                 <div className='flex justify-between items-center rounded-xl bg-white/20 mb-3 p-1'>
-                                                    <div className='ms-5 flex justify-center items-center'>
+                                                    <div className='md:ms-5 ms-2 flex justify-center items-center md:text-base text-[10px]'>
                                                         {data.category == "list" ?
                                                             <>
                                                                 <div className='text-green-500'>
                                                                     <FontAwesomeIcon icon={faRectangleList} />
                                                                 </div>
 
-                                                                <div className='ms-5 text-start'>
-                                                                    <h2>{userData.username} Added {data.showId.title} to Watchlist</h2>
+                                                                <div className='md:ms-5 ms-2 text-start'>
+                                                                    <h2>{userData.username} Added {data.showId?.title} to Watchlist</h2>
                                                                     {/* <p className='text-sm text-white/60'>Status : {data.showId.status}</p> */}
                                                                 </div>
                                                             </>
@@ -127,16 +127,20 @@ const Profile = () => {
                                                                     <FontAwesomeIcon icon={faComment} />
                                                                 </div>
                                                                 <div className='ms-5 text-start'>
-                                                                    <h2>{userData.username} Commented on {data.commentId.showId.title}</h2>
+                                                                    <h2>{userData.username} Commented on {data.commentId?.showId.title}</h2>
                                                                 </div>
                                                             </>
                                                         }
                                                     </div>
-                                                    <p className='me-5 text-white/60'>{format(data.createdAt)}</p>
+                                                    <p className='md:me-5 me-2 text-white/60 md:text-base text-[10px]'>{format(data.createdAt)}</p>
                                                 </div>
                                             ))
                                             :
-                                            <p>No Activities</p>
+                                            <div className='flex justify-center md:justify-between items-center rounded-xl bg-white/20 mb-3 p-1'>
+                                                <div className='ms-5 flex justify-center items-center'>
+                                                    <p className='text-center md:text-base text-xs'>No Activities</p>
+                                                </div>
+                                            </div>
                                     }
                                 </div>
                             </div>

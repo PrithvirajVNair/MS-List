@@ -144,10 +144,19 @@ export const getCommentAPI = async(reqBody)=>{
 }
 
 // delete comment
-export const deleteCommentAPI = async(reqBody)=>{
-    return await commonAPI("delete",`${serverURL}/delete-comment`,reqBody)
+export const deleteCommentAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("delete",`${serverURL}/delete-comment`,reqBody,reqHeader)
 }
 
+// delete-comment-activity
+export const deleteCommentActivityAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("delete",`${serverURL}/delete-comment-activity`,reqBody,reqHeader)
+}
+
+// delete-show-activity
+export const deleteShowActivityAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("delete",`${serverURL}/delete-show-activity`,reqBody,reqHeader)
+}
 
 // ====> CUSTOM LIST <====
 

@@ -11,7 +11,7 @@ import Completed from "./users/pages/Completed"
 import Dropped from "./users/pages/Dropped"
 import ViewDetails from "./users/pages/ViewDetails"
 import Profile from "./users/pages/Profile"
-import AddToList from "./users/pages/AddToList"
+// import AddToList from "./users/pages/AddToList"
 import Category from "./users/pages/Category"
 import Favorite from "./users/pages/Favorite"
 import PrivacyPolicy from "./pages/PrivacyPolicy"
@@ -71,7 +71,6 @@ function App() {
         <Route path="/category/:categoryName" element={<CategoryPage/>} />
         <Route path='/details/:id' element={<ViewDetails/>} />
         <Route path='/profile/:username' element={<Profile/>} />
-        {/* <Route path='/:id/addtolist' element={<AddToList/>} /> */}
 
 
         <Route path='/admin-dashboard' element={<Dashbord/>} />
