@@ -84,24 +84,24 @@ const Home = () => {
 
                         {/* carousel */}
                         {visibleShows?.map((shows, index) => (
-                            <div className='sm:h-[650px] sm:pt-0 mx-3 sm:mx-10 rounded-xl relative'>
+                            <div className='sm:pt-0 mx-3 sm:mx-13 aspect-6/3 rounded-xl relative'>
                                 <div className='w-full h-full'>
                                     <img src={shows.coverUrl} alt="" className='bg-cover bg-center w-full h-full object-fill rounded-xl' />
                                 </div>
                                 <div className='bg-black/60 absolute inset-0'>
                                     <div className='w-full h-full flex justify-between items-end'>
                                         <div className='sm:mx-10 sm:my-20 mx-2 my-2'>
-                                            <h2 className='sm:text-4xl'>{shows.title}</h2>
-                                            <p className='text-white/60 sm:text-base text-xs'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.score}/10</p>
+                                            <h2 className='sm:text-4xl 2xl:text-7xl'>{shows.title}</h2>
+                                            <p className='text-white/60 sm:text-base text-xs 2xl:text-2xl'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.score}/10</p>
                                             <div className=''>
-                                                <span className='bg-black/60 rounded-2xl px-2 text-xs sm:text-sm me-2'>{shows.genre}</span>
+                                                <span className='bg-black/60 rounded-2xl px-2 text-xs sm:text-sm 2xl:text-2xl me-2'>{shows.genre}</span>
                                             </div>
                                             <div className=''>
-                                                <Link to={`/details/${shows._id}`}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer me-3'>View Details</button></Link>
+                                                <Link to={`/details/${shows._id}`}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs 2xl:text-2xl rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer me-3'>View Details</button></Link>
                                                 {/* <Link to={'/:id/addtolistz'}><button className='sm:py-2 sm:px-5 px-2 py-1 sm:text-base text-xs rounded-xl sm:my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer'>Add to List</button></Link> */}
                                             </div>
                                         </div>
-                                        <div className='text-sm sm:text-2xl sm:m-10 m-2'>
+                                        <div className='text-sm sm:text-2xl 2xl:text-3xl 2xl:m-15 sm:m-10 m-2'>
                                             <FontAwesomeIcon onClick={navigateBack} icon={faChevronLeft} /> {currenntPage} / {totalPages} <FontAwesomeIcon onClick={navigateNext} icon={faChevronRight} />
                                         </div>
                                     </div>
@@ -111,20 +111,20 @@ const Home = () => {
                         }
 
                         {/* Popular */}
-                        <div className='sm:px-10 px-3 sm:mt-10'>
-                            <h2 className='sm:text-2xl sm:pt-0 pt-5'>Popular:</h2>
+                        <div className='sm:px-10 px-3 sm:mt-2 2xl:mt-10'>
+                            <h2 className='sm:text-2xl 2xl:text-4xl sm:pt-0 pt-5 px-1 sm:px-3 2xl:px-5'>Popular:</h2>
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
                                     popularShows?.map((show, index) => (
-                                        <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                            <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
-                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
-                                                <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
+                                        <div key={index} className='bg-white/10 aspect-4/6 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                            <div className='m-1 sm:m-2 aspect-3/4 overflow-hidden rounded-t-xl sm:rounded-xl'>
+                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 2xl:text-2xl md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                                <img className='w-full object-fill rounded-t-xl sm:rounded-xl' src={show.imageUrl} alt="" />
                                             </div>
-                                            <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
+                                            <h5 className='px-2 sm:px-3 2xl:text-3xl sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
                                             <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                                <p className='text-xs px-5 text-center overflow-auto'>{show.summary}</p>
-                                                <Link to={`/details/${show?._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
+                                                <p className='text-xs px-5 text-center overflow-auto 2xl:text-2xl'>{show.summary}</p>
+                                                <Link to={`/details/${show?._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs 2xl:text-2xl'>View Details</button></Link>
                                             </div>
                                             <Link to={`/details/${show?._id}`}>
                                                 <div className='block sm:hidden absolute inset-0'>
@@ -138,20 +138,20 @@ const Home = () => {
                         </div>
 
                         {/* Most Rated */}
-                        <div className='sm:px-10 px-3 sm:mt-10'>
-                            <h2 className='sm:text-2xl sm:pt-0 pt-5'>Most Rated:</h2>
+                        <div className='sm:px-10 px-3 sm:mt-2 2xl:mt-10'>
+                            <h2 className='sm:text-2xl 2xl:text-4xl sm:pt-0 pt-5 px-1 sm:px-3 2xl:px-5'>Most Rated:</h2>
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
                                     mostRatedShows?.map((show, index) => (
                                         <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                            <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
-                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
-                                                <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
+                                            <div className='m-1 sm:m-2 aspect-3/4 overflow-hidden rounded-t-xl sm:rounded-xl'>
+                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl 2xl:text-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                                <img className='w-full object-fill rounded-t-xl sm:rounded-xl' src={show.imageUrl} alt="" />
                                             </div>
-                                            <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
+                                            <h5 className='px-3 2xl:text-3xl sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
                                             <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                                <p className='text-xs px-5 text-center overflow-auto'>{show.summary}</p>
-                                                <Link to={`/details/${show?._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
+                                                <p className='text-xs 2xl:text-2xl px-5 text-center overflow-auto'>{show.summary}</p>
+                                                <Link to={`/details/${show?._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs 2xl:text-2xl'>View Details</button></Link>
                                             </div>
                                             <Link to={`/details/${show?._id}`}>
                                                 <div className='block sm:hidden absolute inset-0'>
@@ -165,20 +165,20 @@ const Home = () => {
                         </div>
 
                         {/* Recent */}
-                        <div className='sm:px-10 px-3 sm:mt-10'>
-                            <h2 className='sm:text-2xl sm:pt-0 pt-5'>Recently Added:</h2>
+                        <div className='sm:px-10 px-3 sm:mt-2 2xl:mt-10'>
+                            <h2 className='sm:text-2xl 2xl:text-4xl sm:pt-0 pt-5 px-1 sm:px-3 2xl:px-5'>Recently Added:</h2>
                             <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                 {
                                     recentShows?.map((show, index) => (
                                         <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                            <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
-                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
-                                                <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
+                                            <div className='m-1 sm:m-2 aspect-3/4 overflow-hidden rounded-t-xl sm:rounded-xl'>
+                                                <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl 2xl:text-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
+                                                <img className='w-full object-fill rounded-t-xl sm:rounded-xl' src={show.imageUrl} alt="" />
                                             </div>
-                                            <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
+                                            <h5 className='px-3 2xl:text-3xl sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
                                             <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                                <p className='text-xs px-5 text-center overflow-auto'>{show.summary}</p>
-                                                <Link to={`/details/${show._id}`}><button className='py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs'>View Details</button></Link>
+                                                <p className='text-xs 2xl:text-2xl px-5 text-center overflow-auto'>{show.summary}</p>
+                                                <Link to={`/details/${show._id}`}><button className='py-1 px-2 sm:py-2 sm:px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs 2xl:text-2xl'>View Details</button></Link>
                                             </div>
                                             <Link to={`/details/${show?._id}`}>
                                                 <div className='block sm:hidden absolute inset-0'>
