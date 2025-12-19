@@ -83,9 +83,9 @@ const Authentication = ({ register, otp }) => {
                     }
                 }, 3000)
             }
-            // else if(result.status == 403){
-            //     navigate(result.response.data)
-            // }
+            else if(result.status == 403){
+                navigate(result.response.data)
+            }
             else if (result.status == 401) {
                 toast.error(result.response.data)
                 setUser({
@@ -135,24 +135,24 @@ const Authentication = ({ register, otp }) => {
         }
     }
 
-    // const handleVerify = async() => {
-    //     const reqBody = {
-    //         email:otpEmail,
-    //         otp:otpverify
-    //     }
-    //     const result = await verifyOptAPI(reqBody)
-    //     console.log(result);
-    //     if(result.status == 200){
-    //         navigate('/login')
-    //         toast.success("Email Verification Successfull...")
-    //     }
-    // }
+    const handleVerify = async() => {
+        const reqBody = {
+            email:otpEmail,
+            otp:otpverify
+        }
+        const result = await verifyOptAPI(reqBody)
+        console.log(result);
+        if(result.status == 200){
+            navigate('/login')
+            toast.success("Email Verification Successfull...")
+        }
+    }
 
     return (
         <div className='bg-black text-white h-screen flex justify-center items-center'>
             <div className='grid grid-cols-12 w-full'>
                 <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
-                {/* {otp ? <div className='rounded sm:my-5 py-5 flex justify-center items-center flex-col bg-white/10 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+                {otp ? <div className='rounded sm:my-5 py-5 flex justify-center items-center flex-col bg-white/10 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
                     <h2 className='text-2xl font-bold mb-5'><span className='text-blue-600'>MS</span> List</h2>
                     <h2 className='sm:text-2xl text-xl'>Email Verification</h2>
                     <p>an otp has send to {user?.email || "email"}</p>
@@ -165,7 +165,7 @@ const Authentication = ({ register, otp }) => {
                                 <button onClick={handleVerify} className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer w-full'>Verify</button>
                         </div>
                     </div>
-                </div> : */}
+                </div> :
                     <div className='rounded sm:my-5 py-5 flex justify-center items-center flex-col bg-white/10 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
                         <h2 className='text-2xl font-bold mb-5'><span className='text-blue-600'>MS</span> List</h2>
                         <h2 className='sm:text-2xl text-xl'>{register ? "Create a New Account" : "Welcome Back"}</h2>
@@ -215,7 +215,7 @@ const Authentication = ({ register, otp }) => {
                             </div>
                         </div>
                     </div>
-                    {/* } */}
+                }
                 <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
             </div>
             <ToastContainer
