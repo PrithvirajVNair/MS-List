@@ -146,6 +146,19 @@ const Authentication = ({ register, otp }) => {
             navigate('/login')
             toast.success("Email Verification Successfull...")
         }
+        else if(result.status == 404){
+            toast.warning(result.response.data)
+        }
+        else if(result.status == 400){
+            toast.warning(result.response.data)
+        }
+        else if(result.status == 403){
+            toast.warning(result.response.data)
+        }
+        else{
+            toast.warning("Something Went Wrong!")
+        }
+        console.log(result);
     }
 
     return (
