@@ -230,6 +230,27 @@ export const reportCommentAPI = async(reqBody,reqHeader)=>{
 export const getReportAPI = async(reqHeader)=>{
     return await commonAPI("get",`${serverURL}/get-report`,"",reqHeader)
 }
+
+// get-list-count
+export const getListCountAPI = async(reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/get-list-count`,"",reqHeader)
+}
+
+// comment-activity
+export const commentActivityAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("post",`${serverURL}/comment-activity`,reqBody,reqHeader)
+}
+
+// show-activity
+export const showActivityAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("post",`${serverURL}/show-activity`,reqBody,reqHeader)
+}
+
+// get-activity
+export const getActivityAPI = async(reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/get-activity`,"",reqHeader)
+}
+
 // ...............................ADMIN.....................................
 
 // add shows

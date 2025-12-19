@@ -23,7 +23,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
             "Authorization": `Bearer ${token}`
         }
         const result = await getAUserAPI(email, reqHeader)
-        setUserData(result.data.profile)
+        setUserData(result.data)
     }
 
     useEffect(() => {
@@ -58,7 +58,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
                             setToggleUser(false)
                         }}>{!toggleMenu ? <FontAwesomeIcon icon={faBars} className='text-xl' /> : <FontAwesomeIcon icon={faXmark} className='text-xl' />}</button>
                     </div>
-                    <img src={userData} alt="U" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
+                    <img src={userData.profile} alt="U" className='cursor-pointer md:hidden block' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => {
                         setToggleUser(!toggleUser)
                         setToggleMenu(false)
                     }} />
@@ -87,7 +87,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
-                    <li><img src={userData} alt="U" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
+                    <li><img src={userData.profile} alt="U" className='me-5 cursor-pointer' style={{ widows: '30px', height: '30px', borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
             </div>
 
@@ -120,7 +120,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
             {toggleUser &&
                 <div className='flex justify-end me-5 text-white/60'>
                     <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl'>
-                        <Link to={'/profile/:username'}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
+                        <Link to={`/profile/${userData._id}`}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
                         <Link to={'/login'}><button onClick={handleLogout} className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
                     </div>
                 </div>}

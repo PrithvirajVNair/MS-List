@@ -14,7 +14,7 @@ import Select from '@mui/material/Select';
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { addCommentAPI, addToListAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, updateScoreAPI } from '../../services/allAPIs'
+import { addCommentAPI, addToListAPI, commentActivityAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, showActivityAPI, updateScoreAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -64,8 +64,8 @@ const ViewDetails = () => {
     const [toggleTDot, setToggleTDot] = useState(null)
     const [userData, setUserData] = useState({})
     const navigate = useNavigate()
-    console.log(allComments);
-    
+    // console.log(allComments);
+
 
     const getAShow = async () => {
         const result = await getAShowAPI(id)
@@ -98,6 +98,11 @@ const ViewDetails = () => {
             if (result.status == 200) {
                 toast.success("Sucessfully Added to Watchlist")
                 await updateScoreAPI(listData)
+                const showId = result.data._id
+                const show = await showActivityAPI({showId},reqHeader)
+                console.log(show);
+                console.log(result);
+                
             }
             else if (result.status == 401) {
                 toast.warning(result.response.data)
@@ -129,7 +134,7 @@ const ViewDetails = () => {
         }
         else {
             const result = await addCommentAPI(comment, reqHeader)
-            // console.log(result);
+            console.log(result);
             if (result.status == 200) {
                 toast.success("Comment added")
                 setComment({
@@ -140,14 +145,17 @@ const ViewDetails = () => {
                 toast.warning("Something Went Wrong! please try again later...")
             }
             getComment()
+            const commentId = result.data._id
+            const comment2 = await commentActivityAPI({ commentId }, reqHeader)
+            console.log(comment2);
+
         }
     }
 
     const getComment = async () => {
         const result = await getCommentAPI({ id })
         setAllComments(result.data)
-        console.log(result);
-
+        // console.log(result);
     }
 
     const handleDelete = async (cmtid) => {
@@ -289,7 +297,7 @@ const ViewDetails = () => {
                             </div>
                             {
                                 allComments?.length > 0 ?
-                                        allComments.map((cmt, index) => (
+                                    allComments.map((cmt, index) => (
                                         !cmt.userId.restriction &&
                                         (<React.Fragment key={index}>
                                             <div className='relative'>
@@ -315,10 +323,10 @@ const ViewDetails = () => {
                                                 {
                                                     toggleTDot == cmt._id &&
                                                     <div className='absolute right-10 top-0 translate-y-full flex flex-col'>
-                                                        {cmt.userMail == userMail ? <button onClick={() => handleReport(cmt._id)} className='bg-white/20 px-2 rounded-t-md cursor-pointer hover:bg-white/30'>Report</button> :
+                                                        {cmt.userId.email == userMail ? <button onClick={() => handleReport(cmt._id)} className='bg-white/20 px-2 rounded-t-md cursor-pointer hover:bg-white/30'>Report</button> :
                                                             <button onClick={() => handleReport(cmt._id)} className='bg-white/20 px-2 rounded-md cursor-pointer hover:bg-white/30'>Report</button>
                                                         }
-                                                        {cmt.userMail == userMail && (<button onClick={() => handleDelete(cmt._id)} className='bg-red-400 px-2 rounded-b-md cursor-pointer hover:bg-red-500'>Delete</button>)}
+                                                        {cmt.userId.email == userMail && (<button onClick={() => handleDelete(cmt._id)} className='bg-red-400 px-2 rounded-b-md cursor-pointer hover:bg-red-500'>Delete</button>)}
                                                     </div>}
                                             </div>
 
