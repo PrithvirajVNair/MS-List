@@ -37,8 +37,8 @@ const Authentication = ({ register, otp }) => {
                     password: "",
                     username: ""
                 })
-                navigate('/login')
-                // navigate('/verify-otp')
+                // navigate('/login')
+                navigate('/verify-otp')
             }
             else if (result.status == 400) {
                 toast.warning(result.response.data)
