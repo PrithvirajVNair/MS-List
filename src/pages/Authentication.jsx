@@ -16,7 +16,7 @@ const Authentication = ({ register, otp }) => {
         email: "",
         password: ""
     })
-    console.log(user);
+    // console.log(user);
 
     const handleRegister = async () => {
         const { email, password, username } = user

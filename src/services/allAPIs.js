@@ -314,5 +314,5 @@ export const unBanUserAPI = async(email)=>{
 
 // verify-opt
 export const verifyOptAPI = async(reqBody)=>{
-    return await commonAPI("put",`${serverURL}/verify-opt`,reqBody)
+    return await commonAPI("put",`${serverURL}/verify-otp`,reqBody)
 }
