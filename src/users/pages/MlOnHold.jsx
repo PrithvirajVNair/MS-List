@@ -117,7 +117,7 @@ const MlOnHold = () => {
                                                 <div>
                                                     <div className='group relative'>
                                                         <h5 className='overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
-                                                        <span className="left-0 bottom-0 absolute mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
+                                                        <span className="pointer-events-none left-0 bottom-0 absolute mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
                                                             {list.title}
                                                         </span>
                                                     </div>

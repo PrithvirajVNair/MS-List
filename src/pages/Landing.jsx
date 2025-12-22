@@ -66,9 +66,11 @@ const Landing = () => {
                     </div>
                 </div>
                 <div id='about' className='min-h-screen bg-black flex flex-col justify-center items-center'>
-                    <h2 className='sm:text-3xl sm:pt-0 pt-10'>ABOUT US</h2>
-                    <p className='text-center py-10 px-5 sm:px-20 sm:text-base text-sm'>Discover movies and shows like never before! Our AI-Powered Recommendation Platform helps you find content that truly matches your taste. Instead of endless scrolling, you get smart suggestions based on your watch history, favorite genres, and trending categories.</p>
-                    <p className='text-center py-10 px-5 sm:px-20 sm:text-base text-sm'>Each movie comes with automatically generated AI summaries and taglines that capture the essence of the story in just a few words — making exploration faster and more exciting. You can create and manage your own watchlist, track your viewing progress, and explore what’s popular among other users.</p>
+                    <div className='max-w-300'>
+                        <h2 className='sm:text-3xl sm:pt-0 pt-10 text-center'>ABOUT US</h2>
+                        <p className='text-center py-10 px-5 sm:px-20 sm:text-base text-sm leading-relaxed'>Discover movies and shows like never before! Our AI-Powered Recommendation Platform helps you find content that truly matches your taste. Instead of endless scrolling, you get smart suggestions based on your watch history, favorite genres, and trending categories.</p>
+                        <p className='text-center py-10 px-5 sm:px-20 sm:text-base text-sm leading-relaxed'>Each movie comes with automatically generated AI summaries and taglines that capture the essence of the story in just a few words — making exploration faster and more exciting. You can create and manage your own watchlist, track your viewing progress, and explore what’s popular among other users.</p>
+                    </div>
                 </div>
             </div>
             <Footer />

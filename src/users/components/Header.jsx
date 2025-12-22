@@ -43,8 +43,8 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
         <div className='flex flex-col fixed w-full' style={{ zIndex: '999' }}>
             <div className='flex justify-between 2xl:px-15 sm:px-10 px-5 bg-black/20 backdrop-blur-xs text-white py-2 2xl:py-4'>
                 <div>
-                    {home ? <a href='#' className='text-xl sm:text-2xl 2xl:text-4xl font-bold'><span className='text-blue-600'>MS</span> List</a> :
-                        <a href='/home' className='text-xl sm:text-2xl 2xl:text-4xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
+                    {home ? <a href='#' className='text-xl sm:text-2xl 2xl:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a> :
+                        <a href='/home' className='text-xl sm:text-2xl 2xl:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
                 </div>
 
                 {/* below is search button, toggle menu button and profile button/img for mobile */}
@@ -66,7 +66,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
 
 
                 {/* following is the content of header for big screen */}
-                <ul className='hidden lg:flex items-center text-xl 2xl:text-4xl'>
+                <ul className='hidden lg:flex items-center text-xl 2xl:text-2xl'>
                     {search ? <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
 
@@ -119,7 +119,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
             {/* following is the toggle for profile (Mobile Responsive) */}
             {toggleUser &&
                 <div className='flex justify-end me-5 text-white/60'>
-                    <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl text-base 2xl:text-2xl'>
+                    <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl text-base 2xl:text-xl'>
                         <Link to={`/profile/${userData._id}`}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
                         <Link to={'/login'}><button onClick={handleLogout} className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
                     </div>

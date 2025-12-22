@@ -10,7 +10,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className='flex sm:justify-between justify-center items-center bg-black text-white/60 px-2 sm:px-5 py-2 sm:text-base text-xs'>
-        <p>&copy; 2025 <span className='text-blue-600'>MS</span> List. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} <span className='text-blue-600'>MS</span> List. All rights reserved.</p>
         <ul className='hidden sm:flex'>
           <li className='pe-5'><a href="/privacypolicy">Privacy Policy</a></li>
           <li><a href="/termsofservice">Terms of Service</a></li>

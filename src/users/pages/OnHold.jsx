@@ -189,7 +189,7 @@ const OnHold = () => {
                                             </div>
                                             <div className='group relative'>
                                                 <h5 className='ps-2 overflow-x-hidden text-ellipsis whitespace-nowrap'>{list.title}</h5>
-                                                <span className="absolute left-0 bottom-full mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
+                                                <span className="pointer-events-none absolute left-0 bottom-full mb-1 bg-black text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-50">
                                                     {list.title}
                                                 </span>
                                             </div>
