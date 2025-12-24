@@ -72,7 +72,7 @@ const Profile = () => {
                 {
                     !loading ?
                         <div className='md:grid grid-cols-[1fr_3fr] min-h-screen pt-20'>
-                            <div className=''>
+                            <div className='flex flex-col justify-center items-center px-5'>
                                 <div className='flex justify-center items-center flex-col'>
                                     <img src={userData.profile} alt="no image" className='p-3' style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
                                     {/* <label htmlFor="edit-profile" className='cursor-pointer'><FontAwesomeIcon icon={faPenToSquare} />
@@ -80,7 +80,7 @@ const Profile = () => {
                                     </label> */}
                                 </div>
                                 <div className='flex justify-center items-center'>
-                                    <h2 className=''>{userData.username}</h2>
+                                    <h2 className='2xl:text-xl'>{userData.username}</h2>
                                     <div className='relative group ms-2 flex justify-center items-center'>
                                         <span className={`text-blue-500 text-xs ${userData.verified ? 'inline-block' : 'hidden'}`}><FontAwesomeIcon className='' icon={faCircleCheck} /></span>
                                         <span className={`absolute translate-x-10 mb-1 bg-black/30 text-white text-xs p-1 rounded whitespace-nowrap opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 z-50 ${userData.verified ? 'inline-block' : 'hidden'} `}>
@@ -88,12 +88,12 @@ const Profile = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className='rounded-xl flex flex-col items-center bg-white/10 p-2 m-3 h-20'>
+                                <div className='rounded-xl flex flex-col items-center bg-white/10 p-2 m-3 h-20 w-full'>
                                     <h2 className='text-white/60'>BIO:</h2>
                                     <p className='text-center text-xs'>{userData.bio}</p>
                                 </div>
                                 <div className='col-span-2 flex flex-col justify-center items-center text-blue-200 md:text-base text-lg'>
-                                    <h1 className='text-white mb-5 sm:text-lg py-2'>Watchlist Status</h1>
+                                    <h1 className='text-white mb-5 text-sm sm:text-lg py-2'>Watchlist Status</h1>
                                     <Link to={'/watchlist'}><p className='text-xs md:text-base'>Total : {listCount.allShows}</p></Link>
                                     <Link to={'/watchlist/planning'}><p className='text-xs md:text-base'>Planning : {listCount.planning}</p></Link>
                                     <Link to={'/watchlist/watching'}><p className='text-xs md:text-base'>Watching : {listCount.watching}</p></Link>
@@ -103,7 +103,7 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div className='md:px-5 px-3'>
-                                <h1 className='text-white mb-5 sm:text-2xl py-5 md:py-2 w-full text-center md:text-left md:text-xl text-lg'>Activities:</h1>
+                                <h1 className='text-white mb-5 sm:text-lg py-5 md:py-2 w-full text-center md:text-left md:text-xl  text-sm'>Activities:</h1>
                                 <div className='h-120 overflow-hidden'>
                                     {
                                         activity?.length > 0 ?
@@ -126,7 +126,7 @@ const Profile = () => {
                                                                 <div className='text-orange-500'>
                                                                     <FontAwesomeIcon icon={faComment} />
                                                                 </div>
-                                                                <div className='ms-5 text-start'>
+                                                                <div className='md:ms-5 ms-2 text-start'>
                                                                     <h2>{userData.username} Commented on {data.commentId?.showId.title}</h2>
                                                                 </div>
                                                             </>

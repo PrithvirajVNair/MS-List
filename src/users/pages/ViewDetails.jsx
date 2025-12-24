@@ -234,9 +234,9 @@ const ViewDetails = () => {
                             <div className='sm:min-w-[250px] w-[250px] h-full sm:pt-0 pt-10'>
                                 <img className='w-full h-full object-fill p-5 sm:p-0' src={show.imageUrl} alt="" />
                             </div>
-                            <div className='sm:px-5'>
+                            <div className='sm:px-5 flex flex-col justify-center'>
                                 <h1 className='text-xl sm:text-3xl 2xl:text-4xl'>{show.title}</h1>
-                                <div className='h-[200px] overflow-y-auto sm:text-base text-sm 2xl:text-xl pt-2'><p><span className='text-blue-300'>Description: </span>{show.description}</p>
+                                <div className='h-[150px] overflow-y-auto sm:text-base text-sm 2xl:text-base pt-2'><p><span className='text-blue-300'>Description: </span>{show.description}</p>
                                 </div>
                                 <div className='p-3'>
                                     <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>{show.genre}</span>
@@ -271,11 +271,11 @@ const ViewDetails = () => {
                                                     <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
                                                     <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />
                                                 </div>
-                                                <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis 2xl:text-2xl'>{shows.show.title}</h5>
+                                                <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis 2xl:text-[18px]'>{shows.show.title}</h5>
                                                 <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
-                                                    <p className='text-xs 2xl:text-xl px-5 text-center overflow-auto'>{shows.show.summary}</p>
-                                                    <p className='text-xs 2xl:text-xl px-5 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity * 100).toFixed(2)}%</span></p>
-                                                    <Link to={`/details/${shows.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs 2xl:text-xl'>View Details</button></Link>
+                                                    <p className='text-xs 2xl:text-base px-5 text-center overflow-auto'>{shows.show.summary}</p>
+                                                    <p className='text-xs 2xl:text-base px-5 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity * 100).toFixed(2)}%</span></p>
+                                                    <Link to={`/details/${shows.show._id}`}><button className='py-2 px-5 rounded-xl my-5 bg-linear-to-r via-[#000CF1]/60 via-30% from-[#000CF1]/60 to-black/60 hover:to-black hover:via-[#000CF1] hover:from-[#000CF1] cursor-pointer text-xs 2xl:text-base'>View Details</button></Link>
                                                 </div>
                                                 <Link to={`/details/${shows.show._id}`}>
                                                     <div className='block sm:hidden absolute inset-0'>

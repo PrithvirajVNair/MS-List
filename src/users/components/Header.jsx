@@ -43,8 +43,8 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
         <div className='flex flex-col fixed w-full' style={{ zIndex: '999' }}>
             <div className='flex justify-between 2xl:px-15 sm:px-10 px-5 bg-black/20 backdrop-blur-xs text-white py-2 2xl:py-4'>
                 <div>
-                    {home ? <a href='#' className='text-xl sm:text-2xl 2xl:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a> :
-                        <a href='/home' className='text-xl sm:text-2xl 2xl:text-2xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
+                    {home ? <a href='#' className='text-xl sm:text-2xl 2xl:text-xl font-bold'><span className='text-blue-600'>MS</span> List</a> :
+                        <a href='/home' className='text-xl sm:text-2xl 2xl:text-xl font-bold'><span className='text-blue-600'>MS</span> List</a>}
                 </div>
 
                 {/* below is search button, toggle menu button and profile button/img for mobile */}
@@ -66,7 +66,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
 
 
                 {/* following is the content of header for big screen */}
-                <ul className='hidden lg:flex items-center text-xl 2xl:text-2xl'>
+                <ul className='hidden lg:flex items-center text-xl 2xl:text-xl'>
                     {search ? <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='#'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li> :
                         <li className={`pe-10 hover:text-blue-300 ${search && 'text-blue-300'}`}><a href='/search'><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</a></li>}
 
@@ -87,7 +87,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
 
                     {/* {watchlist && <button className='me-10 text-base py-2 px-5 rounded-xl bg-linear-to-r via-[#000CF1]/60 hover:via-[#000CF1] via-30% from-[#000CF1]/60 hover:from-[#000CF1] to-black/60 hover:to-black text-white cursor-pointer'>Add to List</button>} */}
 
-                    <li><img src={userData.profile} alt="U" className='me-5 cursor-pointer w-[30px] 2xl:w-12' style={{  borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
+                    <li><img src={userData.profile} alt="U" className='me-5 cursor-pointer w-[30px] 2xl:w-' style={{  borderRadius: '50%' }} onClick={() => setToggleUser(!toggleUser)} /></li>
                 </ul>
             </div>
 
