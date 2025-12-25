@@ -43,11 +43,11 @@ const Search = () => {
                                 shows?.length > 0 ?
                                     <div className='w-full grid sm:grid-cols-4 lg:grid-cols-6 grid-cols-3'>
                                         {
-                                            searchResullt?.map((show,index) => (
-                                                <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                                    <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
+                                            searchResullt?.map((show, index) => (
+                                                <div key={index} className='bg-white/10 aspect-4/6 rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
+                                                    <div className='m-1 sm:m-2 aspect-3/4 overflow-hidden rounded-t-xl sm:rounded-xl'>
                                                         <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{show.score}/10</p>
-                                                        <img className='w-full object-fill rounded-xl' src={show.imageUrl} alt="" />
+                                                        <img className='w-full h-full object-fill rounded-t-xl sm:rounded-xl' src={show.imageUrl} alt="" />
                                                     </div>
                                                     <h5 className='px-3 sm:text-base text-[10px] 2xl:text-[18px] whitespace-nowrap overflow-hidden text-ellipsis'>{show.title}</h5>
                                                     <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>

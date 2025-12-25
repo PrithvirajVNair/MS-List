@@ -14,7 +14,7 @@ import Select from '@mui/material/Select';
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { addCommentAPI, addToListAPI, commentActivityAPI, deleteCommentActivityAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, showActivityAPI, updateScoreAPI } from '../../services/allAPIs'
+import { addCommentAPI, addToListAPI, commentActivityAPI, deleteCommentActivityAPI, deleteCommentAPI, getAShowAPI, getAUserAPI, getAUserWithEmailAPI, getCommentAPI, getRecommendationAPI, reportCommentAPI, showActivityAPI, updateScoreAPI } from '../../services/allAPIs'
 
 
 const labels = {
@@ -178,7 +178,7 @@ const ViewDetails = () => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await getAUserAPI(email, reqHeader)
+        const result = await getAUserWithEmailAPI(email, reqHeader)
         setUserData(result.data)
         setLoading(false)
     }
@@ -239,7 +239,11 @@ const ViewDetails = () => {
                                 <div className='h-[150px] overflow-y-auto sm:text-base text-sm 2xl:text-base pt-2'><p><span className='text-blue-300'>Description: </span>{show.description}</p>
                                 </div>
                                 <div className='p-3'>
-                                    <span className='bg-black/60 rounded-2xl px-2 text-sm me-2 text-[#FF3B30]'>{show.genre}</span>
+                                    {
+                                        show.genre.map(genre => (
+                                            <span className={`bg-black/60 rounded-2xl px-2 text-sm me-2 ${genre == "Action" ? 'text-[#FF3B30]' : genre == "Adventure" ? 'text-[#FF9500]' : genre == "Comedy" ? 'text-[#FFD60A]' : genre == "Drama" ? 'text-[#8E8E93]' : genre == "Horror" ? 'text-[#51515e]' : genre == "Thriller" ? 'text-[#5E5CE6]' : genre == "Sci-Fi" ? 'text-[#32ADE6]' : genre == "Fantasy" ? 'text-[#A55EEA]' : genre == "Romance" ? 'text-[#FF2D55]' : genre == "Mystery" ? 'text-[#3A3A3C]' : genre == "History" ? 'text-[#AC8E68]' : genre == "Suspense" ? 'text-[#6E6E73]' : genre == "Biography" ? 'text-[#2ECC71]' : genre == "Supernatural" ? 'text-[#B53471]' : genre == "Musical" ? 'text-[#F8A5C2]' : genre == "Crime" ? 'text-[#5856D6]' : 'text-white'}`}>{genre}</span>
+                                        ))
+                                    }
                                 </div>
                                 <div className='p-3 text-xs sm:text-sm text-white/60'>
                                     <p>Language: {show.language}</p>
@@ -267,11 +271,11 @@ const ViewDetails = () => {
                                     recommendation?.length > 0 ?
                                         recommendation?.map((shows, index) => (
                                             <div key={index} className='bg-white/10 aspect-4/6  rounded-xl sm:m-3 m-1 relative group overflow-hidden'>
-                                                <div className='m-2 aspect-3/4 overflow-hidden rounded-xl'>
+                                                <div className='m-1 sm:m-2 aspect-3/4 overflow-hidden rounded-t-xl sm:rounded-xl'>
                                                     <p className='sm:text-white/60 absolute right-0 sm:me-5 me-3 mt-1 md:text-xs bg-black rounded-2xl text-[8px] p-1'><FontAwesomeIcon icon={faStar} className='me-1 text-yellow-400' />{shows.show.score}/10</p>
-                                                    <img className='w-full object-fill rounded-xl' src={shows.show.imageUrl} alt="" />
+                                                    <img className='w-full object-fill rounded-t-xl sm:rounded-xl' src={shows.show.imageUrl} alt="" />
                                                 </div>
-                                                <h5 className='px-3 sm:text-base text-xs whitespace-nowrap overflow-hidden text-ellipsis 2xl:text-[18px]'>{shows.show.title}</h5>
+                                                <h5 className='px-2 sm:px-3 2xl:text-[18px] sm:text-base text-[10px] whitespace-nowrap overflow-hidden text-ellipsis'>{shows.show.title}</h5>
                                                 <div className='hidden absolute inset-0 bg-black/90 sm:flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
                                                     <p className='text-xs 2xl:text-base px-5 text-center overflow-auto'>{shows.show.summary}</p>
                                                     <p className='text-xs 2xl:text-base px-5 text-center'><span className='text-blue-300'>Simillarity to {show.title} : </span><span className='font-bold text-green-300'>{(shows.similarity * 100).toFixed(2)}%</span></p>
@@ -310,7 +314,7 @@ const ViewDetails = () => {
                                                     <div className='flex flex-col w-full'>
                                                         <div className='flex justify-between items-center w-full'>
                                                             <div className='flex items-center'>
-                                                                <h5 className='sm:text-base text-sm'>{cmt.userId.username}</h5>
+                                                                <Link to={`/profile/${cmt.userId._id}`}><h5 className='sm:text-base text-sm'>{cmt.userId.username}</h5></Link>
                                                                 <div className='relative group ms-1 flex justify-center items-center'>
                                                                     <span className={`text-blue-500 text-xs ${cmt.userId?.verified ? 'inline-block' : 'hidden'}`}><FontAwesomeIcon className='' icon={faCircleCheck} /></span>
                                                                     <span className={`absolute translate-x-10 mb-1 bg-black/30 text-white text-xs p-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-50 ${cmt.userId?.verified ? 'inline-block' : 'hidden'} `}>

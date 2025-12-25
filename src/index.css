@@ -31,3 +31,11 @@ html,body {
     filter: invert(1);   /* makes the icon white */
   }
 }
+
+.hover-scroll-lg::-webkit-scrollbar {
+  height: 0;
+}
+
+.hover-scroll-lg:hover::-webkit-scrollbar {
+  height: 3px;
+}

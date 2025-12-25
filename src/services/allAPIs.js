@@ -64,8 +64,14 @@ export const getAShowAPI = async(id)=>{
 }
 
 //get a user -- for profile section
-export const getAUserAPI = async(email,reqHeader)=>{
-    return await commonAPI("get",`${serverURL}/get-a-user?email=${email}`,"",reqHeader)
+export const getAUserAPI = async(id,reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/get-a-user/${id}`,"",reqHeader)
+}
+//get a user -- for Header section
+export const getAUserWithEmailAPI = async(email,reqHeader)=>{
+    console.log(email);
+    
+    return await commonAPI("get",`${serverURL}/get-a-email-user?email=${email}`,"",reqHeader)
 }
 
 // get show based on category/language
@@ -241,8 +247,15 @@ export const getReportAPI = async(reqHeader)=>{
 }
 
 // get-list-count
-export const getListCountAPI = async(reqHeader)=>{
-    return await commonAPI("get",`${serverURL}/get-list-count`,"",reqHeader)
+export const getListCountAPI = async(id)=>{
+    console.log(id);
+    
+    return await commonAPI("get",`${serverURL}/get-list-count/${id}`)
+}
+
+// get-list-count
+export const getListtestCountAPI = async(id)=>{
+    return await commonAPI("get",`${serverURL}/get-list-count/${id}`)
 }
 
 // comment-activity
@@ -256,8 +269,8 @@ export const showActivityAPI = async(reqBody,reqHeader)=>{
 }
 
 // get-activity
-export const getActivityAPI = async(reqHeader)=>{
-    return await commonAPI("get",`${serverURL}/get-activity`,"",reqHeader)
+export const getActivityAPI = async(id)=>{
+    return await commonAPI("get",`${serverURL}/get-activity/${id}`)
 }
 
 // ...............................ADMIN.....................................
@@ -315,4 +328,9 @@ export const unBanUserAPI = async(email)=>{
 // verify-opt
 export const verifyOptAPI = async(reqBody)=>{
     return await commonAPI("put",`${serverURL}/verify-otp`,reqBody)
+}
+
+// update-profile
+export const editProfileAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("put",`${serverURL}/update-profile`,reqBody,reqHeader)
 }

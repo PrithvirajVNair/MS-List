@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { userProfileUpdateContext } from '../../context/ContextShare'
 import { jwtDecode } from 'jwt-decode'
-import { getAUserAPI } from '../../services/allAPIs'
+import { getAUserAPI, getAUserWithEmailAPI } from '../../services/allAPIs'
 
 const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
 
@@ -22,7 +22,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await getAUserAPI(email, reqHeader)
+        const result = await getAUserWithEmailAPI(email, reqHeader)
         setUserData(result.data)
     }
 
@@ -96,7 +96,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
             {toggleMenu &&
                 <div className='text-white/60 grid grid-cols-4'>
                     <div></div>
-                    <div className='col-span-2 border rounded-xl backdrop-blur-xl'>
+                    <div className='col-span-2 bg-white/10 rounded-xl backdrop-blur-xl'>
                         <ul className='flex flex-col justify-center items-center py-5'>
                             {home ? <li className={`hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='#'>Home</a></li> :
                                 <li className={`hover:text-blue-300 ${home && 'text-blue-300'}`}><a href='/home'>Home</a></li>}
@@ -119,7 +119,7 @@ const Header = ({ home, watchlist, category, search, feedback, mylist }) => {
             {/* following is the toggle for profile (Mobile Responsive) */}
             {toggleUser &&
                 <div className='flex justify-end me-5 text-white/60'>
-                    <div className='flex flex-col border border-blue-300/40 py-3 w-50 rounded justify-center items-center backdrop-blur-xl text-base 2xl:text-xl'>
+                    <div className='flex flex-col py-3 w-50 bg-white/10 rounded justify-center items-center backdrop-blur-xl text-base 2xl:text-xl'>
                         <Link to={`/profile/${userData._id}`}><button className='cursor-pointer hover:text-blue-400'>Profile</button></Link>
                         <Link to={'/login'}><button onClick={handleLogout} className='cursor-pointer hover:text-blue-400'>Log out</button></Link>
                     </div>

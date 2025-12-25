@@ -70,7 +70,7 @@ function App() {
         <Route path="/category" element={<Category/>} />
         <Route path="/category/:categoryName" element={<CategoryPage/>} />
         <Route path='/details/:id' element={<ViewDetails/>} />
-        <Route path='/profile/:username' element={<Profile/>} />
+        <Route path='/profile/:id' element={<Profile/>} />
 
 
         <Route path='/admin-dashboard' element={<Dashbord/>} />

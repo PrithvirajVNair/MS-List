@@ -16,7 +16,7 @@ const AdminContents = () => {
   const [toggleContent, setToggleContent] = useState(false)
   const [shows, setShows] = useState([])
   const navigate = useNavigate()
-
+  const [tempgenre,setTempGenre]=useState("")
   const [addShow, setAddShow] = useState({
     title: "",
     language: "",
@@ -24,10 +24,14 @@ const AdminContents = () => {
     description: "",
     summary: "",
     genre: [],
-    imageUrl: ""
+    imageUrl: "",
+    coverUrl: ""
   })
   console.log(addShow);
 
+  const setGenre = () => {
+    setAddShow({ ...addShow, genre: tempgenre.split(",").map(g=>(g.trim())).filter(g=> g!="") })
+  }
 
   const getShow = async () => {
     const result = await getAdminShowAPI()
@@ -52,9 +56,11 @@ const AdminContents = () => {
       description: "",
       summary: "",
       genre: [],
-      imageUrl: ""
+      imageUrl: "",
+      coverUrl: ""
     }
     )
+    setTempGenre("")
   }
 
   const handleAdd = async () => {
@@ -72,22 +78,26 @@ const AdminContents = () => {
         description: "",
         summary: "",
         genre: [],
-        imageUrl: ""
+        imageUrl: "",
+        coverUrl: ""
       }
       )
+      setTempGenre("")
       setToggleContent(false)
       getShow()
     }
   }
 
-  const handleAddFeatured = async(data) => {    
-    const result = await addToFeaturedAPI(data)
+  const handleAddFeatured = async (id) => {
+    const result = await addToFeaturedAPI({id})
     console.log(result);
     getShow()
   }
 
-  const handleRemoveFeatured = async(data) => {    
-    const result = await removeFromFeaturedAPI(data)
+  const handleRemoveFeatured = async (id) => {
+    console.log(id);
+    
+    const result = await removeFromFeaturedAPI({id})
     console.log(result);
     getShow()
   }
@@ -125,13 +135,13 @@ const AdminContents = () => {
               {/* card */}
               {
                 shows.length > 0 ?
-                  shows?.map((items,index) => (
+                  shows?.map((items, index) => (
                     <div key={index} className='bg-white/10 m-2 w-full'>
                       <div className='p-5 h-[300px] grid grid-cols-5 w-full'>
                         <div className='flex justify-center items-center'>
                           <img src={items.imageUrl} style={{ width: '150px' }} alt="no image" className='' />
                         </div>
-                        <div className='col-span-4 px-5 overflow-auto'>
+                        <div className='col-span-4 px-5 overflow-aut'>
                           <div className=''>
                             <p className='text-red-400'>ID : {items._id}</p>
                             <p className=''>Title : {items.title}</p>
@@ -139,15 +149,17 @@ const AdminContents = () => {
                             <p className=''>Language : {items.language}</p>
                             <p className=''>Genre : {items.genre}</p>
                             <p className=''>Summary : {items.summary}</p>
-                            <p className=''>Description : {items.description}</p>
-                          </div>
-                          <div className='flex justify-end'>
-                            <div>
-                                {!items.featured?<button onClick={()=>handleAddFeatured(items)} className='border bg-blue-500 py-1 px-2 rounded-lg me-3'>Add to Featured</button>:
-                                <button onClick={()=>handleRemoveFeatured(items)} className='border bg-orange-500 py-1 px-2 rounded-lg me-3'>Remove From Featured</button>}
+                            <div className='h-20 overflow-auto'>
+                              <p className=''>Description : {items.description}</p>
                             </div>
-                            <button className='border bg-orange-500 py-1 px-2 rounded-lg me-3'>Edit</button>
-                            <button onClick={() => handleDelete(items._id)} className='border bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
+                          </div>
+                          <div className='flex justify-end py-2'>
+                            <div>
+                              {!items.featured ? <button onClick={() => handleAddFeatured(items._id)} className='bg-blue-500 py-1 px-2 rounded-lg me-3'>Add to Featured</button> :
+                                <button onClick={() => handleRemoveFeatured(items._id)} className='bg-orange-500 py-1 px-2 rounded-lg me-3'>Remove From Featured</button>}
+                            </div>
+                            <button className='bg-orange-500 py-1 px-2 rounded-lg me-3'>Edit</button>
+                            <button onClick={() => handleDelete(items._id)} className='bg-red-500 py-1 px-2 rounded-lg'>Delete</button>
                           </div>
                         </div>
                       </div>
@@ -183,28 +195,31 @@ const AdminContents = () => {
       </div>
       {
         toggleContent &&
-        <div className='h-screen inset-0 absolute bg-black/60 text-black'>
-          <div className='grid sm:grid-cols-12 py-15 h-screen'>
+        <div className='h-screen inset-0 fixed bg-black/50 flex justify-center items-center'>
+          <div className='grid sm:grid-cols-12 py-15'>
             <div className='sm:col-span-2 md:col-span-3 lg:col-span-4'></div>
-            <div className='border rounded-xl flex flex-col justify-center items-center bg-white/50 backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4'>
+            <div className='rounded-xl flex flex-col justify-center items-center text-white backdrop-blur-lg py-5 col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 p-20'>
               <h2 className='mb-10 text-2xl font-bold'>ADD CONTENT</h2>
               <div className='grid grid-cols-2'>
-                <div className='flex flex-col justify-center items-center'>
+                {/* <div className='flex flex-col justify-center items-center'> */}
                   <label className='mb-3' htmlFor='title'>Title:</label>
+                  <input value={addShow.title} onChange={e => setAddShow({ ...addShow, title: e.target.value })} className='bg-white ms-2 mb-3 text-black' id='title' type="text" />
                   <label className='mb-3' htmlFor='cat'>Category:</label>
+                  <input value={addShow.category} onChange={e => setAddShow({ ...addShow, category: e.target.value })} className='bg-white ms-2 mb-3 text-black' id='cat' type="text" />
                   <label className='mb-3' htmlFor='lang'>Language:</label>
+                  <input value={addShow.language} onChange={e => setAddShow({ ...addShow, language: e.target.value })} className='bg-white ms-2 mb-3 text-black' id='lang' type="text" />
                   <label className='mb-3' htmlFor='gen'>Genre:</label>
+                  <div className='flex justify-center items-center mb-3'>
+                    <input value={tempgenre} onChange={e => setTempGenre(e.target.value)} className='bg-white ms-2  text-black w-full' id='gen' type="text" />
+                    <button onClick={setGenre} className='text-xs bg-blue-400 px-2 cursor-pointer h-full'>Add</button>
+                  </div>
                   <label className='mb-3' htmlFor='img'>Image URL:</label>
+                  <input value={addShow.imageUrl} onChange={e => setAddShow({ ...addShow, imageUrl: e.target.value })} className='bg-white ms-2 mb-3 text-black' id='img' type="text" />
+                  <label className='mb-3' htmlFor='img'>Cover URL:</label>
+                  <input value={addShow.coverUrl} onChange={e => setAddShow({ ...addShow, coverUrl: e.target.value })} className='bg-white ms-2 mb-3 text-black' id='img' type="text" />
                   <label className='mb-3' htmlFor='desc'>Description:</label>
-                </div>
-                <div className=''>
-                  <input value={addShow.title} onChange={e => setAddShow({ ...addShow, title: e.target.value })} className='bg-white ms-2 mb-3' id='title' type="text" />
-                  <input value={addShow.category} onChange={e => setAddShow({ ...addShow, category: e.target.value })} className='bg-white ms-2 mb-3' id='cat' type="text" />
-                  <input value={addShow.language} onChange={e => setAddShow({ ...addShow, language: e.target.value })} className='bg-white ms-2 mb-3' id='lang' type="text" />
-                  <input value={addShow.genre} onChange={e => setAddShow({ ...addShow, genre: e.target.value })} className='bg-white ms-2 mb-3' id='gen' type="text" />
-                  <input value={addShow.imageUrl} onChange={e => setAddShow({ ...addShow, imageUrl: e.target.value })} className='bg-white ms-2 mb-3' id='img' type="text" />
-                  <textarea value={addShow.description} onChange={e => setAddShow({ ...addShow, description: e.target.value })} rows={1} className='bg-white ms-2 mb-3' id='desc' type="text" />
-                </div>
+                  <textarea value={addShow.description} onChange={e => setAddShow({ ...addShow, description: e.target.value })} rows={1} className='bg-white ms-2 mb-3 text-black' id='desc' type="text" />
+                {/* </div> */}
               </div>
               <div>
                 <button onClick={handleCancel} className='py-1 px-2 bg-yellow-600 rounded me-3 text-white cursor-pointer '>Cancel</button>

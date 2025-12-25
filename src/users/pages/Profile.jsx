@@ -1,59 +1,78 @@
 import { faCircleCheck, faComment, faPenToSquare, faRectangleList } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import { jwtDecode } from 'jwt-decode'
 import { userProfileUpdateContext } from '../../context/ContextShare'
-import { getActivityAPI, getAUserAPI, getListCountAPI } from '../../services/allAPIs'
+import { editProfileAPI, getActivityAPI, getAUserAPI, getAUserWithEmailAPI, getListCountAPI } from '../../services/allAPIs'
 import { format } from 'timeago.js'
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 const Profile = () => {
     const [userData, setUserData] = useState({})
     const [token, setToken] = useState("")
+    const {id} = useParams()
     const navigate = useNavigate()
-    // console.log(userData);
     const { setUserContextProfile } = useContext(userProfileUpdateContext)
     const [loading, setLoading] = useState(true)
     const [listCount, setListCount] = useState({})
     const [activity, setActivity] = useState([])
+    const [toogleEdit, setToogleEdit] = useState(false)
+    const [tempProfilePicture, setTempProfilePicture] = useState("")
+    const [profileEditStatus,setProfileEditStatus] = useState({})
+    const [tempUserData,setTempUserData] = useState({})
+    const [editProfile, setEditProfile] = useState({
+        id:"",
+        email:"",
+        username: "",
+        bio: "",
+        profile: ""
+    })
 
     const getProfile = async (email) => {
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        // console.log(email);
-
-        const result = await getAUserAPI(email, reqHeader)
-        // console.log(result);
+        const buttonResult = await getAUserWithEmailAPI(email,reqHeader)
+        setTempUserData(buttonResult.data)
+        const result = await getAUserAPI(id, reqHeader)
         setUserData(result.data)
         setLoading(false)
+        setEditProfile({ ...editProfile,id:result.data._id, email:result.data.email,username: result.data.username, bio: result.data.bio, profile: result.data.profile })
     }
 
     const getListCount = async () => {
-        const token = sessionStorage.getItem("token")
-        const reqHeader = {
-            "Authorization": `Bearer ${token}`
-        }
-        const result = await getListCountAPI(reqHeader)
-        // console.log(result);
+        const result = await getListCountAPI(id)
         setListCount(result.data)
     }
 
     const getActivities = async () => {
+        const result = await getActivityAPI(id)
+        setActivity(result.data)
+    }
+
+    const handleEdit = async() => {
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
-        const result = await getActivityAPI(reqHeader)
-        console.log(result);
-        setActivity(result.data)
+        const result = await editProfileAPI(editProfile,reqHeader)
+        if(result.status == 200){
+        setToogleEdit(false)
+        setProfileEditStatus(result);
+        }
+        else{
+            toast.warning("Something Went Wrong!")
+        }
     }
 
     useEffect(() => {
         if (sessionStorage.getItem("token")) {
-            const userData = jwtDecode(sessionStorage.getItem("token"))
+            const userData = jwtDecode(sessionStorage.getItem("token"))        
             const token = sessionStorage.getItem("token")
             setUserContextProfile(userData)
             setToken(token)
@@ -63,7 +82,7 @@ const Profile = () => {
         } else {
             navigate('/login')
         }
-    }, [])
+    }, [profileEditStatus])
 
     return (
         <>
@@ -101,6 +120,11 @@ const Profile = () => {
                                     <Link to={'/watchlist/onhold'}><p className='text-xs md:text-base'>On Hold : {listCount.onhold}</p></Link>
                                     <Link to={'/watchlist/dropped'}><p className='text-xs md:text-base'>Dropped : {listCount.dropped}</p></Link>
                                 </div>
+                                {
+                                    tempUserData._id === id &&
+                                    <div className='py-5'>
+                                    <button onClick={() => setToogleEdit(true)} className='bg-blue-500 text-xs sm:text-sm px-2 py-1 rounded cursor-pointer hover:bg-blue-600'>Edit Profile</button>
+                                </div>}
                             </div>
                             <div className='md:px-5 px-3'>
                                 <h1 className='text-white mb-5 sm:text-lg py-5 md:py-2 w-full text-center md:text-left md:text-xl  text-sm'>Activities:</h1>
@@ -152,6 +176,70 @@ const Profile = () => {
                         </div>
                 }
             </div>
+            {
+                toogleEdit &&
+                <div className='fixed inset-0 bg-black/60 text-white h-screen flex justify-center items-center'>
+                    <div className='grid grid-cols-12'>
+                        <div className='col-span-0'></div>
+                        <div className='p-5 sm:p-10 backdrop-blur-xl col-span-12'>
+                            <div className='flex flex-col justify-center items-center gap-5'>
+                                <div className='flex flex-col justify-center items-center gap-2 text-sm sm:text-base'>
+                                    <h3>Current Profile</h3>
+                                    <Stack>
+                                        <img className='w-[100px]' style={{ borderRadius: '50%' }} alt="profile" src={userData.profile} />
+                                    </Stack>
+                                </div>
+                                <div className='flex flex-col justify-center items-center gap-2 text-sm sm:text-base'>
+                                    <h3>Edit Profile</h3>
+                                    <div className='flex flex-wrap sm:flex-nowrap gap-5 overflow-x-scroll hover-scroll-lg'>
+                                        <img onClick={
+                                            () => setEditProfile({ ...editProfile, profile: "https://avatarfiles.alphacoders.com/333/thumb-1920-333977.jpg" }, setTempProfilePicture("ironman"))
+                                        } className={`w-[50px] md:w-[100px] cursor-pointer ${tempProfilePicture == "ironman" && "border border-blue-400"}`} style={{ borderRadius: '50%' }} alt="ironman" src="https://avatarfiles.alphacoders.com/333/thumb-1920-333977.jpg" />
+                                        <img onClick={
+                                            () => setEditProfile({ ...editProfile, profile: "https://i.pinimg.com/736x/8c/9b/07/8c9b07e5f25b7776190bf9de4da60c47.jpg" }, setTempProfilePicture("gojo"))
+                                        } className={`w-[50px] md:w-[100px] cursor-pointer ${tempProfilePicture == "gojo" && "border border-blue-400"}`} style={{ borderRadius: '50%' }} alt="gojo" src="https://i.pinimg.com/736x/8c/9b/07/8c9b07e5f25b7776190bf9de4da60c47.jpg" />
+                                        <img onClick={
+                                            () => setEditProfile({ ...editProfile, profile: "https://wallpapers-clan.com/wp-content/uploads/2022/09/dragon-ball-goku-pfp-1.jpg" }, setTempProfilePicture("goku"))
+                                        } className={`w-[50px] md:w-[100px] cursor-pointer ${tempProfilePicture == "goku" && "border border-blue-400"}`} style={{ borderRadius: '50%' }} alt="goku" src="https://wallpapers-clan.com/wp-content/uploads/2022/09/dragon-ball-goku-pfp-1.jpg" />
+                                        <img onClick={
+                                            () => setEditProfile({ ...editProfile, profile: "https://media.craiyon.com/2025-08-23/zcDDv_pFTPWswRitXg3pYA.webp" }, setTempProfilePicture("mouse"))
+                                        } className={`w-[50px] md:w-[100px] cursor-pointer ${tempProfilePicture == "mouse" && "border border-blue-400"}`} style={{ borderRadius: '50%' }} alt="mouse" src="https://media.craiyon.com/2025-08-23/zcDDv_pFTPWswRitXg3pYA.webp" />
+                                        <img onClick={
+                                            () => setEditProfile({ ...editProfile, profile: "https://i.pinimg.com/originals/47/12/8f/47128f45131fd514adc6d0a1c0e121e9.jpg" }, setTempProfilePicture("knight"))
+                                        } className={`w-[50px] md:w-[100px] cursor-pointer ${tempProfilePicture == "knight" && "border border-blue-400"}`} style={{ borderRadius: '50%' }} alt="knight" src="https://i.pinimg.com/originals/47/12/8f/47128f45131fd514adc6d0a1c0e121e9.jpg" />
+                                    </div>
+                                </div>
+                                <div className='flex flex-col justify-center items-center gap-2 text-sm sm:text-base'>
+                                    <h3>Username</h3>
+                                    <input className='text-center border border-[#ffffff2e]' value={editProfile.username} onChange={(e) => setEditProfile({ ...editProfile, username: e.target.value })} type="text" />
+                                </div>
+                                <div className='flex flex-col justify-center items-center gap-2 text-sm sm:text-base'>
+                                    <h3>Bio</h3>
+                                    <textarea className='text-center border border-[#ffffff2e]' value={editProfile.bio} onChange={(e) => setEditProfile({ ...editProfile, bio: e.target.value })} type="text" />
+                                </div>
+                                <div className='flex justify-end items-end w-full'>
+                                    <button onClick={() => setToogleEdit(false)} className='bg-orange-500 text-xs sm:text-sm px-2 py-1 rounded cursor-pointer hover:bg-orange-600 me-3'>Cancel</button>
+                                    <button onClick={handleEdit} className='bg-blue-500 text-xs sm:text-sm px-2 py-1 rounded cursor-pointer hover:bg-blue-600'>Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col-span-0'></div>
+                    </div>
+                </div>
+            }
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
         </>
     )
 }
