@@ -64,6 +64,7 @@ const Profile = () => {
         if(result.status == 200){
         setToogleEdit(false)
         setProfileEditStatus(result);
+        toast.success("Profile Updated")
         }
         else{
             toast.warning("Something Went Wrong!")

@@ -63,6 +63,11 @@ export const getAShowAPI = async(id)=>{
     return await commonAPI("get",`${serverURL}/details/${id}`)
 }
 
+// update show /update-show
+export const editAShowAPI = async(reqBody)=>{
+    return await commonAPI("put",`${serverURL}/update-show/`,reqBody)
+}
+
 //get a user -- for profile section
 export const getAUserAPI = async(id,reqHeader)=>{
     return await commonAPI("get",`${serverURL}/get-a-user/${id}`,"",reqHeader)
