@@ -39,3 +39,7 @@ html,body {
 .hover-scroll-lg:hover::-webkit-scrollbar {
   height: 3px;
 }
+
+#about{
+  background-image: url('./assets/Backgrounds/smoke.mp4');
+}
