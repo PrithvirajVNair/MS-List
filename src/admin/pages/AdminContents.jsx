@@ -155,7 +155,7 @@ const AdminContents = () => {
           {!toggleMenu ? <FontAwesomeIcon onClick={()=>setToggleMenu(true)} icon={faBars} className='text-xl' /> : <FontAwesomeIcon onClick={()=>setToggleMenu(false)} icon={faXmark} className='text-xl' />}
           {toggleMenu && <SideBarAlt contents/>}
       </div>
-      <div className='grid grid-cols-[1fr_4fr] min-h-screen'>
+      <div className='grid grid-cols-[1fr_6fr] min-h-screen'>
         <div className='h-full hidden lg:block'>
           <SideBar contents/>
         </div>

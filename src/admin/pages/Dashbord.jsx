@@ -50,7 +50,7 @@ const Dashbord = () => {
     return (
         <div className='bg-black text-white min-h-screen'>
             <marquee className='bg-gray-950 fixed' behavior="" direction="left">THIS IS THE ADMIN HOME PAGE OF MS LIST</marquee>
-            <div className='grid grid-cols-[1fr_4fr]'>
+            <div className='grid grid-cols-[1fr_6fr]'>
                 <div className='h-full'>
                     <SideBar overview />
                 </div>

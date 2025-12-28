@@ -26,7 +26,7 @@ const AdminSettings = () => {
 
   return (
     <div className='bg-black text-white'>
-      <div className='grid grid-cols-[1fr_4fr] min-h-screen'>
+      <div className='grid grid-cols-[1fr_6fr] min-h-screen'>
         <div className='h-full'>
           <SideBar settings />
         </div>
