@@ -1,28 +1,55 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBar from '../components/SideBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import { editAdminAPI, getAdminAPI } from '../../services/allAPIs'
 
 const AdminSettings = () => {
 
+  const [adminData, setAdminData] = useState({
+    profile:"",
+    username:"",
+    password:"",
+    cPassword:""
+  })
+  const [adminDataAll, setAdminDataAll] = useState({})
+  console.log(adminData);
+  
+  const [adminEmail, setAdminEmail] = useState({})
   const navigate = useNavigate()
+
+  const getAdmin = async () => {
+    const token = sessionStorage.getItem("token")
+    const reqHeader = {
+      "Authorization": `Bearer ${token}`
+    }
+    const result = await getAdminAPI(reqHeader)
+    setAdminData({username:result.data.username,password:result.data.password,cPassword:result.data.password,profile:result.data.profile})
+    setAdminDataAll(result.data)
+  }
+
+  const handleSubmit = async() => {
+    const result = await editAdminAPI({adminDataAll,adminData})
+    console.log(result);
+    
+  }
 
   useEffect(() => {
     if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
       const details = jwtDecode(token)
+      setAdminEmail(details.userMail)
       if (details.userMail != "mslistadmin@gmail.com") {
         navigate('/youhavenoaccess')
       }
-
+      getAdmin()
     }
     else {
       navigate('/login')
     }
-  },[])
-
+  }, [])
 
   return (
     <div className='bg-black text-white'>
@@ -47,28 +74,33 @@ const AdminSettings = () => {
                 {/* Profile Icon */}
                 <div className="flex justify-center items-center mb-6 flex-col">
                   <div className="w-24 h-24 bg-white rounded-full flex justify-center items-center border-4 border-white shadow-md">
-                    <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="no image" className='cursor-pointer w-full h-full object-fill' style={{ borderRadius: '50%' }} />
+                    <img src={adminData.profile} alt="no image" className='cursor-pointer w-full h-full object-fill' style={{ borderRadius: '50%' }} />
                   </div>
 
                   {/* Edit Icon */}
                   <div className="cursor-pointer">
-                    <FontAwesomeIcon icon={faPenToSquare} className='text-yellow-400 hover:text-yellow-500' />
+                    {/* <FontAwesomeIcon icon={faPenToSquare} className='text-yellow-400 hover:text-yellow-500' /> */}
                   </div>
                 </div>
 
                 {/* Input Fields */}
                 <div className="space-y-4">
                   <input
+                    value={adminData.username}
+                    onChange={e=>setAdminData({...adminData,username:e.target.value})}
                     type="text"
                     placeholder="Username"
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                   <input
+                    // value={adminData.password}
+                    onChange={e=>setAdminData({...adminData,password:e.target.value})}
                     type="password"
                     placeholder="Password"
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                   <input
+                  onChange={e=>setAdminData({...adminData,cPassword:e.target.value})}
                     type="password"
                     placeholder="Confirm Password"
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -78,7 +110,7 @@ const AdminSettings = () => {
                 {/* Buttons */}
                 <div className="flex justify-between mt-6">
                   <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md transition">Reset</button>
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md transition">Update</button>
+                  <button onClick={handleSubmit} className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md transition">Update</button>
                 </div>
               </div>
             </div>

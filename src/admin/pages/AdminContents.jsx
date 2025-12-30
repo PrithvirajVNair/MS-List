@@ -121,13 +121,13 @@ const AdminContents = () => {
   const handleEdit = async () => {
     const result = await editAShowAPI(editContent)
     console.log(result);
-    if(result.status == 200){
+    if (result.status == 200) {
       setEditStatus(result)
       toast.success("Updated Successfully")
       setToggleEditContent(false)
       // setEditContent({})
     }
-    else{
+    else {
       toast.warning("Something Went Wrong!")
       setToggleEditContent(false)
     }
@@ -152,12 +152,12 @@ const AdminContents = () => {
   return (
     <div className='bg-black text-white'>
       <div className='flex backdrop-blur-2xl justify-end items-center w-full lg:hidden border h-10 px-5'>
-          {!toggleMenu ? <FontAwesomeIcon onClick={()=>setToggleMenu(true)} icon={faBars} className='text-xl' /> : <FontAwesomeIcon onClick={()=>setToggleMenu(false)} icon={faXmark} className='text-xl' />}
-          {toggleMenu && <SideBarAlt contents/>}
+        {!toggleMenu ? <FontAwesomeIcon onClick={() => setToggleMenu(true)} icon={faBars} className='text-xl' /> : <FontAwesomeIcon onClick={() => setToggleMenu(false)} icon={faXmark} className='text-xl' />}
+        {toggleMenu && <SideBarAlt contents />}
       </div>
       <div className='grid grid-cols-[1fr_6fr] min-h-screen'>
         <div className='h-full hidden lg:block'>
-          <SideBar contents/>
+          <SideBar contents />
         </div>
         <div className='px-10 min-h-screen max-lg:col-span-12 '>
           <div className='pt-20'>
@@ -184,8 +184,8 @@ const AdminContents = () => {
                             <p className=''>Category : {items.category}</p>
                             <p className=''>Language : {items.language}</p>
                             <p className=''>Genre : {items.genre}</p>
-                            <p className=''>Summary : {items.summary}</p>
-                            <div className='h-20 overflow-auto'>
+                            <div className='h-25 overflow-auto'>
+                              <p className=''>Summary : {items.summary}</p>
                               <p className=''>Description : {items.description}</p>
                             </div>
                           </div>
