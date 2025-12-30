@@ -39,7 +39,7 @@ const AdminUsers = () => {
     if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
       const details = jwtDecode(token)
-      if (details.userMail != "mslistadmin@gmail.com") {
+      if (!details.administrator) {
         navigate('/youhavenoaccess')
       }
 

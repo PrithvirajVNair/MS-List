@@ -19,7 +19,6 @@ import TermsOfService from "./pages/TermsOfService"
 import Dashbord from "./admin/pages/Dashbord"
 import AdminUsers from "./admin/pages/AdminUsers"
 import AdminContents from "./admin/pages/AdminContents"
-import AdminSettings from "./admin/pages/AdminSettings"
 import Search from "./users/pages/Search"
 import Feedback from "./users/pages/Feedback"
 import CategoryPage from "./users/pages/CategoryPage"
@@ -77,7 +76,6 @@ function App() {
         <Route path='/admin-users' element={<AdminUsers/>} />
         <Route path='/admin-contents' element={<AdminContents/>} />
         <Route path='/admin-reports' element={<Reports/>} />
-        <Route path='/admin-settings' element={<AdminSettings/>} />
 
 
         <Route path='/search' element={<Search/>} />

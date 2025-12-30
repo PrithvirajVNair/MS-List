@@ -171,17 +171,6 @@ export const deleteShowActivityAPI = async(reqBody,reqHeader)=>{
 
 // ====> CUSTOM LIST <====
 
-
-// get admin
-export const getAdminAPI = async(reqHeader)=>{
-    return await commonAPI("get",`${serverURL}/get-admin`,"",reqHeader)
-}
-
-// edit admin
-export const editAdminAPI = async(reqBody)=>{
-    return await commonAPI("put",`${serverURL}/edit-admin`,reqBody)
-}
-
 // add to list
 export const addToCustomListAPI = async(reqBody,reqHeader)=>{
     return await commonAPI("post",`${serverURL}/add-to-custom-list`,reqBody,reqHeader)

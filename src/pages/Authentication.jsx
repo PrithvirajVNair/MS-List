@@ -73,9 +73,11 @@ const Authentication = ({ register, otp }) => {
             console.log(result);
             if (result.data) {
                 sessionStorage.setItem("token", result.data.token)
+                console.log(result.data.existingUser);
+
                 toast.success(`Successfully Logged In`)
                 setTimeout(() => {
-                    if (result.data.existingUser.email == "mslistadmin@gmail.com") {
+                    if (result.data.existingUser.administrator) {
                         navigate('/admin-dashboard')
                     }
                     else {
@@ -107,14 +109,19 @@ const Authentication = ({ register, otp }) => {
 
     const handleGoogleLogin = async (credentialResponse) => {
         const details = jwtDecode(credentialResponse.credential)
-        console.log(details);
+        // console.log(details);
         const result = await googleLoginAPI({ username: details.name, password: "googlePswd", email: details.email, photo: details.picture })
         console.log(result);
         if (result.data) {
             sessionStorage.setItem("token", result.data.token)
             toast.success(`Successfully Logged In`)
             setTimeout(() => {
-                navigate('/home')
+                if (result.data.existingUser.administrator) {
+                    navigate('/admin-dashboard')
+                }
+                else {
+                    navigate('/home')
+                }
             }, 3000)
         }
         else if (result.status == 401) {
@@ -214,7 +221,7 @@ const Authentication = ({ register, otp }) => {
                                 <div className='sm:text-base text-sm flex justify-center items-center py-5'>
                                     <GoogleLogin
                                         onSuccess={credentialResponse => {
-                                            console.log(credentialResponse);
+                                            // console.log(credentialResponse);
                                             handleGoogleLogin(credentialResponse)
                                         }}
                                         onError={() => {

@@ -5,10 +5,12 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUpRightFromSquare, faBan, faCheck, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 const Reports = () => {
 
+    const navigate = useNavigate()
     const [reports, setReports] = useState([])
     console.log(reports);
 
@@ -58,6 +60,16 @@ const Reports = () => {
     }
 
     useEffect(() => {
+        if (sessionStorage.getItem('token')) {
+            const token = sessionStorage.getItem('token')
+            const details = jwtDecode(token)
+            if (!details.administrator) {
+                navigate('/youhavenoaccess')
+            }
+        }
+        else {
+            navigate('/login')
+        }
         getReport()
     }, [])
 
