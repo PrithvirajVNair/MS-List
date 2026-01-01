@@ -83,7 +83,7 @@ const Profile = () => {
         } else {
             navigate('/login')
         }
-    }, [profileEditStatus])
+    }, [profileEditStatus,id])
 
     return (
         <>
