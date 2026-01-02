@@ -192,6 +192,7 @@ const Authentication = ({ register, otp }) => {
                             <h2 className='text-2xl font-bold mb-5'><span className='text-blue-600'>MS</span> List</h2>
                             <h2 className='sm:text-2xl text-xl'>{register ? "Create a New Account" : "Welcome Back"}</h2>
                             <p className='text-white/60 sm:px-0 px-5 text-center sm:text-base text-sm'>{register ? 'Register to MS List and Create your Watchlist' : 'Sign In to MS List and Create your Watchlist'}</p>
+                            <p className='text-red-400/60 text-center px-5 text-sm'>This May take 20-30 seconds due to server cold start! (Please Don't Soan SignUp/SignIn)</p>
                             <div className='w-full px-10 mt-10'>
                                 <div className='sm:text-base text-sm'>
                                     <label className='' htmlFor="email">Email
