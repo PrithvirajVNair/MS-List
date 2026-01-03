@@ -33,8 +33,6 @@ const MyListAll = () => {
     }
 
     const addToFav = async (data) => {
-        console.log(data);
-
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
