@@ -100,8 +100,6 @@ const ViewDetails = () => {
                 await updateScoreAPI(listData)
                 const showId = result.data._id
                 const show = await showActivityAPI({ showId }, reqHeader)
-                console.log(show);
-                console.log(result);
 
             }
             else if (result.status == 401) {
@@ -134,7 +132,6 @@ const ViewDetails = () => {
         }
         else {
             const result = await addCommentAPI(comment, reqHeader)
-            console.log(result);
             if (result.status == 200) {
                 toast.success("Comment added")
                 setComment({
@@ -147,7 +144,6 @@ const ViewDetails = () => {
             getComment()
             const commentId = result.data._id
             const comment2 = await commentActivityAPI({ commentId }, reqHeader)
-            console.log(comment2);
 
         }
     }
@@ -189,7 +185,6 @@ const ViewDetails = () => {
             "Authorization": `Bearer ${token}`
         }
         const result = await reportCommentAPI({ id }, reqHeader)
-        console.log(result);
         if (result.status == 200) {
             toast.success(result.data)
         }
