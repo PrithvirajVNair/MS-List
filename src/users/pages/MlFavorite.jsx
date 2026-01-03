@@ -27,8 +27,6 @@ const MlFavorite = () => {
     }
 
     const removeFromFav = async (data) => {
-        console.log(data);
-
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
