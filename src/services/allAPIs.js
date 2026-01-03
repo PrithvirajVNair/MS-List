@@ -73,9 +73,7 @@ export const getAUserAPI = async(id,reqHeader)=>{
     return await commonAPI("get",`${serverURL}/get-a-user/${id}`,"",reqHeader)
 }
 //get a user -- for Header section
-export const getAUserWithEmailAPI = async(email,reqHeader)=>{
-    console.log(email);
-    
+export const getAUserWithEmailAPI = async(email,reqHeader)=>{    
     return await commonAPI("get",`${serverURL}/get-a-email-user?email=${email}`,"",reqHeader)
 }
 
@@ -252,9 +250,7 @@ export const getReportAPI = async(reqHeader)=>{
 }
 
 // get-list-count
-export const getListCountAPI = async(id)=>{
-    console.log(id);
-    
+export const getListCountAPI = async(id)=>{    
     return await commonAPI("get",`${serverURL}/get-list-count/${id}`)
 }
 
