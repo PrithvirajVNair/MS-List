@@ -31,18 +31,14 @@ const WatchlistAll = () => {
         setListData(result.data.listData)
         setListCount(result.data.count)
         setLoading(false)
-        console.log(result);
     }
 
     const addToFav = async (data) => {
-        console.log(data);
-
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
         const result = await addFavListAPI(data, reqHeader)
-        console.log(result);
         if (result.status == 200) {
             getList()
             toast.success("Added to Favorite")
@@ -53,14 +49,11 @@ const WatchlistAll = () => {
     }
 
     const removeFromFav = async (data) => {
-        console.log(data);
-
         const token = sessionStorage.getItem("token")
         const reqHeader = {
             "Authorization": `Bearer ${token}`
         }
         const result = await removeFavListAPI(data, reqHeader)
-        console.log(result);
         if (result.status == 200) {
             getList()
             toast.success("Removed from Favorite")
@@ -77,8 +70,6 @@ const WatchlistAll = () => {
             "Authorization": `Bearer ${token}`
         }
         const dltShowAct = await deleteShowActivityAPI({showId:deleteData.id},reqHeader)
-        console.log(dltShowAct);
-        
         const result = await deleteListAPI(deleteData, reqHeader)
         // console.log(result);
         if (result.status == 200) {
