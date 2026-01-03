@@ -28,7 +28,6 @@ const Authentication = ({ register, otp }) => {
         }
         else {
             const result = await registerAPI(user)
-            console.log(result);
             if (result.status == 200) {
                 toast.success("Registration Successful!")
                 // setOtpEmail(user.email)
@@ -70,7 +69,6 @@ const Authentication = ({ register, otp }) => {
         }
         else {
             const result = await loginAPI({ email, password })
-            console.log(result);
             if (result.data) {
                 sessionStorage.setItem("token", result.data.token)
                 console.log(result.data.existingUser);
@@ -111,7 +109,6 @@ const Authentication = ({ register, otp }) => {
         const details = jwtDecode(credentialResponse.credential)
         // console.log(details);
         const result = await googleLoginAPI({ username: details.name, password: "googlePswd", email: details.email, photo: details.picture })
-        console.log(result);
         if (result.data) {
             sessionStorage.setItem("token", result.data.token)
             toast.success(`Successfully Logged In`)
@@ -148,7 +145,6 @@ const Authentication = ({ register, otp }) => {
             otp: otpverify
         }
         const result = await verifyOptAPI(reqBody)
-        console.log(result);
         if (result.status == 200) {
             navigate('/login')
             toast.success("Email Verification Successfull...")
@@ -165,7 +161,6 @@ const Authentication = ({ register, otp }) => {
         else {
             toast.warning("Something Went Wrong!")
         }
-        console.log(result);
     }
 
     return (
