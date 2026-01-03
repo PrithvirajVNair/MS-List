@@ -14,7 +14,6 @@ const Home = () => {
     const [featuredShows, setFeaturedShows] = useState([])
     const [loading, setLoading] = useState(true)
     const [token, setToken] = useState("")
-    console.log(featuredShows);
 
 
     // for carosuel
